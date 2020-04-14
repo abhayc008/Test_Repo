@@ -12,7 +12,7 @@ class CheckingAccount
 	Scanner scanner=new Scanner(System.in);
 	CheckingAccount()
 	{
-		setBalance(0);
+		setBalance(10000);
 	}
 	public int getNumber()
 	{
@@ -47,7 +47,7 @@ class CheckingAccount
 		}
 		else
 		{
-			throw new AmountInvalidException();
+			throw new AmountInvalidException("deposite");
 			//System.out.println("Amount should be greater than 0");
 		}
 		trans.transactionDate=new Date();
@@ -57,18 +57,53 @@ class CheckingAccount
 		return trans;
 		
 	}
-	public Transaction withDrawFromAccount() throws InsufficientAmountException
+	public Transaction withDrawFromAccount() throws InsufficientAmountException,AmountInvalidException
 	{
-		double withDrawAmount;
+		double  withDrawAmount;
+		int drawAmount;
+		double notes;
 		Transaction  trans=new Transaction();
 		System.out.println("Enter the amount to withdraw");
 		withDrawAmount=scanner.nextDouble();
 		
-		if((balance- (minBalance +withDrawAmount))>=0)
-		{
-		balance-=withDrawAmount;
+		drawAmount = (int) withDrawAmount;
 		
-		System.out.println("Updated balance is Rs. "+balance);
+		if((balance- (minBalance +withDrawAmount))>=0 )
+		{
+			if(drawAmount % 100 == 0){
+				
+				if(drawAmount >=2000)
+				{
+					notes = Math.round(drawAmount/2000);
+					System.out.println("2000 notes: "+notes);
+					drawAmount=drawAmount%2000;
+				}
+				if(drawAmount >= 500)
+				{
+					notes = Math.round(drawAmount/500);
+					System.out.println("500 notes: "+notes);
+					drawAmount=drawAmount%500;
+				}
+				if(drawAmount >= 200)
+				{
+					notes = Math.round(drawAmount/200);
+					System.out.println("200 notes: "+notes);
+					drawAmount=drawAmount%200;
+				}
+				if(drawAmount >= 100)
+				{
+					notes = Math.round(drawAmount/100);
+					System.out.println("100 notes: "+notes);
+					drawAmount=drawAmount%100;
+				}
+		     	balance-=withDrawAmount;
+			    System.out.println("Updated balance is Rs. "+balance);
+			}
+			else
+			{
+				throw new AmountInvalidException("withdraw");
+			}
+		    
 		}
 		else
 		{
@@ -84,10 +119,10 @@ class CheckingAccount
 	 }
 	public void miniStatement(List<Transaction> transactions) 
 	{
-		System.out.println("transactionDate deposit  withdraw  closingBalance");
+		System.out.println("transactionDate************deposit*****withdraw******closingBalance");
 		for(Transaction i:transactions)
 		{
-		    System.out.println(i.transactionDate+"  "+i.deposit+"  "+i.withdraw+" "+i.closingBalance);
+		    System.out.println(i.transactionDate+"   "+i.deposit+"   "+i.withdraw+"   "+i.closingBalance);
 		}
 	}
 }

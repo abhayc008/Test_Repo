@@ -9,14 +9,16 @@ public class ATM
 {
 	public static void doTransactions()
 	{
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		CheckingAccount ca=new CheckingAccount();
 		while(true)
 		{
 			try
 			{
 				Scanner scanner=new Scanner(System.in);
-				List<Transaction> transactions = new ArrayList<Transaction>();
+				
 				//System.out.println(trans.transactionDate);
-				CheckingAccount ca=new CheckingAccount();
+				
 				int choice;
 			      System.out.println();
 				  System.out.println("Enter your choice");
@@ -39,22 +41,23 @@ public class ATM
 					  transactions.add(ca.withDrawFromAccount());
 				      break;
 				  case 4:
-	                   ca.miniStatement(transactions);				  
+	                   ca.miniStatement(transactions);	
+	                   break;
 				  case 5:
 					  System.exit(0);
 				  default:
 					  System.out.println("Please enter valid choice !!!");
 				  }			  
-		    }
-			catch(InsufficientAmountException ex)
+		     }
+			  catch(InsufficientAmountException ex)
 		     {
 			  System.out.println(ex);
 		     }
-		   catch(AmountInvalidException ex)
-	       {
+		     catch(AmountInvalidException ex)
+	        {
 		    System.out.println(ex);
-	       } 
-	  }
+	        } 
+	   }
 	
 	}
 	public static void main(String[] args) throws IncorrectPinException 

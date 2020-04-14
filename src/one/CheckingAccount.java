@@ -30,25 +30,38 @@ class CheckingAccount
 	}	
 	public void getBalance()
 	{
+		System.out.println("--------------------------------");
 		System.out.println("Current Account balance is Rs." +balance);
+		System.out.println("--------------------------------");
 	}
 
 	public Transaction depositInAccount() throws AmountInvalidException 
 	{   
 		Transaction  trans=new Transaction();
 		double depositAmount;
-		System.out.println("Enter the amount to deposit");
+		System.out.println("--------------------------------");
+		System.out.println("Enter the amount to deposit: ");
+		System.out.println("--------------------------------");
 		depositAmount=scanner.nextDouble();
 		
-		if(depositAmount>=25000 && depositAmount%100==0 )
+		if(depositAmount<=25000)
 		{
-		balance+=depositAmount;
-		System.out.println("Updated balance is Rs."+balance);
-		}
-		else
+			if(depositAmount%100==0 && depositAmount >0)
+			{
+				balance+=depositAmount;
+				System.out.println("--------------------------------");
+				System.out.println("Updated balance is Rs."+balance);
+				System.out.println("--------------------------------");
+				}
+				else
+				{
+					throw new AmountInvalidException("deposite");
+					//System.out.println("Amount should be greater than 0");
+				}
+			}
+		else 
 		{
-			throw new AmountInvalidException("deposite");
-			//System.out.println("Amount should be greater than 0");
+			throw new AmountInvalidException("change");
 		}
 		trans.transactionDate=new Date();
 		trans.closingBalance= balance;
@@ -60,15 +73,17 @@ class CheckingAccount
 	public Transaction withDrawFromAccount() throws InsufficientAmountException,AmountInvalidException
 	{
 		double  withDrawAmount;
-		int drawAmount;
+		double drawAmount;
 		double notes;
 		Transaction  trans=new Transaction();
-		System.out.println("Enter the amount to withdraw");
+		System.out.println("--------------------------------");
+		System.out.println("Enter the amount to withdraw :");
+		System.out.println("--------------------------------");
 		withDrawAmount=scanner.nextDouble();
 		
-		drawAmount = (int) withDrawAmount;
+		drawAmount = withDrawAmount;
 		
-		if((balance- (minBalance +withDrawAmount))>=0 )
+		if((balance- (minBalance +withDrawAmount))>=0 && withDrawAmount > 0 )
 		{
 			if(drawAmount % 100 == 0){
 				
@@ -97,7 +112,9 @@ class CheckingAccount
 					drawAmount=drawAmount%100;
 				}
 		     	balance-=withDrawAmount;
+		     	System.out.println("-------------------------------");
 			    System.out.println("Updated balance is Rs. "+balance);
+			    System.out.println("--------------------------------");
 			}
 			else
 			{
@@ -119,10 +136,13 @@ class CheckingAccount
 	 }
 	public void miniStatement(List<Transaction> transactions) 
 	{
+		System.out.println("-------------------------------------------------------------------");
 		System.out.println("transactionDate************deposit*****withdraw******closingBalance");
+		System.out.println("-------------------------------------------------------------------");
 		for(Transaction i:transactions)
 		{
 		    System.out.println(i.transactionDate+"   "+i.deposit+"   "+i.withdraw+"   "+i.closingBalance);
 		}
+		System.out.println("--------------------------------------------------------------------");
 	}
 }

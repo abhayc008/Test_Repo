@@ -4,22 +4,26 @@ import java.util.Arrays;
 
 public class AmountInvalidException extends Exception 
 {
-	String Message; 
+	String message; 
 	
-	public AmountInvalidException(String flag)
+	public AmountInvalidException(String amt)
 	{		
-		if(flag == "withdraw")
+		if(amt == "withdraw")
 		{
-			Message =  "AmountInvalidException [ Amount should be multiple of 100.]";
+		message =  "AmountInvalidException [ Withdraw amount should be multiple of 100.]";
 		}
-		else if(flag == "deposite")
+		else if(amt == "deposite")
 		{
-			Message = "AmountInvalidException [ Amount should be greater than or equals to 25000 and  multiple of 100.]";
+			message = "AmountInvalidException [ Deposite amount should not be greater than 25000]";
+		}
+		else if(amt == "change")
+		{
+			message = "AmountInvalidException [ Deoposite amount should be multiple of 100.]";
 		}
 	}
 
 	@Override
 	public String toString() {
-		return Message;
+		return message;
 	}
 }

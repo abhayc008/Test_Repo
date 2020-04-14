@@ -21,12 +21,16 @@ public class ATM
 				
 				int choice;
 			      System.out.println();
-				  System.out.println("Enter your choice");
+				  System.out.println("--------Welcome----------");
+				  System.out.println("-------Available Services-----------");
 				  System.out.println("1.Check balance");
 				  System.out.println("2.Deposit Amount");
 				  System.out.println("3.Withdraw amount");
 				  System.out.println("4.Mini Statement");
 				  System.out.println("5.Exit");
+				  System.out.println("-------------------------------");
+				  System.out.println("Enter your choice");
+
 				  System.out.println();
 				  choice=scanner.nextInt();
 				  switch(choice)
@@ -44,6 +48,8 @@ public class ATM
 	                   ca.miniStatement(transactions);	
 	                   break;
 				  case 5:
+					  System.out.println("Thank you !!!");
+					  System.out.println("----------------------------");
 					  System.exit(0);
 				  default:
 					  System.out.println("Please enter valid choice !!!");
@@ -68,12 +74,15 @@ public class ATM
 
 		       try
 		       {
-		    	   int pin,password = 1234;
+		    	   String pin, password = "1234";
+		    	   
 			       Scanner scanner=new Scanner(System.in);
+			       System.out.println("-------------------------------");
 			       System.out.println("Enter 4 digit PIN");
-			       pin=scanner.nextInt();
+			       System.out.println("-------------------------------");
+			       pin=scanner.next();
 			       //scanner.close();
-			       if(pin == password)
+			       if(pin.equals(password))
 			       {
 			    	   doTransactions();
 			       }
@@ -84,7 +93,8 @@ public class ATM
 		       
 			   catch(IncorrectPinException ex)
 			     {
-				   System.out.println(ex.getMessage());	
+				   System.out.println(ex);	
+				   //System.out.println(ex.getMessage());	
 				   continue;	
 				 }
 		       catch(Exception ex)

@@ -33,8 +33,8 @@ public class FoodDemo
             	Food food= fo.addFood();
             	foods.add(food);
             	System.out.println(food.foodId+"  "+food.foodName+ " " + food.foodCategory+" "+food.foodType+" "+food.foodPrice);
-    			System.out.println("Data added Successfully !!!");
-    			System.out.println("-----------------------------");
+    		System.out.println("Data added Successfully !!!");
+    		System.out.println("-----------------------------");
             	break;
             case 2:
             	fo.updateFood(foods);
@@ -45,14 +45,14 @@ public class FoodDemo
             case 3:
             	fo.deleteFood(foods);
             	System.out.println("-----------------------------");
-    			System.out.println("Deleted Successfully !!!");
-    			System.out.println("-----------------------------");
+    		System.out.println("Deleted Successfully !!!");
+    		System.out.println("-----------------------------");
             	break;
             case 4:
             	fo.searchFood(foods);
             	System.out.println("-----------------------------");
-        	    System.out.println("Search Successfully !!!");
-        	    System.out.println("-----------------------------");
+        	System.out.println("Search Successfully !!!");
+        	System.out.println("-----------------------------");
             	break;
             case 5:
              	fo.showAllFood(foods);

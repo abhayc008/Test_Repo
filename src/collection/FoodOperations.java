@@ -40,35 +40,37 @@ public class FoodOperations
 				
   }
 
-public Food updateFood(List<Food> foods) throws IOException  
+public void updateFood(List<Food> foods) throws IOException  
   {
 	  System.out.println("Update:");
 	  System.out.println("Enter the foodId:");
 	  int id = scanner.nextInt();
-	  Food food = new Food();
 	
 	  for (int i=0; i<foods.size() ; i++)
 	  {
 		  
 		  if(foods.get(i).foodId == id)
 		  {
+			    
 			    System.out.println("Enter a name of Food: ");
-				food.foodName =  br.readLine();
-				
+				foods.get(i).foodName =  br.readLine();
+			
 				System.out.println("Enter foodType: ");
-				food.foodType =  br.readLine();
+				foods.get(i).foodType =  br.readLine();
 				
 				System.out.println("Enter Food Category: ");
-				food.foodCategory=  br.readLine();
+				foods.get(i).foodCategory=  br.readLine();
 				
 				System.out.println("Enter Food Price: ");
-				food.foodPrice = scanner.nextInt();
-				
-				foods.set(i,food);	
+				foods.get(i).foodPrice = scanner.nextInt();
+					
 		  }
-		  
+		  else
+		  {
+				System.out.println("Food id does not exist.. ");
+		  }
 	  }
-	  return food;
+	  
   }
   
   public void showAllFood(List<Food> foods)  
@@ -129,7 +131,6 @@ public void deleteFood(List<Food> foods)
 		  if(foods.get(i).foodId == id)
 		  {
 			  foods.remove(i);
-			  //System.out.println(foods.get(i).foodId+"  "+foods.get(i).foodName+ " " + foods.get(i).foodCategory+" "+foods.get(i).foodType+" "+foods.get(i).foodPrice);
 		  }
 	  }
 	

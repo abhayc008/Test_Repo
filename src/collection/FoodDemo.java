@@ -30,8 +30,9 @@ public class FoodDemo
             switch(choice)
             {
             case 1:
-            	foods.add(fo.addFood());//done
-            	System.out.println("-----------------------------");
+            	Food food= fo.addFood();
+            	foods.add(food);
+            	System.out.println(food.foodId+"  "+food.foodName+ " " + food.foodCategory+" "+food.foodType+" "+food.foodPrice);
     			System.out.println("Data added Successfully !!!");
     			System.out.println("-----------------------------");
             	break;

@@ -18,14 +18,14 @@ public class FoodOperations
 
   public Food addFood() throws IOException
   {
-	       Food food = new Food();
-	       System.out.println("Add Food");
+	    Food food = new Food();
+	    System.out.println("Add Food");
 	    
-	       System.out.println("Enter a  FoodId: ");
-               food.foodId= scanner.nextInt();
+		System.out.println("Enter a  FoodId: ");
+        food.foodId= scanner.nextInt();
 		
-               System.out.println("Enter a name of Food: ");
-               food.foodName =  br.readLine();
+        System.out.println("Enter a name of Food: ");
+        food.foodName =  br.readLine();
 		
 		System.out.println("Enter foodType: ");
 		food.foodType =  br.readLine();;

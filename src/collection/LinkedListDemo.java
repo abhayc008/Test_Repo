@@ -22,9 +22,9 @@ public class LinkedListDemo {
 		list.addLast(11);
 		
 		list.add(null);// No NULL value accpeted  it throws runtime exception java.lang.NullPointerException
-		list.add(null);
+		//list.add(null);
 		
-		Collections.sort(list);
+		//Collections.sort(list);
 		
 		Iterator <Integer> i = list.iterator();
         

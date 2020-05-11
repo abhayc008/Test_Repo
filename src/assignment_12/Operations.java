@@ -4,10 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+
+import collection.Laptop;
+import collection.Mobile;
 
 public class Operations
 {
@@ -23,11 +29,12 @@ public class Operations
 	{		
 		String firstName;
 		String lastName,accounType;
-		int contactNo, accountId,accountNumber;
+		int contactNo, accountId=100,accountNumber;
 		int customerId;
 		Account account;
 		
 		customerId = customers.size() +1;
+		accountId = customers.size() +100;
 		boolean isActive = true;
 		
 	    System.out.println("Enter firstName ");
@@ -38,9 +45,6 @@ public class Operations
 		
 		System.out.println("Enter contactNo: ");
 		contactNo=  scanner.nextInt();;
-	
-		System.out.println("Enter accountId: ");
-		accountId= scanner.nextInt();
 		
 		System.out.println("Enter accountNo: ");
 		accountNumber= scanner.nextInt();
@@ -48,7 +52,7 @@ public class Operations
 		System.out.println("Enter accountType: ");
 		accounType =  br.readLine();
 		
-		account = new Account(accountId ,accountNumber, accounType, isActive);	
+		account = new Account(accountId,accountNumber, accounType, isActive);	
 		
 		Customer cust = new Customer(firstName, lastName, contactNo, customerId, account);
 		
@@ -62,8 +66,13 @@ public class Operations
 		transactions.add(trans);
 		customers.add(cust);
 		
-		System.out.println(cust);
-		
+		//System.out.println(cust);
+		   
+	    System.out.println("Coustomer Id|First name|Last Name|Contact No| Account Id|Accpunt No.| Account Type ");
+	    System.out.println("====================================================================================================");
+		System.out.println(cust.getCustomerId()+ "  |  "+cust.getFirstName()+ "  |  "+cust.getLastName()+ "  |  "+cust.getContactNo()
+		                     + " | "+cust.getAccount().accountId+ " | "
+	                        +cust.getAccount().accountNumber+"  |  "+cust.getAccount().accounType);
 	}
 
 	public void updateAccount(List<Customer> customers) throws IOException
@@ -125,7 +134,11 @@ public class Operations
 			 Customer _cust  = i.next();
 			 if(_cust.getCustomerId() == id )
 			 {
-				 System.out.println(_cust);
+				  System.out.println("Coustomer Id|First name|Last Name|Contact No| Account Id|Accpunt No.| Account Type | Account active/inactive");
+				    System.out.println("====================================================================================================");
+					System.out.println(_cust.getCustomerId()+ "  |  "+_cust.getFirstName()+ "  |  "+_cust.getLastName()+ "  |  "+_cust.getContactNo()
+					                     + " | "+_cust.getAccount().accountId+ " | "
+				                        +_cust.getAccount().accountNumber+"  |  "+_cust.getAccount().accounType+ " | "+_cust.getAccount().isActive);
 			 }
 		}
 		
@@ -134,7 +147,18 @@ public class Operations
 	public void showAllAccount(List<Customer> customers) 
 	{
 		List<Customer> res = getActiveCustomers(customers);
-		System.out.println(res);
+		
+		 Iterator <Customer> i = customers.iterator();
+	       
+		 System.out.println("Coustomer Id|First name|Last Name|Contact No| Account Id|Accpunt No.| Account Type ");
+		 System.out.println("====================================================================================================");
+		 while(i.hasNext())
+		 {
+			 Customer _cust  = i.next();
+				System.out.println(_cust.getCustomerId()+ "  |  "+_cust.getFirstName()+ "  |  "+_cust.getLastName()+ "  |  "+_cust.getContactNo()
+				                     + " | "+_cust.getAccount().accountId+ " | "
+			                        +_cust.getAccount().accountNumber+"  |  "+_cust.getAccount().accounType); 
+		}
 	}
 //---------------------------------------------------------------------------------------------------------
 	public void getBalance(List<Transaction> transactions, List<Customer> customers) 
@@ -214,7 +238,7 @@ public class Operations
 			}
 			else 
 			{
-				System.out.println("error2");
+				System.out.println("withdraw amount invalid !!!");
 			}
 			trans.transactionDate=new Date();
 			trans.amount=withDrawAmount;
@@ -222,28 +246,61 @@ public class Operations
 		}
 		return trans;
 	}
-
-	public void sortOfAccount(List<Customer> customers) 
-	{
-		
-	}
-
+    
 	public boolean accountIsActive(int account, List<Customer> customers)
 	{
-		List<Customer> result = getActiveCustomers(customers);
-		
-		Iterator <Customer> i = result.iterator();
-		boolean flag = false;
-	       
-		 while(i.hasNext())
+
+	List<Customer> result = getActiveCustomers(customers);
+	
+	Iterator <Customer> i = result.iterator();
+	boolean flag=false;
+       
+	 while(i.hasNext())
+	 {
+		 Customer cust = i.next();
+		 if(cust.getAccount().accountNumber == account)
 		 {
-			 Customer cust = i.next();
-			 if(cust.getAccount().accountNumber == account)
-			 {
-				 flag = true;
-			 }
+			 flag = true;
 		 }
-		return flag;
+	 }
+	return flag;
+}
+//====================================================================================
+	
+	public void sortOfAccount( List<Customer> customers)
+	{
+		List<Customer> result = getActiveCustomers(customers);   
+		
+		Collections.sort(result, new CustomerFullName());
+		
+		System.out.println("After sorting account using account name");
+
+		Iterator <Customer> i = result.iterator();
+
+		 while(i.hasNext()) 
+		 {
+			 Customer _cust = i.next();
+			 System.out.println("Coustomer Id|First name|Last Name|Contact No| Account Id|Accpunt No.| Account Type ");
+			    System.out.println("====================================================================================================");
+				System.out.println(_cust.getCustomerId()+ "  |  "+_cust.getFirstName()+ "  |  "+_cust.getLastName()+ "  |  "+_cust.getContactNo()
+				                     + " | "+_cust.getAccount().accountId+ " | "
+			                        +_cust.getAccount().accountNumber+"  |  "+_cust.getAccount().accounType); 
+		 }
+			
+		 System.out.println("After sorting account id");
+		 
+		Collections.sort(result, new AccountIdComparator());
+        
+	    for(Customer _cust : result ) 
+	    {
+	    	System.out.println("Coustomer Id|First name|Last Name|Contact No| Account Id|Accpunt No.| Account Type ");
+		    System.out.println("====================================================================================================");
+			System.out.println(_cust.getCustomerId()+ "  |  "+_cust.getFirstName()+ "  |  "+_cust.getLastName()+ "  |  "+_cust.getContactNo()
+			                     + " | "+_cust.getAccount().accountId+ " | "
+		                        +_cust.getAccount().accountNumber+"  |  "+_cust.getAccount().accounType); 
+	    }
+		 
+		 
 	}
 	
 	public Customer getCoustomerByAccount(int account, List<Customer> customers)

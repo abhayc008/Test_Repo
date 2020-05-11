@@ -3,8 +3,11 @@ package assignment_12;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
@@ -71,30 +74,24 @@ public class CollectionOfWords
 						  String delete;
 				          System.out.println("Enter existing word");
 				          delete = br.readLine();
-				          
-				          Iterator<Entry<String, String>> de = words.entrySet().iterator();
-				          while(de.hasNext()) 
-				          {
-				        	 Entry<String, String> del = de.next();
-				        	 
-				        	 if(del.getValue().equalsIgnoreCase(delete)) 
-						       {
-				        		 words.remove(del.getKey());
-							     System.out.println("Deleted successfully!!!");
-							   }  
-						    }
+				           
+				          if(words.containsKey(delete)) 
+						    {
+				               words.remove(delete);
+							   System.out.println("Deleted successfully!!!");
+						     }
 					      break;
 					  case 4:
 						  String search;
 				          System.out.println("Enter existing word");
 				          search = br.readLine();
-				          
+				         
 				          Iterator<Entry<String, String>> se = words.entrySet().iterator();
 				          while(se.hasNext()) 
 				          {
 				        	 Entry<String, String> sea = se.next();
 				        	 
-				        	 if(sea.getValue().equalsIgnoreCase(search)) 
+				        	 if(sea.getKey().equalsIgnoreCase(search)) 
 						       {
 				        		 System.out.println(sea.getKey()+ " : "+sea.getValue());
 				        		 System.out.println("Search successfully!!!");
@@ -106,6 +103,7 @@ public class CollectionOfWords
                       case 5:
                     	  Iterator<Entry<String, String>> sh = words.entrySet().iterator();
                     	  System.out.println("All data is ........");
+                    	  System.out.println("Word  |  Meaning");
 				          while(sh.hasNext()) 
 				          {
 				        	 Entry<String, String> show = sh.next();
@@ -113,11 +111,13 @@ public class CollectionOfWords
 				          }
 						  break;
 					  case 6:
-				          Iterator<Entry<String, String>> st = words.entrySet().iterator();
+						  List<String> list = new ArrayList<>(words.keySet());
+						  Collections.sort(list);
+				          Iterator<String> st = list.iterator();
 				          while(st.hasNext()) 
 				          {
-				        	 Entry<String, String> sort = st.next();
-				        	 //sort.getKey().
+				        	 String sort = st.next();
+				        	 System.out.println(sort+ ": "+words.get(sort));
   				          }
 					      break;
 					  case 7:

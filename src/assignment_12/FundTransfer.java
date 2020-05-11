@@ -87,7 +87,7 @@ public class FundTransfer
 	                   break;
 				  case 10:
 					  operation.sortOfAccount(customers);
-					  System.out.println("Sorting of account....");
+					  System.out.println("Sorting done successfully!!!");
 	                   break;
 				  case 11:
 						int transferAmount;

@@ -1,0 +1,59 @@
+
+delimiter $
+
+mysql> create procedure pro()
+    -> begin
+    -> select *from student;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> call pro();
+    -> $
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   23 | 20000 | 1998-09-08 |
+|    1 | Geeta   | Thane   | 1234567786 | python |   28 | 33000 | 1991-10-12 |
+|    3 | kirti   | nerul   | 1234567586 | .net   |   25 | 43000 | 1997-11-05 |
+|    4 | Ruchi   | bhandup | 1234547586 | c#     |   24 | 45000 | 1996-12-03 |
+|    5 | bhavana | kurla   | 1231567586 | java   |   24 | 33000 | 1990-11-01 |
++------+---------+---------+------------+--------+------+-------+------------+
+5 rows in set (0.25 sec)
+
+Query OK, 0 rows affected (0.27 sec)
+
+////////////////////USE OF PROCEDURE == TO USE the query like inserting a data ///////////////////////
+mysql> create procedure ins(eid int , ename varchar(50), salary double)
+    ->     begin
+    ->     insert into emp values(eid, ename, salary);
+    ->     end;
+    ->      $
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> call ins(5, 'Mani', 34000);
+    -> $
+Query OK, 1 row affected (0.24 sec)
+
+mysql> select *from emp;
+    -> $
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | laxmi   |  89000 |
+|    2 | Geeta   |  99000 |
+|    3 | Prabhat |  90000 |
+|    4 | Vishal  |      4 |
+|    4 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
++------+---------+--------+
+6 rows in set (0.00 sec)
+
+
+create procedure up(eid int , ename varchar(50), salary double)
+        begin
+        update emp set ename=name , salary= salary where id = eid;
+        end;
+        $
+call up(1, 'Rasika', 560000);
+$

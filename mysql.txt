@@ -1195,3 +1195,416 @@ mysql> select count(address)as Address, address from student group by address ;
 |       1 | bhandup |
 +---------+---------+
 4 rows in set, 1 warning (0.00 sec)
+
+14/05/2020 class
+
+=============================Constraints==============================
+mysql> show tables;
++-----------------+
+| Tables_in_geeta |
++-----------------+
+| emp             |
+| emp_info        |
+| student         |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> create table notvoid (id int, name varchar(10) NOT NULL);
+Query OK, 0 rows affected (1.03 sec)
+
+mysql> insert into notvoid values(1, NULL);
+ERROR 1048 (23000): Column 'name' cannot be null
+
+mysql> insert into notvoid values(1, "GEETA");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select *from notvoid;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | GEETA |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> alter table notvoid modify name varchar(30) NOT NULL;
+Query OK, 0 rows affected (0.46 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc notvoid;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(30) | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.09 sec)
+
+mysql> create table uni (id int, name varchar(50) UNIQUE);
+Query OK, 0 rows affected (1.19 sec)
+
+mysql> insert into notvoid values(1, "BHARTI");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into uni values(2, "BHARTI");I
+Query OK, 1 row affected (0.06 sec)
+mysql> insert into uni values(2, "BHARTI");
+ERROR 1062 (23000): Duplicate entry 'BHARTI' for key 'uni.name'
+mysql> insert into uni values(2, "BHARTI");
+ERROR 1062 (23000): Duplicate entry 'BHARTI' for key 'uni.name'
+mysql> select *from uni;
++------+--------+
+| id   | name   |
++------+--------+
+|    2 | BHARTI |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into uni values(1, "BHARTI");
+ERROR 1062 (23000): Duplicate entry 'BHARTI' for key 'uni.name'
+mysql> insert into uni values(1 , "GEETA");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select *from uni;
++------+--------+
+| id   | name   |
++------+--------+
+|    2 | BHARTI |
+|    1 | GEETA  |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into uni values(3, "BHARTI");
+ERROR 1062 (23000): Duplicate entry 'BHARTI' for key 'uni.name'
+mysql> insert into uni values(3, "GEETA");
+ERROR 1062 (23000): Duplicate entry 'GEETA' for key 'uni.name'
+mysql> insert into uni values(1, "GEETA");
+ERROR 1062 (23000): Duplicate entry 'GEETA' for key 'uni.name'
+mysql> insert into def values(1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into def(id) values(1);
+Query OK, 1 row affected (0.07 sec)
+
+mysql>  create table def (id int, name varchar(50) DEFAULT "GEETA");
+Query OK, 0 rows affected (1.89 sec)
+
+mysql> insert into def values(1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into def(id) values(1);
+Query OK, 1 row affected (0.07 sec)
+
+
+mysql> select *from def;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | GEETA |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into def(id, name) values(1, "LAXMI");;
+Query OK, 1 row affected (0.13 sec)
+
+ERROR:
+No query specified
+
+mysql> select *from def;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | GEETA |
+|    1 | LAXMI |
++------+-------+
+2 rows in set (0.00 sec)
+
+=========================AUTO INCREMENT==========================================
+
+mysql> create table increment(id int AUTO_INCREMENT PRIMARY KEY, name varchar(50));
+Query OK, 0 rows affected (0.54 sec)
+
+mysql> insert into increment(name) values("Geeta");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into increment(name) values("Kirti");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into increment(name) values("Bhavana");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select *from increment;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | Geeta   |
+|  2 | Kirti   |
+|  3 | Bhavana |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table increment auto_increment = 101;
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into increment(name) values("Bhavana");
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into increment(name) values("Kirti");
+Query OK, 1 row affected (0.23 sec)
+
+mysql> select *from increment;
++-----+---------+
+| id  | name    |
++-----+---------+
+|   1 | Geeta   |
+|   2 | Kirti   |
+|   3 | Bhavana |
+| 101 | Bhavana |
+| 102 | Kirti   |
++-----+---------+
+5 rows in set (0.00 sec)
+
+============================================PRImary and Foreign key======================================
+
+ create table customer (cid int PRIMARY KEY, c_name varchar(50));
+Query OK, 0 rows affected (1.19 sec)
+
+mysql> desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| cid    | int         | NO   | PRI | NULL    |       |
+| c_name | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> create table orders(oid id, item varchar(50), primary key(oid), foreign key(oid) references customer(cid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id, item varchar(50), primary key(oid), foreign key(oid) references customer(cid' at line 1
+mysql> create table orders(oid int, item varchar(50), primary key(oid), foreign key(oid) references customer(cid));
+Query OK, 0 rows affected (1.17 sec)
+
+mysql> desc orders;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| oid   | int         | NO   | PRI | NULL    |       |
+| item  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into customer values(1, "GEETA");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into orders values(1, "Chair");
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into orders values(2, "Chair");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`geeta`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `customer` (`cid`))
+mysql> insert into customer values(1, "kirti");
+ERROR 1062 (23000): Duplicate entry '1' for key 'customer.PRIMARY'
+mysql> insert into customer values(2, "kirti");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into orders values(2, "Chair");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select *form customer;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form customer' at line 1
+mysql> select *from customer;
++-----+--------+
+| cid | c_name |
++-----+--------+
+|   1 | GEETA  |
+|   2 | kirti  |
++-----+--------+
+2 rows in set (0.00 sec)
+
+mysql> select *from orders;
++-----+-------+
+| oid | item  |
++-----+-------+
+|   1 | Chair |
+|   2 | Chair |
++-----+-------+
+2 rows in set (0.00 sec)
+
+mysql> delete table orders;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table orders' at line 1
+mysql> drop table orders;
+Query OK, 0 rows affected (0.74 sec)
+
+mysql> select *from orders;
+ERROR 1146 (42S02): Table 'geeta.orders' doesn't exist
+mysql> insert into orders values(2, "Chair");^C
+mysql> insert into orders values(1, "Chair");
+ERROR 1146 (42S02): Table 'geeta.orders' doesn't exist
+mysql> select *from customer;
++-----+--------+
+| cid | c_name |
++-----+--------+
+|   1 | GEETA  |
+|   2 | kirti  |
++-----+--------+
+2 rows in set (0.00 sec)
+
+mysql> select *from orders;
+ERROR 1146 (42S02): Table 'geeta.orders' doesn't exist
+mysql>  create table orders(oid int, item varchar(50), primary key(oid), foreign key(oid) references customer(cid));
+Query OK, 0 rows affected (0.63 sec)
+
+mysql> insert into orders values(1, "Chair");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> selct *from orders;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct *from orders' at line 1
+mysql> select *from orders;
++-----+-------+
+| oid | item  |
++-----+-------+
+|   1 | Chair |
++-----+-------+
+1 row in set (0.00 sec)
+
+mysql> delete from customer where cid =1;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`geeta`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `customer` (`cid`))
+mysql> delete from orders where oid =1;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> delete from customer where cid =1;
+Query OK, 1 row affected (0.17 sec)
+
+mysql> desc orders;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| oid   | int         | NO   | PRI | NULL    |       |
+| item  | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.09 sec)
+
+mysql> desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| cid    | int         | NO   | PRI | NULL    |       |
+| c_name | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+==================how to remove primary key=====================
+==================how to drop foreign key==============
+mysql> alter table  orders drop foreign key orders_ibfk_1;
+Query OK, 0 rows affected (1.27 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into oreders values(10 , "PC");
+ERROR 1146 (42S02): Table 'geeta.oreders' doesn't exist
+mysql> insert into orders values(10 , "PC");;
+Query OK, 1 row affected (0.11 sec)
+
+ERROR:
+No query specified
+
+mysql> insert into orders values(10 , "PC");
+ERROR 1062 (23000): Duplicate entry '10' for key 'orders.PRIMARY'
+
+
+==============================Foreign key Constraint name==========================
+mysql> create table orders1(oid int, item varchar(50), primary key(oid), CONSTRAINT ord foreign key(oid) references customer(cid));
+Query OK, 0 rows affected (1.35 sec)
+
+mysql> insert into orders1 values(1,"Chairs");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`geeta`.`orders1`, CONSTRAINT `ord` FOREIGN KEY (`oid`) REFERENCES `customer` (`cid`))
+mysql> insert into orders1 values(2,"Chairs");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> alter table orders1 drop foreign kry ord;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'kry ord' at line 1
+mysql> alter table orders1 drop foreign key ord;
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into orders1 values(2,"Chairs");
+ERROR 1062 (23000): Duplicate entry '2' for key 'orders1.PRIMARY'
+mysql> insert into orders1 values(3,"Chairs");
+Query OK, 1 row affected (0.10 sec)
+
+///////////////////////////////////////Composite Key/////////////////////////////////////////////////
+
+mysql> create table composite( id int , name varchar(50), address varchar(50), primary key(id,name));
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> insert into composite values(1, "Geeta", "Thane");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into composite values(1, "Geeta", "Thane");
+ERROR 1062 (23000): Duplicate entry '1-Geeta' for key 'composite.PRIMARY'
+mysql> insert into composite values(1, "Kirti", "Thane");
+Query OK, 1 row affected (0.20 sec)
+
+mysql> insert into composite values(2, "Kirti", "Thane");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> slect *from composite;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect *from composite' at line 1
+mysql> select *from composite;
++----+-------+---------+
+| id | name  | address |
++----+-------+---------+
+|  1 | Geeta | Thane   |
+|  1 | Kirti | Thane   |
+|  2 | Kirti | Thane   |
++----+-------+---------+
+3 rows in set (0.00 sec)
+
+
+=====================================View======================
+
+
+mysql> create view display as select *from student;
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> slect *from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect *from student' at line 1
+mysql>
+mysql> select *from student;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   23 | 20000 | 1998-09-08 |
+|    1 | Geeta   | Thane   | 1234567786 | python |   28 | 33000 | 1991-10-12 |
+|    3 | kirti   | nerul   | 1234567586 | .net   |   25 | 43000 | 1997-11-05 |
+|    4 | laxmi   | bhandup | 1234547586 | c#     |   24 | 45000 | 1996-12-03 |
+|    5 | bhavana | kurla   | 1231567586 | java   |   24 | 33000 | 1990-11-01 |
++------+---------+---------+------------+--------+------+-------+------------+
+5 rows in set (0.02 sec)
+
+mysql> select *from display;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   23 | 20000 | 1998-09-08 |
+|    1 | Geeta   | Thane   | 1234567786 | python |   28 | 33000 | 1991-10-12 |
+|    3 | kirti   | nerul   | 1234567586 | .net   |   25 | 43000 | 1997-11-05 |
+|    4 | laxmi   | bhandup | 1234547586 | c#     |   24 | 45000 | 1996-12-03 |
+|    5 | bhavana | kurla   | 1231567586 | java   |   24 | 33000 | 1990-11-01 |
++------+---------+---------+------------+--------+------+-------+------------+
+5 rows in set (0.03 sec)
+
+mysql> update display set name="Ruchi" where id=4;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update display set name="Ruchi" where rno=4;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from display
+    -> ;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   23 | 20000 | 1998-09-08 |
+|    1 | Geeta   | Thane   | 1234567786 | python |   28 | 33000 | 1991-10-12 |
+|    3 | kirti   | nerul   | 1234567586 | .net   |   25 | 43000 | 1997-11-05 |
+|    4 | Ruchi   | bhandup | 1234547586 | c#     |   24 | 45000 | 1996-12-03 |
+|    5 | bhavana | kurla   | 1231567586 | java   |   24 | 33000 | 1990-11-01 |
++------+---------+---------+------------+--------+------+-------+------------+
+5 rows in set (0.00 sec)
+

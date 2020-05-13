@@ -1,0 +1,1197 @@
+pe 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show database
+    ->
+    -> ^C
+mysql> show databases
+    -> ^C
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.15 sec)
+
+mysql> create database geeta;
+Query OK, 1 row affected (0.32 sec)
+
+mysql> create table student (roll_no int, name varchar(30), address varchar(30), contact_no int, course varchar(30));
+ERROR 1046 (3D000): No database selected
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.20 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show database
+    ->
+    -> ^C
+mysql> show databases
+    -> ^C
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.15 sec)
+
+mysql> create database geeta;
+Query OK, 1 row affected (0.32 sec)
+
+mysql> create table student (roll_no int, name varchar(30), address varchar(30), contact_no int, course varchar(30));
+ERROR 1046 (3D000): No database selected
+mysql> use geeta;
+Database changed
+mysql> create table student (roll_no int, name varchar(30), address varchar(30), contact_no int, course varchar(30));
+Query OK, 0 rows affected (3.51 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roll_no    | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++-----------------+
+| Tables_in_geeta |
++-----------------+
+| student         |
++-----------------+
+1 row in set (0.11 sec)
+
+mysql> alter table student add column age int;
+Query OK, 0 rows affected (0.82 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roll_no    | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ^C
+mysql> alter table student drop column age int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int' at line 1
+mysql> alter table student drop column age ;
+Query OK, 0 rows affected (1.91 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roll_no    | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ^C
+mysql> alter table student modify roll_no int;
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roll_no    | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student modify roll_no varchar2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar2' at line 1
+mysql> alter table student modify roll_no varchar(2);
+Query OK, 0 rows affected (2.78 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roll_no    | varchar(2)  | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student modify roll_no int;
+Query OK, 0 rows affected (2.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| roll_no    | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> alter table student change roll_no rno int;
+Query OK, 0 rows affected (1.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rno        | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student rename stud;
+Query OK, 0 rows affected (0.59 sec)
+
+mysql> desc student;
+ERROR 1146 (42S02): Table 'geeta.student' doesn't exist
+mysql> desc stud;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rno        | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table stud rename student;
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rno        | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into student(1, "Bhavana","java", "Thane", 1234567788);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1, "Bhavana","java", "Thane", 1234567788)' at line 1
+mysql> insert into student values(1, "Bhavana","java", "Thane", 1234567788);
+ERROR 1366 (HY000): Incorrect integer value: 'Thane' for column 'contact_no' at row 1
+mysql> insert into student values(1, "Bhavana","Thane", 1234567788,"java");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into student values(2, "Laxmi","kurla", 1234567788,".net");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into student values(3, "abc","kurla", 1234567788,".net");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from student;
++------+---------+---------+------------+--------+
+| rno  | name    | address | contact_no | course |
++------+---------+---------+------------+--------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |
+|    3 | abc     | kurla   | 1234567788 | .net   |
++------+---------+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update student set name = "Prabhat" where rno=3;
+Query OK, 1 row affected (0.19 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++------+---------+---------+------------+--------+
+| rno  | name    | address | contact_no | course |
++------+---------+---------+------------+--------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |
+|    3 | Prabhat | kurla   | 1234567788 | .net   |
++------+---------+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from student where rno=3;
+Query OK, 1 row affected (0.22 sec)
+
+mysql> select * from student;
++------+---------+---------+------------+--------+
+| rno  | name    | address | contact_no | course |
++------+---------+---------+------------+--------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |
++------+---------+---------+------------+--------+
+2 rows in set (0.00 sec)
+
+
+mysql> desc s;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into table s(1 ,"Geeta");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table s(1 ,"Geeta")' at line 1
+mysql> insert into table s values(1 ,"Geeta");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table s values(1 ,"Geeta")' at line 1
+mysql> insert into s values(1 ,"Geeta");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into s values(2 ,"Abhay");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into s values(2 ,"Roshani");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select *from s;
++------+---------+
+| id   | name    |
++------+---------+
+|    1 | Geeta   |
+|    2 | Abhay   |
+|    2 | Roshani |
++------+---------+
+3 rows in set (0.00 sec)
+
+mysql> delete from s where rno =2;
+ERROR 1054 (42S22): Unknown column 'rno' in 'where clause'
+mysql> slect *from s;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect *from s' at line 1
+mysql> select *from s;
++------+---------+
+| id   | name    |
++------+---------+
+|    1 | Geeta   |
+|    2 | Abhay   |
+|    2 | Roshani |
++------+---------+
+3 rows in set (0.00 sec)
+
+mysql> delete from s where rno =1;
+ERROR 1054 (42S22): Unknown column 'rno' in 'where clause'
+mysql> delete from s where id =2;
+Query OK, 2 rows affected (0.15 sec)
+
+mysql> select *from s;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | Geeta |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> truncate table s;
+Query OK, 0 rows affected (1.24 sec)
+
+mysql> select *from s;
+Empty set (0.00 sec)
+
+mysql> drop table s;
+Query OK, 0 rows affected (0.68 sec)
+
+mysql> select *from s;
+ERROR 1146 (42S02): Table 'geeta.s' doesn't exist
+mysql> desc s;
+ERROR 1146 (42S02): Table 'geeta.s' doesn't exist
+
+
+mysql> select *from student;
++------+---------+---------+------------+--------+
+| rno  | name    | address | contact_no | course |
++------+---------+---------+------------+--------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |
++------+---------+---------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint A;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from student rno=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=1' at line 1
+mysql> delete from student where rno=1;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select *from student;
++------+-------+---------+------------+--------+
+| rno  | name  | address | contact_no | course |
++------+-------+---------+------------+--------+
+|    2 | Laxmi | kurla   | 1234567788 | .net   |
++------+-------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> rollback to A;;
+Query OK, 0 rows affected (0.04 sec)
+
+ERROR:
+No query specified
+
+mysql> rollback to A;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *from student;
++------+---------+---------+------------+--------+
+| rno  | name    | address | contact_no | course |
++------+---------+---------+------------+--------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |
++------+---------+---------+------------+--------+
+2 rows in set (0.01 sec)
+
+
+mysql> alter table student add column fees duble;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'duble' at line 1
+mysql> alter table student add column fees double;
+Query OK, 0 rows affected (1.52 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student add column dob date;
+Query OK, 0 rows affected (0.71 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select *from student;
++------+---------+---------+------------+--------+------+------+------+
+| rno  | name    | address | contact_no | course | age  | fees | dob  |
++------+---------+---------+------------+--------+------+------+------+
+|    1 | Bhavana | Thane   | 1234567788 | java   | NULL | NULL | NULL |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   | NULL | NULL | NULL |
++------+---------+---------+------------+--------+------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> upadte student set age=20, fees=20000, dob='1998-08-08' where rno =1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte student set age=20, fees=20000, dob='1998-08-08' where rno =1' at line 1
+mysql> update student set age=20, fees=20000, dob='1998-08-08' where rno =1;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from student;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   | NULL |  NULL | NULL       |
++------+---------+---------+------------+--------+------+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> update student set age=25, fees=32000, dob='1991-12-08' where rno =2;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from student;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   25 | 32000 | 1991-12-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+2 rows in set (0.00 sec)
+
+
+mysql> select *from student where fees<21000;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where fees>=21000;
++------+-------+---------+------------+--------+------+-------+------------+
+| rno  | name  | address | contact_no | course | age  | fees  | dob        |
++------+-------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi | kurla   | 1234567788 | .net   |   25 | 32000 | 1991-12-08 |
++------+-------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where fees=21000;
+Empty set (0.00 sec)
+
+mysql> select *from student where fees=20000;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where fees<=20000;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where fees=20000;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where fees =20000;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where fees !=20000;
++------+-------+---------+------------+--------+------+-------+------------+
+| rno  | name  | address | contact_no | course | age  | fees  | dob        |
++------+-------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi | kurla   | 1234567788 | .net   |   25 | 32000 | 1991-12-08 |
++------+-------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where fees <> 20000;
++------+-------+---------+------------+--------+------+-------+------------+
+| rno  | name  | address | contact_no | course | age  | fees  | dob        |
++------+-------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi | kurla   | 1234567788 | .net   |   25 | 32000 | 1991-12-08 |
++------+-------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> update student set fees =fees+10000 where rno=2;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from student;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+2 rows in set (0.00 sec)
+mysql> delete from student
+    ->
+    ->
+    -> ;
+Query OK, 2 rows affected (0.24 sec)
+
+mysql>
+mysql> select *from student;
+Empty set (0.00 sec)
+
+mysql> desc student
+    -> ;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rno        | int         | YES  |     | NULL    |       |
+| name       | varchar(30) | YES  |     | NULL    |       |
+| address    | varchar(30) | YES  |     | NULL    |       |
+| contact_no | int         | YES  |     | NULL    |       |
+| course     | varchar(30) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| fees       | double      | YES  |     | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.08 sec)
+
+mysql> update student set fees =fees+10000 where rno=2;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from student;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 20000 | 1998-08-08 |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+2 rows in set (0.00 sec)
+
+
+mysql> update student set fees =fees-10000 where rno=1;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from student;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 10000 | 1998-08-08 |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select *from student where name = "laxmi" && address="thane";
+Empty set, 1 warning (0.00 sec)
+
+mysql> select *from student where name = "laxmi" || address="thane";
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 10000 | 1998-08-08 |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql> select *from student where name = "laxmi" && address="kurla";
++------+-------+---------+------------+--------+------+-------+------------+
+| rno  | name  | address | contact_no | course | age  | fees  | dob        |
++------+-------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+-------+---------+------------+--------+------+-------+------------+
+1 row in set, 1 warning (0.00 sec)
+
+ mysql> select *from student where age between 20 and 23;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 10000 | 1998-08-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where age not between 20 and 23;
++------+-------+---------+------------+--------+------+-------+------------+
+| rno  | name  | address | contact_no | course | age  | fees  | dob        |
++------+-------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+-------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where age in (20,25);
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 10000 | 1998-08-08 |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select *from student where age not in (20,25);
+Empty set (0.00 sec)
+
+mysql> select name as Student name,address as Student Address from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'name,address as Student Address from student' at line 1
+mysql> select *from student where name like '%a';
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 10000 | 1998-08-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where name like 'a%';
+Empty set (0.00 sec)
+
+mysql> select *from student where name like '%a%';
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 10000 | 1998-08-08 |
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select *from student where name like '__a';
+Empty set (0.00 sec)
+
+mysql> select *from student where name like '_a';
+Empty set (0.00 sec)
+
+mysql> select *from student where name like 'a__';
+Empty set (0.00 sec)
+
+mysql> select *from student where name like '_a';
+Empty set (0.00 sec)
+
+mysql> select *from student where name like '_a%';
++------+-------+---------+------------+--------+------+-------+------------+
+| rno  | name  | address | contact_no | course | age  | fees  | dob        |
++------+-------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi | kurla   | 1234567788 | .net   |   25 | 42000 | 1991-12-08 |
++------+-------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select *from student where name like '__a%';
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    1 | Bhavana | Thane   | 1234567788 | java   |   20 | 10000 | 1998-08-08 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select name as Student name,address as Student Address from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'name,address as Student Address from
+ student' at line 1
+
+========================================================
+
+
+Rlike operator -------
+
+
+mysql> select *from student where name rlike '^[ab]';
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    5 | bhavana | kurla   | 1231567586 | java   |   24 | 33000 | 1990-11-01 |
++------+---------+---------+------------+--------+------+-------+------------+
+1 row in set (0.09 sec)
+
+mysql> select *from student where name rlike '[ia]$';
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   23 | 20000 | 1998-09-08 |
+|    1 | Geeta   | Thane   | 1234567786 | python |   28 | 33000 | 1991-10-12 |
+|    3 | kirti   | nerul   | 1234567586 | .net   |   25 | 43000 | 1997-11-05 |
+|    4 | laxmi   | bhandup | 1234547586 | c#     |   24 | 45000 | 1996-12-03 |
+|    5 | bhavana | kurla   | 1231567586 | java   |   24 | 33000 | 1990-11-01 |
++------+---------+---------+------------+--------+------+-------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from student where name rlike '[xm]';
++------+-------+---------+------------+--------+------+-------+------------+
+| rno  | name  | address | contact_no | course | age  | fees  | dob        |
++------+-------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi | kurla   | 1234567788 | .net   |   23 | 20000 | 1998-09-08 |
+|    4 | laxmi | bhandup | 1234547586 | c#     |   24 | 45000 | 1996-12-03 |
++------+-------+---------+------------+--------+------+-------+------------+
+2 rows in set (0.00 sec)
+
+
+mysql> create tble emp(eid int, ename varchar(50), salary(double));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tble emp(eid int, ename varchar(50), salary(double))' at line 1
+mysql> create table emp(eid int, ename varchar(50), salary(double));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(double))' at line 1
+mysql> create table emp(eid int, ename varchar(50), salary double);
+Query OK, 0 rows affected (1.55 sec)
+
+mysql> create table emp_info(eid int, doj date, department varchar(50), address varchar(50));
+Query OK, 0 rows affected (0.91 sec)
+
+mysql> insert into emp values(1,"laxmi", 89000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(2,"Geeta", 99000);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into emp values(3,"Prabhat", 90000);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into emp_info values(1,"2021-09-01", "Developer", "Juinanagar");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into emp_info values(2,"2020-02-01", "Developer", "Airoli");r
+Query OK, 1 row affected (0.11 sec)
+
+    -> insert into emp_info values(2,"2020-02-01", "Developer", "Airoli");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'r
+insert into emp_info values(2,"2020-02-01", "Developer", "Airoli")' at line 1
+mysql> insert into emp_info values(2,"2020-02-01", "Developer", "Airoli");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into emp_info values(4,"2022-02-01", "Tester", "Nerul");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select *form emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form emp' at line 1
+mysql> select *from emp;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | laxmi   |  89000 |
+|    2 | Geeta   |  99000 |
+|    3 | Prabhat |  90000 |
++------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select *from emp_info;
++------+------------+------------+------------+
+| eid  | doj        | department | address    |
++------+------------+------------+------------+
+|    1 | 2021-09-01 | Developer  | Juinanagar |
+|    2 | 2020-02-01 | Developer  | Airoli     |
+|    2 | 2020-02-01 | Developer  | Airoli     |
+|    4 | 2022-02-01 | Tester     | Nerul      |
++------+------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from emp_info where eid = 2;
+Query OK, 2 rows affected (0.17 sec)
+
+mysql> select *from emp_info;
++------+------------+------------+------------+
+| eid  | doj        | department | address    |
++------+------------+------------+------------+
+|    1 | 2021-09-01 | Developer  | Juinanagar |
+|    4 | 2022-02-01 | Tester     | Nerul      |
++------+------------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp_info values(2,"2020-02-01", "Developer", "Airoli");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select *from emp_info;
++------+------------+------------+------------+
+| eid  | doj        | department | address    |
++------+------------+------------+------------+
+|    1 | 2021-09-01 | Developer  | Juinanagar |
+|    4 | 2022-02-01 | Tester     | Nerul      |
+|    2 | 2020-02-01 | Developer  | Airoli     |
++------+------------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select *from emp cross join emp_info;
++------+---------+--------+------+------------+------------+------------+
+| eid  | ename   | salary | eid  | doj        | department | address    |
++------+---------+--------+------+------------+------------+------------+
+|    1 | laxmi   |  89000 |    1 | 2021-09-01 | Developer  | Juinanagar |
+|    2 | Geeta   |  99000 |    1 | 2021-09-01 | Developer  | Juinanagar |
+|    3 | Prabhat |  90000 |    1 | 2021-09-01 | Developer  | Juinanagar |
+|    1 | laxmi   |  89000 |    4 | 2022-02-01 | Tester     | Nerul      |
+|    2 | Geeta   |  99000 |    4 | 2022-02-01 | Tester     | Nerul      |
+|    3 | Prabhat |  90000 |    4 | 2022-02-01 | Tester     | Nerul      |
+|    1 | laxmi   |  89000 |    2 | 2020-02-01 | Developer  | Airoli     |
+|    2 | Geeta   |  99000 |    2 | 2020-02-01 | Developer  | Airoli     |
+|    3 | Prabhat |  90000 |    2 | 2020-02-01 | Developer  | Airoli     |
++------+---------+--------+------+------------+------------+------------+
+9 rows in set (0.00 sec)
+
+
+mysql> select *from emp inner join emp_info where emp.id = emp_info.eid;
+ERROR 1054 (42S22): Unknown column 'emp.id' in 'where clause'
+mysql> select *from emp inner join emp_info where emp.eid = emp_info.eid;
++------+-------+--------+------+------------+------------+------------+
+| eid  | ename | salary | eid  | doj        | department | address    |
++------+-------+--------+------+------------+------------+------------+
+|    1 | laxmi |  89000 |    1 | 2021-09-01 | Developer  | Juinanagar |
+|    2 | Geeta |  99000 |    2 | 2020-02-01 | Developer  | Airoli     |
++------+-------+--------+------+------------+------------+------------+
+2 rows in set (0.00 sec)
+
+=============================inner join ==============================
+
+=============================================1st way====================
+mysql> select emp.ename, emp_info.department from emp inner join emp_info where emp.eid = emp_info.eid;
++-------+------------+
+| ename | department |
++-------+------------+
+| laxmi | Developer  |
+| Geeta | Developer  |
++-------+------------+
+2 rows in set (0.00 sec)
+===============2nd way========
+
+mysql> select ename, department from emp inner join emp_info where emp.eid = emp_info.eid;
++-------+------------+
+| ename | department |
++-------+------------+
+| laxmi | Developer  |
+| Geeta | Developer  |
++-------+------------+
+2 rows in set (0.00 sec)
+
+=============3rd way============
+mysql> select ename, department from emp e inner join emp_info ei where e.eid = ei.eid;
++-------+------------+
+| ename | department |
++-------+------------+
+| laxmi | Developer  |
+| Geeta | Developer  |
++-------+------------+
+2 rows in set (0.00 sec)
+===============4th way==================
+mysql> select e.ename, ei.department from emp e inner join emp_info ei where e.eid = ei.eid;
++-------+------------+
+| ename | department |
++-------+------------+
+| laxmi | Developer  |
+| Geeta | Developer  |
++-------+------------+
+2 rows in set (0.00 sec)
+=============================================
+
+----------------------------Left Join---------------------
+
+mysql> select *from emp e left join emp_info ei on e.eid=ei.eid;
++------+---------+--------+------+------------+------------+------------+
+| eid  | ename   | salary | eid  | doj        | department | address    |
++------+---------+--------+------+------------+------------+------------+
+|    1 | laxmi   |  89000 |    1 | 2021-09-01 | Developer  | Juinanagar |
+|    2 | Geeta   |  99000 |    2 | 2020-02-01 | Developer  | Airoli     |
+|    3 | Prabhat |  90000 | NULL | NULL       | NULL       | NULL       |
++------+---------+--------+------+------------+------------+------------+
+3 rows in set (0.00 sec)
+
+
+==========================Right Join=================
+mysql> select *from emp e right join emp_info ei on e.eid=ei.eid;
++------+-------+--------+------+------------+------------+------------+
+| eid  | ename | salary | eid  | doj        | department | address    |
++------+-------+--------+------+------------+------------+------------+
+|    1 | laxmi |  89000 |    1 | 2021-09-01 | Developer  | Juinanagar |
+| NULL | NULL  |   NULL |    4 | 2022-02-01 | Tester     | Nerul      |
+|    2 | Geeta |  99000 |    2 | 2020-02-01 | Developer  | Airoli     |
++------+-------+--------+------+------------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values(4, "Vishal", 4);
+Query OK, 1 row affected (0.17 sec)
+
+==========================Self Join============================
+mysql> select *from emp ;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | laxmi   |  89000 |
+|    2 | Geeta   |  99000 |
+|    3 | Prabhat |  90000 |
+|    4 | Vishal  |      4 |
++------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select ename, salary from emp e, emp s where e.eid = s.salary;
+ERROR 1052 (23000): Column 'ename' in field list is ambiguous
+mysql> select e.ename, s.salary from emp e, emp s where e.eid = s.salary;
++--------+--------+
+| ename  | salary |
++--------+--------+
+| Vishal |      4 |
++--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from emp;
++-------------+
+| max(salary) |
++-------------+
+|       99000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from emp;
++-------------+
+| min(salary) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from emp;
++-------------+
+| sum(salary) |
++-------------+
+|      278004 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary) from emp;
++---------------+
+| count(salary) |
++---------------+
+|             4 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select ucase(name) from emp;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select ucase(ename) from emp;
++--------------+
+| ucase(ename) |
++--------------+
+| LAXMI        |
+| GEETA        |
+| PRABHAT      |
+| VISHAL       |
++--------------+
+4 rows in set (0.00 sec)
+
+mysql> select lcase(ename) from emp;
++--------------+
+| lcase(ename) |
++--------------+
+| laxmi        |
+| geeta        |
+| prabhat      |
+| vishal       |
++--------------+
+4 rows in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2020-05-11 13:36:59 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(4,"Bhushan", 900.79);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select *from emp;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | laxmi   |  89000 |
+|    2 | Geeta   |  99000 |
+|    3 | Prabhat |  90000 |
+|    4 | Vishal  |      4 |
+|    4 | Bhushan | 900.79 |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select round (salary) from emp ;
++----------------+
+| round (salary) |
++----------------+
+|          89000 |
+|          99000 |
+|          90000 |
+|              4 |
+|            901 |
++----------------+
+5 rows in set (0.00 sec)
+
+mysql> select ceil(salary) from emp ;
++--------------+
+| ceil(salary) |
++--------------+
+|        89000 |
+|        99000 |
+|        90000 |
+|            4 |
+|          901 |
++--------------+
+5 rows in set (0.00 sec)
+
+mysql> select floor(salary) from emp ;
++---------------+
+| floor(salary) |
++---------------+
+|         89000 |
+|         99000 |
+|         90000 |
+|             4 |
+|           900 |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> select mid(ename, 2) from emp ;
++---------------+
+| mid(ename, 2) |
++---------------+
+| axmi          |
+| eeta          |
+| rabhat        |
+| ishal         |
+| hushan        |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> select mid(ename, 3) from emp ;
++---------------+
+| mid(ename, 3) |
++---------------+
+| xmi           |
+| eta           |
+| abhat         |
+| shal          |
+| ushan         |
++---------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select ename from emp;
++---------+
+| ename   |
++---------+
+| laxmi   |
+| Geeta   |
+| Prabhat |
+| Vishal  |
+| Bhushan |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> select mid(ename, 2,4) from emp;
++-----------------+
+| mid(ename, 2,4) |
++-----------------+
+| axmi            |
+| eeta            |
+| rabh            |
+| isha            |
+| hush            |
++-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from emp_info;
++------+------------+------------+------------+
+| eid  | doj        | department | address    |
++------+------------+------------+------------+
+|    1 | 2021-09-01 | Developer  | Juinanagar |
+|    4 | 2022-02-01 | Tester     | Nerul      |
+|    2 | 2020-02-01 | Developer  | Airoli     |
++------+------------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp_info values(5, "Bhushan", 6000);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> select *from emp order by ename;;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    4 | Bhushan | 900.79 |
+|    2 | Geeta   |  99000 |
+|    1 | laxmi   |  89000 |
+|    3 | Prabhat |  90000 |
+|    4 | Vishal  |      4 |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> select *from emp order by ename;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    4 | Bhushan | 900.79 |
+|    2 | Geeta   |  99000 |
+|    1 | laxmi   |  89000 |
+|    3 | Prabhat |  90000 |
+|    4 | Vishal  |      4 |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select *from emp order by ename asc;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    4 | Bhushan | 900.79 |
+|    2 | Geeta   |  99000 |
+|    1 | laxmi   |  89000 |
+|    3 | Prabhat |  90000 |
+|    4 | Vishal  |      4 |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select *from emp order by ename desc;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    4 | Vishal  |      4 |
+|    3 | Prabhat |  90000 |
+|    1 | laxmi   |  89000 |
+|    2 | Geeta   |  99000 |
+|    4 | Bhushan | 900.79 |
++------+---------+--------+
+5 rows in set (0.00 sec)mysql> select *from student;
++------+---------+---------+------------+--------+------+-------+------------+
+| rno  | name    | address | contact_no | course | age  | fees  | dob        |
++------+---------+---------+------------+--------+------+-------+------------+
+|    2 | Laxmi   | kurla   | 1234567788 | .net   |   23 | 20000 | 1998-09-08 |
+|    1 | Geeta   | Thane   | 1234567786 | python |   28 | 33000 | 1991-10-12 |
+|    3 | kirti   | nerul   | 1234567586 | .net   |   25 | 43000 | 1997-11-05 |
+|    4 | laxmi   | bhandup | 1234547586 | c#     |   24 | 45000 | 1996-12-03 |
+|    5 | bhavana | kurla   | 1231567586 | java   |   24 | 33000 | 1990-11-01 |
++------+---------+---------+------------+--------+------+-------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select count from student group by course ;
+ERROR 1054 (42S22): Unknown column 'count' in 'field list'
+mysql> select count(name) from student group by course ;
++-------------+
+| count(name) |
++-------------+
+|           2 |
+|           1 |
+|           1 |
+|           1 |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> select count(name), course from student group by course ;
++-------------+--------+
+| count(name) | course |
++-------------+--------+
+|           2 | .net   |
+|           1 | python |
+|           1 | c#     |
+|           1 | java   |
++-------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select count(name)as Course count, course from student group by course ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count, course from student group by course' at line 1
+mysql> select count(name)as Course_count, course from student group by course ;
++--------------+--------+
+| Course_count | course |
++--------------+--------+
+|            2 | .net   |
+|            1 | python |
+|            1 | c#     |
+|            1 | java   |
++--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select count(address)as Address, address from student group by address ;
++---------+---------+
+| Address | address |
++---------+---------+
+|       2 | kurla   |
+|       1 | Thane   |
+|       1 | nerul   |
+|       1 | bhandup |
++---------+---------+
+4 rows in set, 1 warning (0.00 sec)

@@ -296,6 +296,7 @@ create trigger percentage
 before insert on class
 for each row
 begin
+
 set new.total = new.marks_in_eng +new.marks_in_maths + new.marks_in_sci;
 set new.per = new.total/3;
 if new.per >=35 then set new.result = "Pass";

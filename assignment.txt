@@ -1,0 +1,146 @@
+Questions
+
+1.
+
+mysql> create table vote
+    -> (
+    -> vid int AUTO_INCREMENT Primary key,
+    -> name varchar(40),
+    -> age int,
+    -> status varchar(50));
+    -> $
+Query OK, 0 rows affected (0.91 sec)
+
+mysql> desc vote
+    -> $
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| vid    | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(40) | YES  |     | NULL    |                |
+| age    | int         | YES  |     | NULL    |                |
+| status | varchar(50) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> create trigger voting
+    -> before insert on vote
+    -> for each row
+    -> begin
+    -> if new.age <18 then set new.status = "Invalid age";
+    -> elseif new.age >=18 then set new.status = "voted successfully";
+    -> end if;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> insert into vote(name,age) values("Geeta", 15);
+    -> $
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into vote(name,age) values("Kirti", 20);
+    -> $
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select *from vote;
+    -> $
++-----+-------+------+--------------------+
+| vid | name  | age  | status             |
++-----+-------+------+--------------------+
+|   1 | Geeta |   15 | Invalid age        |
+|   2 | Kirti |   20 | voted successfully |
++-----+-------+------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into vote(name,age) values("Bhavana", 18);
+    -> $
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into vote(name,age) values("Laxmi", 22);
+    -> $
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select *from vote;
+    -> $
++-----+---------+------+--------------------+
+| vid | name    | age  | status             |
++-----+---------+------+--------------------+
+|   1 | Geeta   |   15 | Invalid age        |
+|   2 | Kirti   |   20 | voted successfully |
+|   3 | Bhavana |   18 | voted successfully |
+|   4 | Laxmi   |   22 | voted successfully |
++-----+---------+------+--------------------+
+4 rows in set (0.00 sec)
+
+=========================================================================
+
+Question 2.
+
+mysql> create table class
+    -> (
+    -> rno int AUTO_INCREMENT Primary key,
+    -> name varchar(50),
+    -> marks_in_eng int,
+    -> marks_in_maths  int,
+    -> marks_in_sci int,
+    -> total int,
+    -> per double);
+    -> $
+Query OK, 0 rows affected (1.23 sec)
+
+mysql> alter table class add result varchar(50);
+    -> $
+Query OK, 0 rows affected (1.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc class;
+    -> $
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| rno            | int         | NO   | PRI | NULL    | auto_increment |
+| name           | varchar(50) | YES  |     | NULL    |                |
+| marks_in_eng   | int         | YES  |     | NULL    |                |
+| marks_in_maths | int         | YES  |     | NULL    |                |
+| marks_in_sci   | int         | YES  |     | NULL    |                |
+| total          | int         | YES  |     | NULL    |                |
+| per            | double      | YES  |     | NULL    |                |
+| result         | varchar(50) | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.03 sec)
+
+mysql> create trigger percentage
+    -> before insert on class
+    -> for each row
+    -> begin
+    -> set new.total = new.marks_in_eng +new.marks_in_maths + new.marks_in_sci;
+    -> set new.per = new.total/3;
+    -> if new.per >=35 then set new.result = "Pass";
+    -> elseif new.per<35 then set new.result = "Fail";
+    -> end if;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.14 sec)
+mysql> insert into class(name,marks_in_eng ,marks_in_maths,marks_in_sci ) values
+    -> ("Bharati",98,89,85),
+    -> ("Geeta",90,50,60),
+    -> ("Kirti",98,87,65),
+    -> ("Laxmi",77,56,80),
+    -> ("Bhavana",67,74,82),
+    -> ("Vishal",33,25,32);
+    -> $
+Query OK, 6 rows affected (0.18 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+mysql> select *from class;
+    -> $
++-----+---------+--------------+----------------+--------------+-------+--------------+--------+
+| rno | name    | marks_in_eng | marks_in_maths | marks_in_sci | total | per          | result |
++-----+---------+--------------+----------------+--------------+-------+--------------+--------+
+|   1 | Bharati |           98 |             89 |           85 |   272 | 90.666666666 | Pass   |
+|   2 | Geeta   |           90 |             50 |           60 |   200 | 66.666666666 | Pass   |
+|   3 | Kirti   |           98 |             87 |           65 |   250 | 83.333333333 | Pass   |
+|   4 | Laxmi   |           77 |             56 |           80 |   213 |           71 | Pass   |
+|   5 | Bhavana |           67 |             74 |           82 |   223 | 74.333333333 | Pass   |
+|   6 | Vishal  |           33 |             25 |           32 |    90 |           30 | Fail   |
++-----+---------+--------------+----------------+--------------+-------+--------------+--------+
+6 rows in set (0.00 sec)

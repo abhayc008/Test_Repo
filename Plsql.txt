@@ -57,3 +57,614 @@ create procedure up(eid int , ename varchar(50), salary double)
         $
 call up(1, 'Rasika', 560000);
 $
+========================================14/05/2020=====================================
+create procedure bonus(name varchar(50), amt double)
+begin
+update emp set salary = salary + amt where ename=name;
+end;
+$
+
+mysql> delimiter $
+mysql> create procedure bonus(name varchar(50), amt double)
+    -> begin
+    -> update emp set salary = salary + amt where ename=name;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> call bonus('Vishal', 5000)
+    -> ;
+    -> $
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select *from emp;
+    -> $
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | laxmi   |  89000 |
+|    2 | Geeta   |  99000 |
+|    3 | Prabhat |  90000 |
+|    4 | Vishal  |   5004 |
+|    4 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
++------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> call bonus('geeta', 5000);
+    -> $
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select *from emp;
+    -> $
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | laxmi   |  89000 |
+|    2 | Geeta   | 104000 |
+|    3 | Prabhat |  90000 |
+|    4 | Vishal  |   5004 |
+|    4 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
++------+---------+--------+
+6 rows in set (0.00 sec)
+
+==================================POINT to be remember==========
+create procedure del(id int)
+begin
+delete from notvoid where id = id;(if col name is same as argument it will compare col name = col name whole data will be deleted 
+so always remember name of argument will different from col name)
+end;
+$
+
+call del(1);
+3 rows affected
+
+create procedure del(eid int)
+begin
+delete from notvoid where id=eid;
+end;
+$
+===================================================================
+mysql> select *from notvoid;
+    -> $
++------+--------+
+| id   | name   |
++------+--------+
+|    1 | GEETA  |
+|    1 | BHARTI |
+|    1 | BHARTI |
+|    3 | BHARTI |
+|    1 | GEETA  |
++------+--------+
+5 rows in set (0.04 sec)
+
+mysql> create procedure del(eid int)
+    -> begin
+    -> delete from notvoid where id=eid;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> call del(3);
+    -> $
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select *from notvoid;
+    -> $
++------+--------+
+| id   | name   |
++------+--------+
+|    1 | GEETA  |
+|    1 | BHARTI |
+|    1 | BHARTI |
+|    1 | GEETA  |
++------+--------+
+4 rows in set (0.00 sec)
+
+
+create function even(no int)
+returns varchar(50)
+DETERMINISTIC 
+begin
+declare msg varchar(30)
+if no%2=0 then
+set msg ="Even no";
+else 
+set msg ="Odd no";
+end if;
+return msg;
+end;
+$
+
+differnce b/w procedure and function
+procedure = no return statement
+function = return statement is compulsory
+
+
+========================Trigger=====================
+
+
+after/before - insert,update,delete
+old/new
+
+
+create trigger backup
+before delete on emp // here we take either before or after
+for each row
+begin
+insert into old_emp values(old.eid, old.ename, old.salary);// here "old or new" we take it is predefined keywords
+end;
+$
+
+drop trigger backup; $
+
+create trigger sal
+before insert on emp 
+for each row
+begin
+if new.salary <=1000 then set new.salary = 0;
+end if;
+end;
+$
+
+
+create trigger up
+after update on emp 
+for each row
+begin
+insert into old_emp values(new.eid, new.ename, new.salary);
+end;
+$
+
+create table sales
+(
+pid int,
+product varchar(50),
+price double,
+quantity int,
+profit double);
+$
+
+create trigger pro
+before insert on sales
+for each row
+begin
+set new.profit = new.price*new.quantity;
+end;
+$
+
+insert into sales(pid, product, price, quantity) values(1,"Chair", 300,4);
+
+vote 
+id(auto_incremnet) name age status ("Invalid sge"/ "Successfully voted")
+1 Bharati 23
+age<18
+invalid age
+age>=18
+successfully voted
+
+result
+rno name    eng maths  sci  total  per 
+1   bharati 98  89     95 
+name and marks to be entered
+total and per using trgger 
+per auto matically caluculated
+
+if new.salary <=1000 then set new.salary = 0;
+create table vote
+(
+vid int AUTO_INCREMENT Primary key,
+name varchar(40),
+age int,
+status varchar(50));
+$
+
+create trigger voting
+before insert on vote
+for each row
+begin
+if new.age <18 then set new.status = "Invalid age";
+elseif new.age >=18 then set new.status = "voted successfully";
+end if;
+end;
+$
+
+result
+rno name    eng maths  sci  total  per 
+1   bharati 98  89     95 
+name and marks to be entered
+total and per using trgger 
+per auto matically caluculated
+
+create table result
+(
+rno int AUTO_INCREMENT Primary key,
+name varchar(50),
+marks_in_eng int,
+marks_in_maths  int,
+marks_in_sci int,
+total int,
+per double);
+$
+
+rename table result to class;
+alter table class add result varchar(50);
+drop trigger percentage;
+
+create trigger percentage 
+before insert on class
+for each row
+begin
+set new.total = new.marks_in_eng +new.marks_in_maths + new.marks_in_sci;
+set new.per = new.total/3;
+if new.per >=35 then set new.result = "Pass";
+elseif new.per<35 then set new.result = "Fail";
+end if;
+end;
+$
+
+insert into class(name,marks_in_eng ,marks_in_maths,marks_in_sci ) values
+("Bharati",98,89,85),
+("Geeta",90,50,60),
+("Kirti",98,87,65),
+("Laxmi",77,56,80),
+("Bhavana",67,74,82),
+("Vishal",33,25,32);
+
+The following table illustrates the availability of the OLD and NEW modifiers:
+
+
+Trigger Event	OLD	NEW
+INSERT	No	Yes
+UPDATE	Yes	Yes
+DELETE	Yes	No
+
+==========================
+mysql> create table old_emp(eid int, ename varchar(40), salary int);
+    -> $
+Query OK, 0 rows affected (0.63 sec)
+
+mysql> desc old_emp;
+    -> $
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int         | YES  |     | NULL    |       |
+| ename  | varchar(40) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> create trigger backup
+    -> before delete on emp
+    -> for each row
+    -> begin
+    -> insert into old_emp values(old.eid, old.ename, old.salary);
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> delete from emp where eid=4;
+    -> $
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select *from emp;
+    -> $
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | laxmi   |  89000 |
+|    2 | Geeta   | 104000 |
+|    3 | Prabhat |  90000 |
+|    6 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select *from old_emp;
+    -> $
++------+--------+--------+
+| eid  | ename  | salary |
++------+--------+--------+
+|    4 | Vishal |   5004 |
++------+--------+--------+
+1 row in set (0.00 sec)
+
+
+
+mysql> create trigger ups
+    -> after update on emp
+    -> for each row
+    -> begin
+    -> insert into old_emp values(new.eid, new.ename, new.salary);
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.17 sec)
+
+
+mysql> update emp set ename="Ruchir" where eid=1;
+    ->
+    -> $
+Query OK, 1 row affected (0.21 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from emp;$
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | Ruchir  |  89000 |
+|    2 | Geeta   | 104000 |
+|    3 | Prabhat |  90000 |
+|    6 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select *from old_emp;$
++------+--------+--------+
+| eid  | ename  | salary |
++------+--------+--------+
+|    4 | Vishal |   5004 |
+|    1 | Ruchir |  89000 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+
+mysql> create trigger sal
+    -> before insert on emp
+    -> for each row
+    -> begin
+    -> if new.salary <=1000 then set new.salary = 0;
+    -> end if;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> insert into emp values(1, "Bharti", 90);
+    -> $
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select *from emp;$
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | Ruchir  |  89000 |
+|    2 | Geeta   | 104000 |
+|    3 | Prabhat |  90000 |
+|    6 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
+|    1 | Bharti  |      0 |
++------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> insert into emp values(1, "Bharti", 9000);
+    -> $
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select *from emp;$
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | Ruchir  |  89000 |
+|    2 | Geeta   | 104000 |
+|    3 | Prabhat |  90000 |
+|    6 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
+|    1 | Bharti  |      0 |
+|    1 | Bharti  |   9000 |
++------+---------+--------+
+7 rows in set (0.00 sec)
+
+============================here profit is calculted using trigger and stroed in sales table================
+mysql> create table sales
+    -> (
+    -> pid int,
+    -> product varchar(50),
+    -> price double,
+    -> quantity int,
+    -> profit double);
+    -> $
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> create trigger pro
+    -> before insert on sales
+    -> for each row
+    -> begin
+    -> set new.profit = new.price*new.quantity;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> insert into sales(pid, product, price, quantity) values(1,"Chair", 300,4);
+    -> $
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select *from sales;
+    -> $
++------+---------+-------+----------+--------+
+| pid  | product | price | quantity | profit |
++------+---------+-------+----------+--------+
+|    1 | Chair   |   300 |        4 |   1200 |
++------+---------+-------+----------+--------+
+1 row in set (0.00 sec)
+
+======================================================================
+insert into worker(worker_id, first_name,last_name, salary, joining_date, department) values
+(001, 'Monika', 'Arora',100000, '14-02-20 09.00.00' , 'HR'),
+(002, 'Niharika', 'Verma',80000, '14-06-11 09.00.00' , 'Admin'),
+(003, 'Vishal', 'Singhal',300000, '14-02-20 09.00.00' , 'HR'),
+(004, 'Amitabh', 'Singh',500000, '14-02-20 09.00.00' , 'Admin'),
+(005, 'Vivek', 'Bhati',500000, '14-06-11 09.00.00' , 'Admin'),
+(006, 'Vipul', 'Diwan',200000, '14-06-11 09.00.00' , 'Account'),
+(007, 'Satish', 'Kumar',75000, '14-01-20 09.00.00' , 'Account'),
+(008, 'Geetika', 'Chauhan',90000, '14-04-11 09.00.00' , 'Account');
+
+insert into bonus(worker_ref_id, bonus_amount, bonus_date) values
+(001, 5000,'16-02-20'),
+(002, 3000,'16-06-11'),
+(003, 4000,'16-02-20'),
+(001, 4500,'16-02-20'),
+(002, 3500,'16-06-11');
+
+
+insert into title
+(worker_ref_id, worker_title, affected_from)values
+(001,'Manager', '2016-02-20 00:00:00'),
+(002,'Executive', '2016-02-20 00:00:00'),
+(008,'Executive', '2016-06-11 00:00:00'),
+(005,'Manager', '2016-06-11 00:00:00'),
+(004,'Asst. Manager', '2016-06-11 00:00:00'),
+(007,'Executive', '2016-06-11 00:00:00'),
+(006,'Lead', '2016-06-11 00:00:00'),
+(003,'Lead', '2016-06-11 00:00:00');
+
+=========================================================
+
+Questions
+
+1.
+
+mysql> create table vote
+    -> (
+    -> vid int AUTO_INCREMENT Primary key,
+    -> name varchar(40),
+    -> age int,
+    -> status varchar(50));
+    -> $
+Query OK, 0 rows affected (0.91 sec)
+
+mysql> desc vote
+    -> $
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| vid    | int         | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(40) | YES  |     | NULL    |                |
+| age    | int         | YES  |     | NULL    |                |
+| status | varchar(50) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> create trigger voting
+    -> before insert on vote
+    -> for each row
+    -> begin
+    -> if new.age <18 then set new.status = "Invalid age";
+    -> elseif new.age >=18 then set new.status = "voted successfully";
+    -> end if;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> insert into vote(name,age) values("Geeta", 15);
+    -> $
+Query OK, 1 row affected (0.15 sec)
+
+mysql> insert into vote(name,age) values("Kirti", 20);
+    -> $
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select *from vote;
+    -> $
++-----+-------+------+--------------------+
+| vid | name  | age  | status             |
++-----+-------+------+--------------------+
+|   1 | Geeta |   15 | Invalid age        |
+|   2 | Kirti |   20 | voted successfully |
++-----+-------+------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into vote(name,age) values("Bhavana", 18);
+    -> $
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into vote(name,age) values("Laxmi", 22);
+    -> $
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select *from vote;
+    -> $
++-----+---------+------+--------------------+
+| vid | name    | age  | status             |
++-----+---------+------+--------------------+
+|   1 | Geeta   |   15 | Invalid age        |
+|   2 | Kirti   |   20 | voted successfully |
+|   3 | Bhavana |   18 | voted successfully |
+|   4 | Laxmi   |   22 | voted successfully |
++-----+---------+------+--------------------+
+4 rows in set (0.00 sec)
+
+=========================================================================
+
+Question 2.
+
+mysql> create table class
+    -> (
+    -> rno int AUTO_INCREMENT Primary key,
+    -> name varchar(50),
+    -> marks_in_eng int,
+    -> marks_in_maths  int,
+    -> marks_in_sci int,
+    -> total int,
+    -> per double);
+    -> $
+Query OK, 0 rows affected (1.23 sec)
+
+mysql> alter table class add result varchar(50);
+    -> $
+Query OK, 0 rows affected (1.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc class;
+    -> $
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| rno            | int         | NO   | PRI | NULL    | auto_increment |
+| name           | varchar(50) | YES  |     | NULL    |                |
+| marks_in_eng   | int         | YES  |     | NULL    |                |
+| marks_in_maths | int         | YES  |     | NULL    |                |
+| marks_in_sci   | int         | YES  |     | NULL    |                |
+| total          | int         | YES  |     | NULL    |                |
+| per            | double      | YES  |     | NULL    |                |
+| result         | varchar(50) | YES  |     | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.03 sec)
+
+mysql> create trigger percentage
+    -> before insert on class
+    -> for each row
+    -> begin
+    -> set new.total = new.marks_in_eng +new.marks_in_maths + new.marks_in_sci;
+    -> set new.per = new.total/3;
+    -> if new.per >=35 then set new.result = "Pass";
+    -> elseif new.per<35 then set new.result = "Fail";
+    -> end if;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.14 sec)
+mysql> insert into class(name,marks_in_eng ,marks_in_maths,marks_in_sci ) values
+    -> ("Bharati",98,89,85),
+    -> ("Geeta",90,50,60),
+    -> ("Kirti",98,87,65),
+    -> ("Laxmi",77,56,80),
+    -> ("Bhavana",67,74,82),
+    -> ("Vishal",33,25,32);
+    -> $
+Query OK, 6 rows affected (0.18 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+mysql> select *from class;
+    -> $
++-----+---------+--------------+----------------+--------------+-------+--------------+--------+
+| rno | name    | marks_in_eng | marks_in_maths | marks_in_sci | total | per          | result |
++-----+---------+--------------+----------------+--------------+-------+--------------+--------+
+|   1 | Bharati |           98 |             89 |           85 |   272 | 90.666666666 | Pass   |
+|   2 | Geeta   |           90 |             50 |           60 |   200 | 66.666666666 | Pass   |
+|   3 | Kirti   |           98 |             87 |           65 |   250 | 83.333333333 | Pass   |
+|   4 | Laxmi   |           77 |             56 |           80 |   213 |           71 | Pass   |
+|   5 | Bhavana |           67 |             74 |           82 |   223 | 74.333333333 | Pass   |
+|   6 | Vishal  |           33 |             25 |           32 |    90 |           30 | Fail   |
++-----+---------+--------------+----------------+--------------+-------+--------------+--------+
+6 rows in set (0.00 sec)
+

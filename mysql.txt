@@ -946,6 +946,7 @@ mysql> select count(salary) from emp;
 mysql> select ucase(name) from emp;
 ERROR 1054 (42S22): Unknown column 'name' in 'field list'
 mysql> select ucase(ename) from emp;
+or select upper(ename)from emp;
 +--------------+
 | ucase(ename) |
 +--------------+
@@ -1064,6 +1065,8 @@ mysql> select ename from emp;
 5 rows in set (0.00 sec)
 
 mysql> select mid(ename, 2,4) from emp;
+
+or  select substring(first_name,1,3) from worker;
 +-----------------+
 | mid(ename, 2,4) |
 +-----------------+

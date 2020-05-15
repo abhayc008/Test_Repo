@@ -520,7 +520,99 @@ insert into title
 (006,'Lead', '2016-06-11 00:00:00'),
 (003,'Lead', '2016-06-11 00:00:00');
 
+
+mysql> select distinct(department) as value from worker;
++---------+
+| value   |
++---------+
+| HR      |
+| Admin   |
+| Account |
++---------+
+3 rows in set (0.00 sec)
+
+
+mysql> select position("o" in "Amitabh" );
++-----------------------------+
+| position("o" in "Amitabh" ) |
++-----------------------------+
+|                           0 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select position("a" in "Amitabh" );
++-----------------------------+
+| position("a" in "Amitabh" ) |
++-----------------------------+
+|                           1 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> sELECT LOCATE('a','Amitabh');
++-----------------------+
+| LOCATE('a','Amitabh') |
++-----------------------+
+|                     1 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> Select INSTR(FIRST_NAME, BINARY'a') from Worker where FIRST_NAME = 'Amitabh';
++------------------------------+
+| INSTR(FIRST_NAME, BINARY'a') |
++------------------------------+
+|                            5 |
++------------------------------+
+1 row in set (0.00 sec)
+
+Notes.
+
+The INSTR method is in case-sensitive by default.
+Using Binary operator will make INSTR work as the case-sensitive function.
+ 
+mysql> select rtrim(first_name) from worker;
++-------------------+
+| rtrim(first_name) |
++-------------------+
+| Monika            |
+| Niharika          |
+| Vishal            |
+| Amitabh           |
+| Vivek             |
+| Vipul             |
+| Satish            |
+| Geetika           |
++-------------------+
+8 rows in set (0.00 sec)
+
+mysql> select ltrim(department) from worker;
++-------------------+
+| ltrim(department) |
++-------------------+
+| HR                |
+| Admin             |
+| HR                |
+| Admin             |
+| Admin             |
+| Account           |
+| Account           |
+| Account           |
++-------------------+
+8 rows in set (0.00 sec)
+
+
+mysql> select distinct length(department) from worker;
++--------------------+
+| length(department) |
++--------------------+
+|                  2 |
+|                  5 |
+|                  7 |
++--------------------+
+3 rows in set (0.00 sec)
+
 =========================================================
+
+
 
 Questions
 
@@ -608,7 +700,7 @@ mysql> create table class
     -> marks_in_maths  int,
     -> marks_in_sci int,
     -> total int,
-    -> per double);
+    -> per decimal(5,2));
     -> $
 Query OK, 0 rows affected (1.23 sec)
 
@@ -619,19 +711,19 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 mysql> desc class;
     -> $
-+----------------+-------------+------+-----+---------+----------------+
-| Field          | Type        | Null | Key | Default | Extra          |
-+----------------+-------------+------+-----+---------+----------------+
-| rno            | int         | NO   | PRI | NULL    | auto_increment |
-| name           | varchar(50) | YES  |     | NULL    |                |
-| marks_in_eng   | int         | YES  |     | NULL    |                |
-| marks_in_maths | int         | YES  |     | NULL    |                |
-| marks_in_sci   | int         | YES  |     | NULL    |                |
-| total          | int         | YES  |     | NULL    |                |
-| per            | double      | YES  |     | NULL    |                |
-| result         | varchar(50) | YES  |     | NULL    |                |
-+----------------+-------------+------+-----+---------+----------------+
-8 rows in set (0.03 sec)
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| rno            | int          | NO   | PRI | NULL    | auto_increment |
+| name           | varchar(50)  | YES  |     | NULL    |                |
+| marks_in_eng   | int          | YES  |     | NULL    |                |
+| marks_in_maths | int          | YES  |     | NULL    |                |
+| marks_in_sci   | int          | YES  |     | NULL    |                |
+| total          | int          | YES  |     | NULL    |                |
+| per            | decimal(5,2) | YES  |     | NULL    |                |
+| result         | varchar(50)  | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.01 sec)
 
 mysql> create trigger percentage
     -> before insert on class
@@ -657,15 +749,15 @@ Query OK, 6 rows affected (0.18 sec)
 Records: 6  Duplicates: 0  Warnings: 0
 mysql> select *from class;
     -> $
-+-----+---------+--------------+----------------+--------------+-------+--------------+--------+
-| rno | name    | marks_in_eng | marks_in_maths | marks_in_sci | total | per          | result |
-+-----+---------+--------------+----------------+--------------+-------+--------------+--------+
-|   1 | Bharati |           98 |             89 |           85 |   272 | 90.666666666 | Pass   |
-|   2 | Geeta   |           90 |             50 |           60 |   200 | 66.666666666 | Pass   |
-|   3 | Kirti   |           98 |             87 |           65 |   250 | 83.333333333 | Pass   |
-|   4 | Laxmi   |           77 |             56 |           80 |   213 |           71 | Pass   |
-|   5 | Bhavana |           67 |             74 |           82 |   223 | 74.333333333 | Pass   |
-|   6 | Vishal  |           33 |             25 |           32 |    90 |           30 | Fail   |
-+-----+---------+--------------+----------------+--------------+-------+--------------+--------+
++-----+---------+--------------+----------------+--------------+-------+-------+--------+
+| rno | name    | marks_in_eng | marks_in_maths | marks_in_sci | total | per   | result |
++-----+---------+--------------+----------------+--------------+-------+-------+--------+
+|   1 | Bharati |           98 |             89 |           85 |   272 | 90.67 | Pass   |
+|   2 | Geeta   |           90 |             50 |           60 |   200 | 66.67 | Pass   |
+|   3 | Kirti   |           98 |             87 |           65 |   250 | 83.33 | Pass   |
+|   4 | Laxmi   |           77 |             56 |           80 |   213 | 71.00 | Pass   |
+|   5 | Bhavana |           67 |             74 |           82 |   223 | 74.33 | Pass   |
+|   6 | Vishal  |           33 |             25 |           32 |    90 | 30.00 | Fail   |
++-----+---------+--------------+----------------+--------------+-------+-------+--------+
 6 rows in set (0.00 sec)
 

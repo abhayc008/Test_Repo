@@ -84,7 +84,7 @@ mysql> create table class
     -> marks_in_maths  int,
     -> marks_in_sci int,
     -> total int,
-    -> per double);
+    -> per decimal(5,2));
     -> $
 Query OK, 0 rows affected (1.23 sec)
 
@@ -93,21 +93,21 @@ mysql> alter table class add result varchar(50);
 Query OK, 0 rows affected (1.11 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> desc class;
+mysql> desc class
     -> $
-+----------------+-------------+------+-----+---------+----------------+
-| Field          | Type        | Null | Key | Default | Extra          |
-+----------------+-------------+------+-----+---------+----------------+
-| rno            | int         | NO   | PRI | NULL    | auto_increment |
-| name           | varchar(50) | YES  |     | NULL    |                |
-| marks_in_eng   | int         | YES  |     | NULL    |                |
-| marks_in_maths | int         | YES  |     | NULL    |                |
-| marks_in_sci   | int         | YES  |     | NULL    |                |
-| total          | int         | YES  |     | NULL    |                |
-| per            | double      | YES  |     | NULL    |                |
-| result         | varchar(50) | YES  |     | NULL    |                |
-+----------------+-------------+------+-----+---------+----------------+
-8 rows in set (0.03 sec)
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| rno            | int          | NO   | PRI | NULL    | auto_increment |
+| name           | varchar(50)  | YES  |     | NULL    |                |
+| marks_in_eng   | int          | YES  |     | NULL    |                |
+| marks_in_maths | int          | YES  |     | NULL    |                |
+| marks_in_sci   | int          | YES  |     | NULL    |                |
+| total          | int          | YES  |     | NULL    |                |
+| per            | decimal(5,2) | YES  |     | NULL    |                |
+| result         | varchar(50)  | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+8 rows in set (0.01 sec)
 
 mysql> create trigger percentage
     -> before insert on class
@@ -133,14 +133,14 @@ Query OK, 6 rows affected (0.18 sec)
 Records: 6  Duplicates: 0  Warnings: 0
 mysql> select *from class;
     -> $
-+-----+---------+--------------+----------------+--------------+-------+--------------+--------+
-| rno | name    | marks_in_eng | marks_in_maths | marks_in_sci | total | per          | result |
-+-----+---------+--------------+----------------+--------------+-------+--------------+--------+
-|   1 | Bharati |           98 |             89 |           85 |   272 | 90.666666666 | Pass   |
-|   2 | Geeta   |           90 |             50 |           60 |   200 | 66.666666666 | Pass   |
-|   3 | Kirti   |           98 |             87 |           65 |   250 | 83.333333333 | Pass   |
-|   4 | Laxmi   |           77 |             56 |           80 |   213 |           71 | Pass   |
-|   5 | Bhavana |           67 |             74 |           82 |   223 | 74.333333333 | Pass   |
-|   6 | Vishal  |           33 |             25 |           32 |    90 |           30 | Fail   |
-+-----+---------+--------------+----------------+--------------+-------+--------------+--------+
++-----+---------+--------------+----------------+--------------+-------+-------+--------+
+| rno | name    | marks_in_eng | marks_in_maths | marks_in_sci | total | per   | result |
++-----+---------+--------------+----------------+--------------+-------+-------+--------+
+|   1 | Bharati |           98 |             89 |           85 |   272 | 90.67 | Pass   |
+|   2 | Geeta   |           90 |             50 |           60 |   200 | 66.67 | Pass   |
+|   3 | Kirti   |           98 |             87 |           65 |   250 | 83.33 | Pass   |
+|   4 | Laxmi   |           77 |             56 |           80 |   213 | 71.00 | Pass   |
+|   5 | Bhavana |           67 |             74 |           82 |   223 | 74.33 | Pass   |
+|   6 | Vishal  |           33 |             25 |           32 |    90 | 30.00 | Fail   |
++-----+---------+--------------+----------------+--------------+-------+-------+--------+
 6 rows in set (0.00 sec)

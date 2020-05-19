@@ -1611,3 +1611,126 @@ mysql> select *from display
 +------+---------+---------+------------+--------+------+-------+------------+
 5 rows in set (0.00 sec)
 
+select distinct salary from worker
+w1 where 1=
+(select count(distinct(salary)) from worker w2
+where w2.salary <= w1.salary )
+
+
+Comparison between normal or regular class and static nested class
+
+S.NO	NORMAL/REGULAR INNER CLASS	STATIC NESTED CLASS
+1.	Without existing outer class object there is no chance of existing inner class object. That is inner class object is always associated with outer class object.	Without existing outer class object there may be a chance of existing static nested class object. That is static nested class object is not associated with outer class object.
+2.	Inside normal or regular inner class static members can’t be declared.	Inside static nested class static members can be declared.
+3.	As main() method can’t be declared, regular inner class can’t be invoked directly from the command prompt.	As main() method can be declared, static nested class can be invoked directly from the command prompt.
+4.	Both static and non static members of outer class can be accessed directly.	Only static member of outer class can be accessed directly.
+GeeksforGeeks has prepared a complete interview preparation course with premium videos, theory
+
+
+
+mysql> select * from emp;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | Ruchir  |  89000 |
+|    2 | Geeta   | 104000 |
+|    3 | Prabhat |  90000 |
+|    6 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
+|    1 | Bharti  |      0 |
+|    1 | Bharti  |   9000 |
++------+---------+--------+
+7 rows in set (0.13 sec)
+
+mysql> select  * from emp limit 3;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | Ruchir  |  89000 |
+|    2 | Geeta   | 104000 |
+|    3 | Prabhat |  90000 |
++------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select  * from emp limit 2,3;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    3 | Prabhat |  90000 |
+|    6 | Bhushan | 900.79 |
+|    5 | Mani    |  34000 |
++------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select  * from emp limit 2,1;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    3 | Prabhat |  90000 |
++------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from emp where salary < (select max(salary) from emp);
++-------------+
+| max(salary) |
++-------------+
+|       90000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where salary = (select max(salary) from emp);
++------+-------+--------+
+| eid  | ename | salary |
++------+-------+--------+
+|    2 | Geeta | 104000 |
++------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp order by salary desc limit 1,1;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    3 | Prabhat |  90000 |
++------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(7, "Mani", 90000);
+
+mysql> select * from emp where salary = (select max(salary) from emp where salary < (select max(salary) from emp));
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    3 | Prabhat |  90000 |
+|    7 | Mani    |  90000 |
++------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> create table em(select ename from emp);
+Query OK, 8 rows affected (0.81 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from em;
++---------+
+| ename   |
++---------+
+| Ruchir  |
+| Geeta   |
+| Prabhat |
+| Bhushan |
+| Mani    |
+| Bharti  |
+| Bharti  |
+| Mani    |
++---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from emp group by salary having sum(salary) > 10000;
++------+---------+--------+
+| eid  | ename   | salary |
++------+---------+--------+
+|    1 | Ruchir  |  89000 |
+|    2 | Geeta   | 104000 |
+|    3 | Prabhat |  90000 |
+|    5 | Mani    |  34000 |
++------+---------+--------+
+4 rows in set (0.00 sec)

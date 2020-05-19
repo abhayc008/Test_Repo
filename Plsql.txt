@@ -609,7 +609,45 @@ mysql> select distinct length(department) from worker;
 |                  7 |
 +--------------------+
 3 rows in set (0.00 sec)
+mysql> select replace(first_name, 'a','A') as first_name from worker;
++------------+
+| first_name |
++------------+
+| MonikA     |
+| NihArikA   |
+| VishAl     |
+| AmitAbh    |
+| Vivek      |
+| Vipul      |
+| SAtish     |
+| GeetikA    |
++------------+
+8 rows in set (0.00 sec)
 
+
+mysql> select 'abc';
++-----+
+| abc |
++-----+
+| abc |
++-----+
+1 row in set (0.00 sec)
+
+mysql> select replace('ABC','A','P') as col;
++------+
+| col  |
++------+
+| PBC  |
++------+
+1 row in set (0.00 sec)
+
+mysql> select replace('ABC','A','P') as col1,replace('PQR','PQR','P') as col2;
++------+------+
+| col1 | col2 |
++------+------+
+| PBC  | P    |
++------+------+
+1 row in set (0.00 sec)
 =========================================================
 
 

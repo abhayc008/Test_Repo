@@ -943,4 +943,562 @@ mysql> select department, joining_date, count(department) from worker group by d
 +------------+---------------------+-------------------+
 3 rows in set (0.00 sec)
 
+mysql>mysql> select department , count(worker_id) as no_of_worker from worker group by department order by no_of_worker;
++------------+--------------+
+| department | no_of_worker |
++------------+--------------+
+| HR         |            2 |
+| Admin      |            3 |
+| Account    |            3 |
++------------+--------------+
+3 rows in set (0.00 sec)
+
+=============================================================================
+MySQL DISTINCT clause is used to remove duplicate records from the table and fetch only the unique records. The DISTINCT clause is only used with the SELECT statement.
+...
+MySQL Distinct Clause
+SELECT DISTINCT expressions.
+FROM tables.
+[WHERE conditions];
+
+WHERE is a part of the SELECT query as a whole, ON is a part of each individual join.
+
+ON can only refer to the fields of previously used tables.
+
+<> is standard ANSI SQL and stands for not equal or !=.
+
+clone of table ...
+CREATE TABLE new_table LIKE original_table;
+
+CREATE TABLE new_table AS SELECT * FROM original_table;
+
+clone of table in one statement...
+
+CREATE TABLE new_table AS SELECT * FROM original_table;
+
+
+SELECT *
+FROM Employee_Test Emp1
+WHERE ( n ) = (
+                SELECT COUNT( DISTINCT ( Emp2.Employee_Salary ) )
+                FROM Employee_Test Emp2
+                WHERE Emp2.Employee_Salary >= Emp1.Employee_Salary
+            )
+
+SELECT Salary
+FROM Worker W1
+WHERE n-1 = (
+ SELECT COUNT( DISTINCT ( W2.Salary ) )
+ FROM Worker W2
+ WHERE W2.Salary >= W1.Salary
+ );
+
+max 3 salary 
+
+SELECT distinct Salary
+FROM Worker W1
+WHERE 3>= (
+ SELECT COUNT( DISTINCT ( W2.Salary ) )
+ FROM Worker W2
+ WHERE W2.Salary >= W1.Salary
+ order by  w2.salary 
+ );
+
+min 3 salary
+
+SELECT distinct Salary
+FROM Worker W1
+WHERE 3>= (
+ SELECT COUNT( DISTINCT ( W2.Salary ) )
+ FROM Worker W2
+ WHERE W2.Salary <= W1.Salary
+order by a.salary desc
+ );
+
+SELECT distinct Salary from worker a WHERE 3 
+>= (SELECT count(distinct Salary) from worker b
+ WHERE a.Salary <= b.Salary
+order by a.Salary desc) 
+;
+
+select Distinct(salary) from worker w , worker t where salary w.salary >= t.salary;
+
+
+SELECT Salary FROM Worker W1 WHERE n-1 = (  SELECT COUNT( DISTINCT ( W2.Salary ) )  FROM Worker W2  WHERE W2.Salary >= W1.Salary  );
+
+
+to find a commom records 
+
+SELECT firstname, 
+   lastname, 
+   list.address 
+FROM list
+   INNER JOIN (SELECT address
+               FROM   list
+               GROUP  BY address
+               HAVING COUNT(id) > 1) dup
+           ON list.address = dup.address;
+==============================================
+
+mysql> select department , count(worker_id) as no_of_worker from worker group by department order by no_of_worker;
++------------+--------------+
+| department | no_of_worker |
++------------+--------------+
+| HR         |            2 |
+| Admin      |            3 |
+| Account    |            3 |
++------------+--------------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from worker where worker_id <= (select count(worker_id)/2 from worker);
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+
+mysql> select DISTINCT w.worker_id, t.worker_title from worker w inner join title t on  w.worker_id = t.worker_ref_id  and t.worker_title in('Manager');
++-----------+--------------+
+| worker_id | worker_title |
++-----------+--------------+
+|         1 | Manager      |
+|         5 | Manager      |
++-----------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select worker_title , affected_from , count(*) from title group by worker_title, affected_from having count(*) >1;
++--------------+---------------------+----------+
+| worker_title | affected_from       | count(*) |
++--------------+---------------------+----------+
+| Executive    | 2016-06-11 00:00:00 |        2 |
+| Lead         | 2016-06-11 00:00:00 |        2 |
++--------------+---------------------+----------+
+2 rows in set (0.00 sec)
+
+
 mysql>
+mysql> select * from worker where mod(worker_id, 2) =1;
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from worker where mod(worker_id, 2) <>1;
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select department , count(department) as no_of_workers from worker group by department having count(department)<5;
++------------+---------------+
+| department | no_of_workers |
++------------+---------------+
+| HR         |             2 |
+| Admin      |             3 |
+| Account    |             3 |
++------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from worker where mod(worker_id, 2) =0;
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from worker where mod(worker_id, 2) <>0;
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> desc worker_clone;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| worker_id    | int         | NO   | PRI | NULL    |       |
+| first_name   | varchar(40) | YES  |     | NULL    |       |
+| last_name    | varchar(40) | YES  |     | NULL    |       |
+| salary       | int         | YES  |     | NULL    |       |
+| Joining_date | datetime    | YES  |     | NULL    |       |
+| Department   | varchar(25) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+
+mysql> create table new_table as select * from worker;
+Query OK, 8 rows affected (1.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from new_table;
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select DISTINCT w.worker_id from worker w inner join title t where w.worker_id = t.worker_ref_id;
++-----------+
+| worker_id |
++-----------+
+|         1 |
+|         2 |
+|         3 |
+|         4 |
+|         5 |
+|         6 |
+|         7 |
+|         8 |
++-----------+
+8 rows in set (0.03 sec)
+
+mysql> select DISTINCT worker_id from worker w inner join title t where w.worker_id = t.worker_ref_id;
++-----------+
+| worker_id |
++-----------+
+|         1 |
+|         2 |
+|         3 |
+|         4 |
+|         5 |
+|         6 |
+|         7 |
+|         8 |
++-----------+
+8 rows in set (0.00 sec)
+
+mysql> select DISTINCT worker_id from worker w inner join title t where w.worker_id <>t.worker_ref_id;
++-----------+
+| worker_id |
++-----------+
+|         2 |
+|         3 |
+|         4 |
+|         5 |
+|         6 |
+|         7 |
+|         8 |
+|         1 |
++-----------+
+8 rows in set (0.00 sec)
+
+mysql> select DISTINCT worker_id from worker w inner join title t where using(w.worker_id= t.worker_ref_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'using(w.worker_id= t.worker_ref_id)' at line 1
+mysql> select DISTINCT worker_id from worker w inner join title t where w.worker_id in (select worker_ref_id from title);
++-----------+
+| worker_id |
++-----------+
+|         1 |
+|         2 |
+|         3 |
+|         4 |
+|         5 |
+|         6 |
+|         7 |
+|         8 |
++-----------+
+8 rows in set (0.00 sec)
+mysql> select DISTINCT w.worker_id , t.worker_id from worker w inner join new_table t where w.worker_id= t.worker_id;
++-----------+-----------+
+| worker_id | worker_id |
++-----------+-----------+
+|         1 |         1 |
+|         2 |         2 |
+|         3 |         3 |
+|         4 |         4 |
+|         5 |         5 |
+|         6 |         6 |
+|         7 |         7 |
+|         8 |         8 |
++-----------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select DISTINCT  count(*) from worker w inner join new_table t where w.worker_id= t.worker_id;
++----------+
+| count(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+
+Q-30. Write an SQL query to show records from one table that another table does not have.
+
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2020-05-17 13:33:12 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from worker order by salary desc LIMIT 10;
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Account    |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select salary  from worker order by salary desc LIMIT 4,1;
++--------+
+| salary |
++--------+
+| 100000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select salary  from worker order by salary desc LIMIT 4;
++--------+
+| salary |
++--------+
+| 500000 |
+| 500000 |
+| 300000 |
+| 200000 |
++--------+
+4 rows in set (0.00 sec)
+
+mysql> select salary  from worker order by salary desc LIMIT 5;
++--------+
+| salary |
++--------+
+| 500000 |
+| 500000 |
+| 300000 |
+| 200000 |
+| 100000 |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select salary  from worker order by salary desc LIMIT 5,1;
++--------+
+| salary |
++--------+
+|  90000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select salary  from worker order by salary desc LIMIT 4,1;
++--------+
+| salary |
++--------+
+| 100000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select salary  from worker order by salary desc LIMIT 1,1;
++--------+
+| salary |
++--------+
+| 500000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select salary  from worker order by salary desc LIMIT 2,1;
++--------+
+| salary |
++--------+
+| 300000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select salary  from worker order by salary desc LIMIT 2,3;
++--------+
+| salary |
++--------+
+| 300000 |
+| 200000 |
+| 100000 |
++--------+
+3 rows in set (0.00 sec)
+
+mysql> select *
+    -> from worker w1
+    -> where (6)
+    -> = (select COUNT(DISTINCT(salary)) from worker w2 where w2.salary >= w1.salary)
+    -> ;
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select DISTINCT w.worker_id, w.first_name , w.salary from worker w, worker w1 where w.salary = w1.salary and w.worker_id != w1.worker_id;
++-----------+------------+--------+
+| worker_id | first_name | salary |
++-----------+------------+--------+
+|         5 | Vivek      | 500000 |
+|         4 | Amitabh    | 500000 |
++-----------+------------+--------+
+2 rows in set (0.00 sec)
+mysql> select max(salary) from worker where salary not in(select max(salary) from worker);
++-------------+
+| max(salary) |
++-------------+
+|      300000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select first_name , department from worker w where w.department = 'HR' union all select first_name , department from worker w1 where w1.department ='HR';
++------------+------------+
+| first_name | department |
++------------+------------+
+| Monika     | HR         |
+| Vishal     | HR         |
+| Monika     | HR         |
+| Vishal     | HR         |
++------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name , department from worker where department = 'HR' union all select first_name , department from worker  where department ='HR';
++------------+------------+
+| first_name | department |
++------------+------------+
+| Monika     | HR         |
+| Vishal     | HR         |
+| Monika     | HR         |
+| Vishal     | HR         |
++------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select department , count(department) as no_of_workers from worker group by department ;
++------------+---------------+
+| department | no_of_workers |
++------------+---------------+
+| HR         |             2 |
+| Admin      |             3 |
+| Account    |             3 |
++------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from worker where worker_id  = (select max(worker_id) from worker);
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from worker where worker_id  = (select min(worker_id) from worker);
++-----------+------------+-----------+--------+---------------------+------------+
+| worker_id | first_name | last_name | salary | Joining_date        | Department |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
++-----------+------------+-----------+--------+---------------------+------------+
+1 row in set (0.00 sec)
+
+select t.department, t.first_name, t.salary from (select max(salary)as totalSalary , department from worker group by department) as tempNew
+ inner join worker t 
+where tempNew.department = t.department
+and
+tempNew.totalSalary = t.salary ;
+
+
+mysql> select t.department, t.first_name, t.salary from (select max(salary)as totalSalary , department from worker group by department) as tempNew
+    ->  inner join worker t
+    -> where tempNew.department = t.department
+    -> and
+    -> tempNew.totalSalary = t.salary ;
++------------+------------+--------+
+| department | first_name | salary |
++------------+------------+--------+
+| HR         | Vishal     | 300000 |
+| Admin      | Amitabh    | 500000 |
+| Admin      | Vivek      | 500000 |
+
+last 3 min salary
+
+mysql> SELECT distinct Salary
+    -> FROM Worker W1
+    -> WHERE 3>= (
+    ->  SELECT COUNT( DISTINCT ( W2.Salary ) )
+    ->  FROM Worker W2
+    ->  WHERE W2.Salary <= W1.Salary
+    ->  order by  w1.salary desc
+    ->  );
++--------+
+| Salary |
++--------+
+|  80000 |
+|  75000 |
+|  90000 |
++--------+
+max 3 salary
+
+mysql> SELECT distinct Salary
+    -> FROM Worker W1
+    -> WHERE 3>= (
+    ->  SELECT COUNT( DISTINCT ( W2.Salary ) )
+    ->  FROM Worker W2
+    ->  WHERE W2.Salary >= W1.Salary
+    ->  order by  w2.salary
+    ->  );
++--------+
+| Salary |
++--------+
+| 300000 |
+| 500000 |
+| 200000 |
+
+mysql> select department, sum(salary) from worker group by department;
++------------+-------------+
+| department | sum(salary) |
++------------+-------------+
+| HR         |      400000 |
+| Admin      |     1080000 |
+| Account    |      365000 |
++------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select first_name, salary from worker where salary = (select max(salary) from worker);
++------------+--------+
+| first_name | salary |
++------------+--------+
+| Amitabh    | 500000 |
+| Vivek      | 500000 |
++------------+--------+
+2 rows in set (0.00 sec)

@@ -6,28 +6,22 @@ public class Question3
 {
 
 	public static void main(String[] args)
-	{
-		String typeOfVehicle, model;
-		
-		Vehicle3 vehicle3 = new Vehicle3();
-		
-		Scanner scanner = new Scanner(System.in);
-		
+	{	
 		System.out.println("Please enter the details of vehicle:");
+		Vehicle3 vehicle3 = new Vehicle3("Car", "Maruti", "Maruti Suziki 800", "red");
 		
-		System.out.println("Vehicle Tpye:");
-		typeOfVehicle = scanner.nextLine();
-		
-		System.out.println("Model :");
-		model = scanner.nextLine();
-		
+		System.out.println(vehicle3);
 		// for increase the speed of vehicle
+		vehicle3.speedUp();
+	    System.out.println("Current speed of vehicle is :" +vehicle3.getSpeed());
+	    System.out.println(vehicle3);
+	    
 		for(int i=0; i<5; i++)
 		{
-		    vehicle3.accelerate();
+		    vehicle3.speedUp();
 		    System.out.println("Current speed of vehicle is :" +vehicle3.getSpeed());
 		}
-		
+		System.out.println(vehicle3);
 		/*
 		System.out.println("--------------------------------------------------");
 		//Brake

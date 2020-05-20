@@ -1,0 +1,40 @@
+Microsoft Windows [Version 10.0.10586]
+(c) 2015 Microsoft Corporation. All rights reserved.
+
+C:\Users\abhay>set path ="C:\Program Files\Java\jdk-13.0.2\bin";
+
+C:\Users\abhay>jshell
+|  Welcome to JShell -- Version 13.0.2
+|  For an introduction type: /help intro
+
+jshell> 2+4
+$1 ==> 6
+
+jshell> $1
+$1 ==> 6
+
+jshell> System.out.println("hello");
+hello
+
+jshell> public void show(){
+   ...> System.out.println("geeta");}
+|  created method show()
+
+jshell> show()
+geeta
+
+jshell> class A
+   ...> {public void display(){
+   ...> System.out.println("BYe");
+   ...> }}
+|  created class A
+
+jshell> A obj = new A();
+obj ==> A@1d057a39
+
+jshell> obj.display();
+BYe
+
+jshell>
+
+

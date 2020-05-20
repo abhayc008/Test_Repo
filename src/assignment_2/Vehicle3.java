@@ -2,28 +2,25 @@ package assignment_2;
 
 public class Vehicle3
 {
-	private int year;
-	private String make;
-	private int speed;
-	   
-	Vehicle3()
-	{
-	  year = 2006;
-	  make = "  ";
-	  speed = 0;
+	String typeOfVehicle, brand, model, color, year;
+	int price, speed;
+	
+	public Vehicle3(String typeOfVehicle, String brand, String model, String color) {
+		super();
+		this.typeOfVehicle = typeOfVehicle;
+		this.brand = brand;
+		this.model = model;
+		this.color = color;
+		price = 4500000;
+		speed = 0;	
+		}
+	
+	@Override
+	public String toString() {
+		return "Vehicle3 [typeOfVehicle=" + typeOfVehicle + ", brand=" + brand + ", model=" + model + ", color=" + color
+				+ ", year=" + year + ", price=" + price + ", speed=" + speed + "]";
 	}
-    public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public String getMake() {
-		return make;
-	}
-	public void setMake(String make) {
-		this.make = make;
-	}
+
 	public int getSpeed() {
 		return speed;
 	}
@@ -31,7 +28,7 @@ public class Vehicle3
 		this.speed = speed;
 	}
 	
-	public void accelerate()
+	public void speedUp()
 	{
 		speed += 5;
 	}

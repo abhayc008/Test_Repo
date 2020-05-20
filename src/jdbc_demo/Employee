@@ -1,0 +1,61 @@
+package jdbc_demo;
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class Employee
+{
+
+	public static void main(String[] args) throws SQLException
+	{
+		Connection con =null;
+		PreparedStatement  ps = null;
+		
+		int id, row;
+		String name;
+		double salary;
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("Enter Id:");
+		id = scanner.nextInt();
+		
+		System.out.println("Enter Name:");
+		name = scanner.next();
+		
+		System.out.println("Enter salary:");
+		salary = scanner.nextDouble();
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");// it is load a class
+			con = DriverManager.getConnection("jdbc:mysql://localhost/geeta","root","geet");//getConnection is a factory method
+			ps = con.prepareStatement("insert into emp values(?,?,?)");
+			ps.setInt(1,id);
+			ps.setString(2, name);
+			ps.setDouble(3, salary);
+			
+			row = ps.executeUpdate();
+			
+			if(row>0)
+			{
+			   System.out.println("Successfully added !!!");
+			}
+			else
+			{
+				System.out.println("Failed!!");
+			}
+			
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			System.out.println(e);
+		}
+		finally
+		{
+			con.close();
+			ps.close();
+		}
+
+	}
+
+}

@@ -27,7 +27,9 @@ public class CustomerDaoImpl implements CustomerDao
 	
 	String searchById = "select * from customer_012171 where customer_id = ?";
 	
-	//String searchByName = " ";
+	String searchByName = "select * from customer_012171 where customer_name like ? ";
+	
+	String searchByEmailId = "select * from customer_012171 where customer_email_id= ?";
 	
 	String showAll = "select * from customer_012171";
 	
@@ -123,11 +125,6 @@ public class CustomerDaoImpl implements CustomerDao
       	  
       	  ResultSet rs = ps.executeQuery();
 
-      	if (!rs.isBeforeFirst() ) {    
-      	    customer = new  Customer(); 
-      	} 
-      	else {
-      		  
       	  while (rs.next()) 
 			  {
                  int customer_id = rs.getInt("customer_id");
@@ -138,10 +135,9 @@ public class CustomerDaoImpl implements CustomerDao
                  long customer_contact_no = rs.getLong("customer_contact_no");
                  
 				
-				 customer = new Customer(customer_id,customer_name,customer_email_id,customer_password,customer_address,customer_contact_no);
-			  }
-      	  }
-				 
+				 customer = new Customer(customer_name,customer_email_id,customer_password,customer_contact_no,customer_address);
+				 customer.setCustomerId(customer_id);
+			  }	 
 	    }   
 		
 	    catch(Exception ex) 
@@ -156,25 +152,30 @@ public class CustomerDaoImpl implements CustomerDao
 	{
 		List<Customer> lstCustomer = new ArrayList<>();
 		try 
-	    {   
-		  String searchByName = "Select * from customer_012171 where  customer_name  like  '%"+customerName+"%'";
-		  
+	    { 
+			
       	  PreparedStatement ps = con.prepareStatement(searchByName);
-      	  
+      	  ps.setString(1, "%" +customerName+ "%");
       	  ResultSet rs = ps.executeQuery();
 
       	  while (rs.next()) 
 			  {
-                 int customer_id = rs.getInt("customer_id");
-                 String customer_name = rs.getString("customer_name");
-                 String customer_email_id = rs.getString("customer_email_id");
-                 String customer_password = rs.getString("customer_password");
-                 String customer_address = rs.getString("customer_address");
-                 long customer_contact_no = rs.getLong("customer_contact_no");
-                 
-				
-				 customer = new Customer(customer_id,customer_name,customer_email_id,customer_password,customer_address,customer_contact_no);
-			     lstCustomer.add(customer) ;
+      		     String name = rs.getString("customer_name");
+      		     if(name.contains(customerName)) 
+      		     {
+      		    	 int customer_id = rs.getInt("customer_id");
+                     String customer_name = rs.getString("customer_name");
+                     String customer_email_id = rs.getString("customer_email_id");
+                     String customer_password = rs.getString("customer_password");
+                     String customer_address = rs.getString("customer_address");
+                     long customer_contact_no = rs.getLong("customer_contact_no");
+                     
+    				
+    				 customer = new Customer(customer_name,customer_email_id,customer_password,customer_contact_no,customer_address);
+    				 customer.setCustomerId(customer_id);
+    			     lstCustomer.add(customer) ; 
+      		     }
+                
 			  }	 
 	    }   
 		
@@ -205,7 +206,9 @@ public class CustomerDaoImpl implements CustomerDao
                long customer_contact_no = rs.getLong("customer_contact_no");
                
 				
-				 customer = new Customer(customer_id,customer_name,customer_email_id,customer_password,customer_address,customer_contact_no);
+				 customer = new Customer(customer_name,customer_email_id,customer_password,customer_contact_no,customer_address);
+				 customer.setCustomerId(customer_id);
+				 
 			     allCust.add(customer) ;
 			  }	 
 		}
@@ -214,6 +217,40 @@ public class CustomerDaoImpl implements CustomerDao
 			ex.printStackTrace();
 		}
 		return allCust;
+	}
+
+	@Override
+	public List<Customer> searchCustomerByEmailId(String customerEmailId)
+	{
+		List<Customer> lstCustomer = new ArrayList<>();
+		try 
+	    { 
+			
+      	  PreparedStatement ps = con.prepareStatement(searchByEmailId);
+      	  ps.setString(1, customerEmailId);
+      	  ResultSet rs = ps.executeQuery();
+
+      	  while (rs.next()) 
+			  {
+      		  
+      		     int customer_id = rs.getInt("customer_id");
+                 String customer_name = rs.getString("customer_name");
+                 String customer_email_id = rs.getString("customer_email_id");
+                 String customer_password = rs.getString("customer_password");
+                 String customer_address = rs.getString("customer_address");
+                 long customer_contact_no = rs.getLong("customer_contact_no");
+                     
+    			 customer = new Customer(customer_name,customer_email_id,customer_password,customer_contact_no,customer_address);
+    			 customer.setCustomerId(customer_id);
+    			 
+    			 lstCustomer.add(customer) ; 
+      		   }	 
+	    }   
+	    catch(Exception ex) 
+	    {
+	    	ex.printStackTrace();
+	    }
+		return lstCustomer;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.pharmacy.test;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class CustomerTest
 
 	public static void main(String[] args)
 	{
-		List<Customer> search;
+		List<Customer> custList ;
 		Customer customer;
 		
 		int choice, customerId;
@@ -38,9 +39,10 @@ public class CustomerTest
 				System.out.println("2. Update Customer");
 				System.out.println("3. Delete Customer");
 				System.out.println("4. Search Customer by Id");
-				System.out.println("5 Search Customer by name");
-				System.out.println("6.Show all Customer");
-				System.out.println("7.Exit");
+				System.out.println("5. Search Customer by name");
+				System.out.println("6. Search Customer by email id");
+				System.out.println("7.Show all Customer");
+				System.out.println("8.Exit");
 				
 				System.out.println("Enter your choice");
 				choice = scanner.nextInt();
@@ -65,8 +67,8 @@ public class CustomerTest
 						System.out.println("Enter Customer Address");
 						customerAddress = br.readLine();				
 						
-						customer = new Customer(customerName,customerAddress,customerEmailId,customerPassword,
-								 customerContactNo);
+						customer = new Customer(customerName,customerEmailId,customerPassword,
+								 customerContactNo,customerAddress);
 						flag = impl.addCustomer(customer);
 						
 						if(flag) 
@@ -75,7 +77,7 @@ public class CustomerTest
 						}
 						else 
 						{
-							System.out.println("falied");
+							System.out.println("failed");
 						}
 						
 					  break;
@@ -85,42 +87,64 @@ public class CustomerTest
 					    System.out.println("Enter existing customer id");
 						customerId= scanner.nextInt();
 						
-						System.out.println("Enter Customer Name");
-						customerName = br.readLine();
-					   	
-						System.out.println("Enter Customer Email Id ");
-						customerEmailId = br.readLine();
+						custList = impl.showAllCustomer();
+						Iterator <Customer> cust = custList.iterator();
 						
-						System.out.println("Enter Customer Password");
-						customerPassword = br.readLine();
+						Customer objCustomer= null;
 						
-						System.out.println("Enter Customer Contact No.");
-						customerContactNo = scanner.nextLong();
-						
-						System.out.println("Enter Customer Address");
-						customerAddress = br.readLine();				
-						
-						customer = new Customer(customerName,customerAddress,customerEmailId,customerPassword,
-								 customerContactNo);
-						
-						customer.setCustomerId(customerId);
-						
-						flag = impl.updateCustomer(customer);
-						
-						if(flag) 
+						while(cust.hasNext()) 
 						{
-							System.out.println("Customer Updated successfully !!");
+							Customer i = cust.next();
+							if(i.getCustomerId()==customerId) 
+							{
+								objCustomer = i;
+							}
 						}
-						else 
+						
+						if(objCustomer != null && objCustomer.getCustomerId() > 0)
 						{
-							System.out.println("falied");
-						}
+						
+								System.out.println("Enter Customer Name");
+								customerName = br.readLine();
+							   	
+								System.out.println("Enter Customer Email Id ");
+								customerEmailId = br.readLine();
+								
+								System.out.println("Enter Customer Password");
+								customerPassword = br.readLine();
+								
+								System.out.println("Enter Customer Contact No.");
+								customerContactNo = scanner.nextLong();
+								
+								System.out.println("Enter Customer Address");
+								customerAddress = br.readLine();				
+								
+								customer = new Customer(customerName,customerEmailId,customerPassword,
+										 customerContactNo,customerAddress);
+								
+								customer.setCustomerId(customerId);
+								
+								flag = impl.updateCustomer(customer);
+								
+								if(flag) 
+								{
+									System.out.println("Customer Updated successfully !!");
+								}
+								else 
+								{
+									System.out.println("falied");	
+								}
+							 }
+							else 
+							{
+								System.out.println("Customer id doesn't exist" +customerId);								
+							}					
 						
 					  break;
 				  case 3:
 						System.out.println("--------Delete Customer--------------");
 						
-						System.out.println("Enter medicine Id");;
+						System.out.println("Enter customer Id");
 						customerId = scanner.nextInt();
 
 					    flag = impl.deleteCustomer(customerId);
@@ -139,7 +163,7 @@ public class CustomerTest
 						 customerId = scanner.nextInt();
 						 customer = impl.searchCustomerById( customerId);
 						
-						if( customer.getCustomerId()>0) 
+						if(customer !=null) //if(customer.getCustomerId()>0)
 						{
 							System.out.println(" customerId ||  customerName || customerEmailId ||  customerPassword "
 									+ "||  customerContactNo ||  customeraddress");
@@ -155,24 +179,59 @@ public class CustomerTest
 				  case 5:
 						System.out.println("Enter customer name");
 						customerName = br.readLine();
-						search = impl.searchCustomerByCustomerName(customerName);
-						System.out.println(search);
-						break;					 
-				  case 6:
-					  System.out.println("----All Customer details are----");
-					  
-					 search = impl.showAllCustomer();
-	                    
-						for(Customer a: search)
+						custList  = impl.searchCustomerByCustomerName(customerName);
+						if(!custList.isEmpty()) 
 						{
-							System.out.println(" "+a);
+							System.out.println(custList);	
 						}
+						else 
+						{
+							System.out.println("No such a customer for this name"+customerName);
+						}
+						
+						break;	
+				  case 6:
+					   System.out.println("Enter customer Email ID");
+					   customerEmailId = br.readLine();
+					   custList  = impl.searchCustomerByEmailId(customerEmailId);
+	                    
+					   if(!custList.isEmpty()) 
+					   {
+						   for(Customer cust1: custList )
+							{
+								System.out.println(" "+cust1);
+							}
+						   
+					   }
+					   else 
+					   {
+						   System.out.println("No such a customer with this email id : "+customerEmailId);
+					   }
 					  break;
 				  case 7:
+					  System.out.println("----All Customer details are----");
+					  
+					   custList = impl.showAllCustomer();
+	                    
+					   if(!custList.isEmpty()) 
+					   {
+						   for(Customer cust2: custList )
+							{
+								System.out.println(" "+cust2);
+							}
+						   
+					   }
+					   else 
+					   {
+						   System.out.println("No record found!!!");
+					   }
 					  break;
-			      default:
+
+				  case 8:
 			    	  System.out.println("Thank you for visit!!!");
 			    	  System.exit(0);
+			      default :
+			    	  System.out.println("Please enter valid choice !!!");
 				}
 		
 			}
@@ -180,6 +239,10 @@ public class CustomerTest
 		catch(Exception ex) 
 		{
 			ex.printStackTrace();
+		}
+		finally 
+		{
+			scanner.close();
 		}
 	}
 }

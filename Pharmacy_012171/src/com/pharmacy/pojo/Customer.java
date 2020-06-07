@@ -2,65 +2,31 @@ package com.pharmacy.pojo;
 
 public class Customer 
 {
-	String customerName,customerAddress, customerEmailId, customerPassword ;
-    int customerId;
-    long customerContactNo;
-    
-    
-	@Override
-	public String toString() {
-		return "Customer [customerName=" + customerName + ", customerAddress=" + customerAddress + ", customerEmailId="
-				+ customerEmailId + ", customerPassword=" + customerPassword + ", customerContactNo="
-				+ customerContactNo + ", customerId=" + customerId + "]";
-	}
-	
-	public Customer( int customerId,String customerName, String customerEmailId, String customerAddress, String customerPassword,
-			long customer_contact_no) {
-		super();
-		this.customerId = customerId;
-		this.customerName = customerName;
-		this.customerAddress = customerAddress;
-		this.customerEmailId = customerEmailId;
-		this.customerPassword = customerPassword;
-		this.customerContactNo = customer_contact_no;
-		
-	}
-	
-	public Customer(String customerName, String customerAddress, String customerEmailId, String customerPassword,
-		 long customerContactNo) {
+	private int customerId;
+	private String customerName,customerEmailId, customerPassword ;
+    private long customerContactNo;
+    private String customerAddress;
+
+	public Customer(String customerName, String customerEmailId, String customerPassword, long customerContactNo,
+			String customerAddress) {
 		super();
 		this.customerName = customerName;
-		this.customerAddress = customerAddress;
 		this.customerEmailId = customerEmailId;
 		this.customerPassword = customerPassword;
 		this.customerContactNo = customerContactNo;
+		this.customerAddress = customerAddress;
 	}
-	
-	public Customer() {
-		// TODO Auto-generated constructor stub
-	}
-
-	
-
 	public int getCustomerId() {
 		return customerId;
 	}
-	
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
-	
 	public String getCustomerName() {
 		return customerName;
 	}
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
-	}
-	public String getCustomerAddress() {
-		return customerAddress;
-	}
-	public void setCustomerAddress(String customerAddress) {
-		this.customerAddress = customerAddress;
 	}
 	public String getCustomerEmailId() {
 		return customerEmailId;
@@ -80,5 +46,18 @@ public class Customer
 	public void setCustomerContactNo(long customerContactNo) {
 		this.customerContactNo = customerContactNo;
 	}
+	public String getCustomerAddress() {
+		return customerAddress;
+	}
+	public void setCustomerAddress(String customerAddress) {
+		this.customerAddress = customerAddress;
+	}
 	
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", customerEmailId="
+				+ customerEmailId + ", customerPassword=" + customerPassword + ", customerContactNo="
+				+ customerContactNo + ", customerAddress=" + customerAddress + "]";
+	}
+
 }

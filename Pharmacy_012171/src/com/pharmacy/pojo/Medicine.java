@@ -1,8 +1,5 @@
 package com.pharmacy.pojo;
 
-import java.util.Date;
-
-
 public class Medicine
 {     
 	
@@ -11,45 +8,24 @@ public class Medicine
 	   private String mfgDate, expiryDate;
 	   private double medicinePrice;
 	   
-	   public Medicine(int medicineQty, String medicineName, String medicineType, String medicineBrand,
-			String medicineDiscription, String mfgDate, String expiryDate, double medicinePrice) {
+	   public Medicine(String medicineName, String medicineType, String medicineBrand,
+			String medicineDiscription,int medicineQty,  String mfgDate, String expiryDate, double medicinePrice) {
 		super();
-		this.medicineQty = medicineQty;
 		this.medicineName = medicineName;
 		this.medicineType = medicineType;
 		this.medicineBrand = medicineBrand;
 		this.medicineDiscription = medicineDiscription;
-		this.mfgDate = mfgDate;
-		this.expiryDate = expiryDate;
-		this.medicinePrice = medicinePrice;
-	}
-	
-   @Override
-	public String toString() {
-		return "Medicine [medicineId=" + medicineId + ", medicineQty=" + medicineQty + ", medicineName=" + medicineName
-				+ ", medicineType=" + medicineType + ", medicineBrand=" + medicineBrand + ", medicineDiscription="
-				+ medicineDiscription + ", mfgDate=" + mfgDate + ", expiryDate=" + expiryDate + ", medicinePrice="
-				+ medicinePrice + "]";
-	}
-public Medicine(int medicineId, int medicineQty, String medicineName, String medicineType, String medicineBrand,
-			String medicineDiscription, String mfgDate, String expiryDate, double medicinePrice) {
-		super();
-		this.medicineId = medicineId;
 		this.medicineQty = medicineQty;
-		this.medicineName = medicineName;
-		this.medicineType = medicineType;
-		this.medicineBrand = medicineBrand;
-		this.medicineDiscription = medicineDiscription;
 		this.mfgDate = mfgDate;
 		this.expiryDate = expiryDate;
 		this.medicinePrice = medicinePrice;
 	}
+	   
+    public Medicine() {
+		// TODO Auto-generated constructor stub
+	}
 
-public Medicine() {
-	// TODO Auto-generated constructor stub
-}
-
-public int getMedicineId() {
+	public int getMedicineId() {
 		return medicineId;
 	}
 	public void setMedicineId(int medicineId) {
@@ -103,7 +79,15 @@ public int getMedicineId() {
 	public void setMedicinePrice(double medicinePrice) {
 		this.medicinePrice = medicinePrice;
 	}
-
+   
+	   @Override
+		public String toString() {
+			return "Medicine [medicineId=" + medicineId + ", medicineQty=" + medicineQty + ", medicineName=" + medicineName
+					+ ", medicineType=" + medicineType + ", medicineBrand=" + medicineBrand + ", medicineDiscription="
+					+ medicineDiscription + ", mfgDate=" + mfgDate + ", expiryDate=" + expiryDate + ", medicinePrice="
+					+ medicinePrice + "]";
+		}
+	   
    
    
 }

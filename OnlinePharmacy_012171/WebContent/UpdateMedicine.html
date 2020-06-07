@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+#form{
+   position:fixed;
+   top:10%;
+   left:40%;
+}
+</style>
+</head>
+<body >
+    <form id="form">
+    <fieldset>
+       <legend style="font-size:30px"><b>Update Medicine</b></legend>
+        <table>
+            <tr>
+                <td>Medicine Id:</td>
+                <td><input type="number" name="medid"></td>
+            </tr>
+            <tr>
+                <td>Medicine Name:</td>
+                <td><input type="text" name="medname"></td>
+            </tr>
+            <tr>
+                <td>Medicine Type: </td>
+                <td><select name ="medtype">
+                           <option>Tablet</option>
+                           <option>Ointment</option>
+                           <option>Inhaler</option>
+                           <option>Syrup</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td> Medicine Brand: </td>
+                <td><input type="text" name="medbrand"></td>
+            </tr>
+            <tr>
+                <td>Medicine Description:</td>
+                <td><textarea cols="22" rows="5" name="meddiscription"></textarea></td>
+            </tr>
+            <tr>
+                <td>Medicine Quantity:</td>
+                <td><input type="number" name="medqty"></td>
+            </tr>
+            <tr>
+                <td>Medicine Manufacture Date:</td>
+                <td><input type="date" name="medmfgdate"></td>
+            </tr>
+            <tr>
+                <td>Medicine Expiry Date:</td>
+                <td><input type="date" name="medexpdate"></td>
+            </tr>
+            <tr>
+                <td>Medicine Price </td>
+                <td><input type="text" name="medprice"></td>
+            </tr>
+            <tr>
+                <td> <input type="submit"></td>
+                <td><input type="reset"></td>
+            </tr>
+        </table>
+    </fieldset>      
+    </form>
+</body>
+</html>

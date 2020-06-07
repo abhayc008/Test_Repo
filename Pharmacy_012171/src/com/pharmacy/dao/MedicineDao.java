@@ -4,10 +4,11 @@ import com.pharmacy.pojo.Medicine;
 
 public interface MedicineDao
 {
-    boolean addMedicine(Medicine medicine);
+	boolean addMedicine(Medicine medicine);
     boolean updateMedicine(Medicine medicine);
     boolean   deleteMedicine(int medicineId);
     Medicine searchMedicineById(int medicineId);
     List<Medicine> searchMedicineByMedicineName(String medicineName);
+    List<Medicine> searchMedicineByMedicineBrand(String medicineBrand);
     List<Medicine> showAllMedicine();
 }

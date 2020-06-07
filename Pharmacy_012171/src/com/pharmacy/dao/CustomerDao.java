@@ -11,5 +11,7 @@ public interface CustomerDao
     boolean   deleteCustomer(int customerId);
     Customer searchCustomerById(int customerId);
     List<Customer> searchCustomerByCustomerName(String customerName);
+    List<Customer> searchCustomerByEmailId(String customerEmailId);
     List<Customer> showAllCustomer();
+    
 }

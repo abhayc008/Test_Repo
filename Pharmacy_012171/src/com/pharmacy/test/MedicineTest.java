@@ -3,8 +3,7 @@ package com.pharmacy.test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,6 +14,10 @@ import com.pharmacy.dao.MedicineDaoImpl;
 
 public class MedicineTest {
 
+	/**
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException
 	
 	{
@@ -25,7 +28,7 @@ public class MedicineTest {
 		boolean flag;
 		
 		Medicine medicine;
-		List<Medicine> search;
+		List<Medicine> medList =  new ArrayList<>();
 		
      	MedicineDaoImpl impl = new MedicineDaoImpl();
 		Scanner scanner = new Scanner(System.in);
@@ -37,14 +40,15 @@ public class MedicineTest {
 	    try 
 	    {
 	    	while(true) 
-			{
+		{
 				System.out.println("1.Add Medicine");
 				System.out.println("2. Update Medicine");
 				System.out.println("3. Delete Medicine");
 				System.out.println("4. Search Medicine by Id");
 				System.out.println("5 Search Medicine by medicine name");
-				System.out.println("6.Show all Medicine");
-				System.out.println("7.Exit");
+				System.out.println("6 Search Medicine by brand name");
+				System.out.println("7.Show all Medicine");
+				System.out.println("8.Exit");
 				
 				System.out.println("Enter your choice");
 				choice = scanner.nextInt();
@@ -78,8 +82,8 @@ public class MedicineTest {
 					System.out.println("Enter Medicine price");
 					medicinePrice = scanner.nextDouble();
 					
-					medicine = new Medicine(medicineQty, medicineName,medicineType,medicineBrand,
-						 medicineDiscription,mfgDate,expiryDate,medicinePrice);
+					medicine = new Medicine(medicineName,medicineType,medicineBrand,
+						 medicineDiscription,medicineQty,mfgDate,expiryDate,medicinePrice);
 					
 					
 					flag = impl.addMedicine(medicine);
@@ -124,8 +128,8 @@ public class MedicineTest {
 					System.out.println("Enter Medicine price");
 					medicinePrice = scanner.nextDouble();
 					
-					medicine = new Medicine(medicineQty, medicineName,medicineType,medicineBrand,
-						 medicineDiscription,mfgDate,expiryDate,medicinePrice);
+					medicine = new Medicine(medicineName,medicineType,medicineBrand,
+						 medicineDiscription,medicineQty,mfgDate,expiryDate,medicinePrice);
 					
 					medicine.setMedicineId(medicineId);
 					
@@ -158,6 +162,21 @@ public class MedicineTest {
 					}
 					break;
 				case 4:
+					/*
+					System.out.println("Enter medicine id");
+					medicineId = scanner.nextInt();
+					medicine = impl.searchMedicineById(medicineId);
+					
+					if(medicine != null) 
+					{
+						System.out.println(medicine);
+					}
+					else 
+					{
+						System.out.println("No such medicine id found !!!");
+					}*/
+					
+					
 					System.out.println("Enter medicine id");
 					medicineId = scanner.nextInt();
 					medicine = impl.searchMedicineById(medicineId);
@@ -177,23 +196,64 @@ public class MedicineTest {
 					{
 						System.out.println("Medicine not found with id "+medicineId);
 					}
+					
 					break;
 				case 5:
+					System.out.println("---Search medicine by name-----");
 					System.out.println("Enter medicine name");
 					medicineName = br.readLine();
-					search = impl.searchMedicineByMedicineName(medicineName);
-					System.out.println(search);
+					medList = impl.searchMedicineByMedicineName(medicineName);
+					
+					if(!medList.isEmpty())
+					{
+						for(Medicine med: medList)
+						{
+							System.out.println(" "+med);
+						}
+						
+					}
+					else 
+					{
+						System.out.println("No such a medicine found");
+
+					}
+					/*
+					System.out.println("Enter medicine name");
+					medicineName = br.readLine();
+					medList = impl.searchMedicineByMedicineName(medicineName);
+					System.out.println(medList);
+					*/
 					break;
 				case 6:
-					System.out.println("-----------Details of medicine-------------");
-					search = impl.showAllMedicine();
-                    
-					for(Medicine a: search)
+					System.out.println("----Search by medicine brand-------");
+				    System.out.println("Enter medicine brand");
+					medicineBrand = br.readLine();
+					medList = impl.searchMedicineByMedicineBrand(medicineBrand);
+					
+					if(!medList.isEmpty())
 					{
-						System.out.println(" "+a);
+						for(Medicine med: medList)
+						{
+							System.out.println(" "+med);
+						}
+						
+					}
+					else 
+					{
+						System.out.println("No such a brand found!!!");
+
 					}
 					break;
 				case 7:
+					System.out.println("-----------Details of medicine-------------");
+					medList = impl.showAllMedicine();
+                    
+					for(Medicine med: medList)
+					{
+						System.out.println(" "+med);
+					}
+					break;
+				case 8:
 					System.out.println("Thanking you for Visiting!!!");
 					System.exit(0);
 				default:
@@ -207,10 +267,10 @@ public class MedicineTest {
 	    {
 	    	ex.printStackTrace();
 	    }
-	    
-		
-				  
+	    finally 
+	    {
+	         scanner.close();	
+	    }	  
 	}
-
  }
 

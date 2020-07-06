@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Toggle background colort</title>
+<style type="text/css">
+   p{
+     background: blue;
+     color: white;
+    }
+    p.dbl 
+     {
+      background: yellow;
+      color: black;
+    }
+   
+</style>
+<script src="jquery-3.5.1.min.js"></script>
+   <script>
+   $(document).ready(function(){
+	   var pdbl = $( "p:first" );
+	   pdbl.dblclick(function() {
+	   pdbl.toggleClass( "dbl" );
+	   });
+   });
+   </script>
+</head>
+<body>
+   <p>Double-click here to change the background color.</p>
+</body>
+</html>

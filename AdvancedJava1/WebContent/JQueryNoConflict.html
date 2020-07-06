@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>No Conflict</title>
+<script src="jquery-3.5.1.min.js"></script>
+<script>
+var jq = $.noConflict();
+jq(document).ready(function(){
+  jq("button").click(function(){
+    jq("p").text("jQuery is still working!");
+  });
+});
+</script>
+</head>
+<body>
+    <p>This is a paragraph.</p>
+    <button>Test jQuery</button>
+</body>
+</html>

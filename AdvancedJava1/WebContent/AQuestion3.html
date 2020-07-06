@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Multiply and Divide</title>
+</head>
+    <script>
+        function calulate()
+        {
+        	var no1, no2, mul;
+        	no1 = document.getElementById("firstValue").value;
+        	no2=document.getElementById("secondValue").value;
+        	
+        	if(parseFloat(no1) && parseFloat(no2) )
+        	{
+            	mul = parseFloat(no1) * parseFloat(no2);
+            	
+            	div = parseFloat(no1)/parseFloat(no2);
+
+            	document.getElementById("multiply").innerHTML = 'Multiplication is:' +mul;
+            	document.getElementById("division").innerHTML = 'Division is :' +div;
+        	}
+        	else 
+        	{
+        		if(!parseFloat(no1))
+        		     document.getElementById("multiply").innerHTML = '<b>First value is not a digit </b>';
+        		else if(!parseFloat(no1))
+        			document.getElementById("multiply").innerHTML = '<b>Second value is not a digit</b>';
+        		else(!parseFloat(no1) && !parseFloat(no1))
+        			document.getElementById("multiply").innerHTML = '<b>Please enter digits only!!</b>';
+        	}
+
+        }   
+    </script>
+    <body>
+         <form>
+             <p><b>Enter Two Numbers</b></p>
+             <input type="text" id ="firstValue" ><br>
+             <input type="text" id="secondValue"><br>
+             <p id="multiply"></p>
+             <p id="division"></p>
+             <input type="button" onclick="calulate()" value="Calculate"><br>
+         </form>
+    </body>
+</html>

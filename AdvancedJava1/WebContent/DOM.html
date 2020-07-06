@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+   <script>
+         function fun()
+         {
+             //var data = document.getElementById("demo").innerHTML = "Bye";
+             //document.write(data);
+             //var data = document.getElementsByClassName("demo");
+             
+             //for(var i=0;i<data.length;i++)
+             //{
+            	//data[i].innerHTML = "Bye"; 
+             //}
+             var data = document.getElementsByTagName("b");
+             
+             for(var i=0;i<data.length;i++)
+             {
+                data[i].innerHTML = "Bye";	 
+             }
+         }
+   </script>
+</head>
+<body>
+      <b id="demo" class="demo">Hii</b>
+      <i id="demo" class="demo">Hii</i>
+      <h1 id="demo" class="demo">Hii</h1>
+      <h2 id="demo" class="demo">Hii</h2>
+      <b id="demo" class="demo">Hii</b>
+      <input type="button" onclick="fun()" value="Click me!!">
+</body>
+</html>

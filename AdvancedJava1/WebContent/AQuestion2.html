@@ -1,0 +1,33 @@
+<!-- Write a JavaScript program to find the area of a triangle where lengths of the three of its sides are 5, 6, 7.  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Area of triangle</title>
+<script>
+     function areaOfTriangle()
+     {
+    	 var p, area,side1,side2,side3;
+    	 side1 = document.getElementById("firstValue").value;
+    	 side2 = document.getElementById("secondValue").value;
+    	 side3 = document.getElementById("thirdValue").value;
+    	 
+    	 p = (parseFloat(side1)+parseFloat(side1)+parseFloat(side1))/2;
+    	 area=  Math.sqrt(parseFloat(p)*(parseFloat(p)-parseFloat(side1))*(parseFloat(p)-parseFloat(side2))*(parseFloat(p)-parseFloat(side3)));
+    	 
+    	 document.getElementById("triangleArea").innerHTML = 'Area of triangle is :' +area;
+    	 //document.write("Area of triangle is : " +Math.sqrt(area));
+    	 
+     }
+</script>
+</head>
+    <form>
+       <p>Enter 3 side length of triangle</p>
+       1st Side of triangle:<input type="text" id="firstValue"><br>
+       2nd Side of triangle:<input type="text"  id="secondValue"><br>
+       3rd Side of triangle:<input type="text"   id="thirdValue"><br>
+        <p id="triangleArea"></p><br>
+       <input type="button" onclick="areaOfTriangle()" value="Calculate">
+    </form>
+</body>
+</html>

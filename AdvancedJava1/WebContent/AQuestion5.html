@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script>
+    function check()
+    {
+    	no1=document.getElementById("input1").value;
+    	
+    	if (no1.toLowerCase()=="true"|| no1.toLowerCase()=="false")
+    	{
+    		document.getElementById("output").innerHTML = '<b>It a type of Boolean</b>';
+    	}
+    	else
+    	{
+    		document.getElementById("output").innerHTML = '<b> It is not a boolean </b>';
+    	}
+    }
+    
+</script>
+</head>
+<body>
+   <input type="text" id="input1" ></input>
+   <p id="output"></p>
+   <input type="button" onclick="check()" value="Check"><br>
+</body>
+</html>

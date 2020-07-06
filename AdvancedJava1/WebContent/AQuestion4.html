@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script>
+    function check()
+    {
+    	var no1=document.getElementById("input1").value;
+    	
+    	if(parseInt(no1))
+    	{
+    		document.getElementById("output").innerHTML = '<b>It is Number</b>';
+    	}
+    	else
+    	{
+    		document.getElementById("output").innerHTML = '<b> NaN</b>';
+    	}
+    }
+</script>
+</head>
+<body>
+   <input type="text" id="input1" ></input>
+   <p id="output"></p>
+   <input type="button" onclick="check()" value="Check"><br>
+</body>
+</html>

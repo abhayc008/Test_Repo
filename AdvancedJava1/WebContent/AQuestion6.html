@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Check Char Value</title>
+<script>
+    function check()
+    {
+    	c = document.getElementById("input1").value;
+    	
+    	if(c == '')
+		{
+		document.getElementById("output").innerHTML = '<b> Please Enter Value</b>';
+		return;
+		}
+    	
+    	if(c.length > 1)
+    		{
+    		document.getElementById("output").innerHTML = '<b> Entered value length is greater than 1 </b>';
+    		return;
+    		}
+    	
+    	var _charcode = c.charCodeAt();
+
+
+    	if ((_charcode >=65 && _charcode<=90) || (_charcode >=97 && _charcode <=122))
+    	{
+    		document.getElementById("output").innerHTML = '<b>It a type of Character</b>';
+    	}
+    	else
+    	{
+    		document.getElementById("output").innerHTML = '<b> It is not a Character </b>';
+    	}	
+    }
+</script>
+</head>
+<body>
+   <b>Enter a Single Character:</b><input type="text" id="input1" ></input>
+   <p id="output"></p>
+   <input type="button" onclick="check()" value="Check"><br>
+</body>
+</html>

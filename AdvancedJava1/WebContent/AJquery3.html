@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Select single element</title>
+<script src="jquery-3.5.1.min.js"></script>
+   <script>
+   $(document).ready(function(){
+	   var list = $( 'li' );
+	   var listElement = list[1]; // or list.get(0)
+	   var item = listElement.innerHTML;
+	   console.log(item);
+   });
+   </script>
+</head>
+<body>
+   <ul>
+      <li>Html Tutorial</li>
+      <li>Mongodb Tutorial</li>
+      <li>Python Tutorial</li>
+   </ul>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Current day and time</title>
+<script>
+    function show()
+    {
+    	var today = new Date();
+    	today.setHours( today.getHours() + 15 );
+    	var day = today.getDay();
+    	var daylist = [ "Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday",
+    			"Friday", "Saturday" ];
+    	var hour = today.getHours();
+    	
+    	var minute = today.getMinutes();
+    	var second = today.getSeconds();
+    	var prepand = (hour >= 12) ? " PM " : " AM ";
+    	
+    	hour = (hour >= 12) ? hour - 12 : hour;
+    	
+    	if (hour === 0 && prepand === ' PM ') 
+    	{
+    		if (minute === 0 && second === 0) 
+    		{
+    			hour = 12;
+    			prepand = ' Noon';
+    		}
+    		else
+    		{
+    			hour = 12;
+    			prepand = ' PM';
+    		}
+    	}
+    	if (hour === 0 && prepand === ' AM ')
+    	{
+    		if (minute === 0 && second === 0)
+    		{
+    			hour = 12;
+    			prepand = ' Midnight';
+    		}
+    		else
+    		{
+    			//hour = 12;
+    			prepand = ' AM';
+    		}
+    	}
+    	document.getElementById("day").innerHTML = '<b> Today is:'+daylist[day]+'</b>';
+    	document.getElementById("time").innerHTML = '<b> Current time is:  '+ hour + ' : ' + minute + ' : '+ second+ ' '+prepand+'</b>';
+    	console.log("Current Time : " + hour +" : " + minute + " : "+ second+ ""+prepand);	
+    }
+</script>
+</head>
+<body>
+   Show current Day and time
+   <p id="day"></p>
+   <p id="time"></p>
+   <input type="button" onclick="show()" value="show"><br>
+</body>
+</html>

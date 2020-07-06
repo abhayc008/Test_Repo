@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+    <script>
+        function fun()
+        {
+        	console.log(random);
+        	var no1, no2, add;
+        	no1 = prompt("Enter 1st number: ");
+        	no2= prompt("Enter 2nd number: ");
+        	add = parseInt(no1)+ parseInt(no2);
+        	//alert("Addition :"+add);
+        	//document.write("Addition :" +add);
+        	//console.log(random);
+        	console.log("Addition:" +add);
+        }   
+        function generateRandomNumber()
+        {
+        	random = Math.random().toString().substring(2,6);
+        	console.log(random);
+        }
+    </script>
+    <body>
+         <form>
+             <input type="button" onclick="fun()" value="click"><br>
+             <input type="button" onclick="generateRandomNumber()" value="Generate 4 digit random number">
+         </form>
+    </body>
+</html>
+
+<!--  DOM -Document Object Model
+document- object of current web page
+
+Model-Like few method which work like getter and setter
+document.getElmentById(id)- for retrieving single value- return type(Object)
+document.getElementsClassName(className)-for retrieving multiple value- return type(Object Array)
+document.getElementsByTagName(tag)-return type(Object Array) 
+-->
+
+        <!--function fun()
+        {
+        	document.write("Hello Geeta !!!");
+        }-->
+        
+        <!-- for(var i=0;i<=5;i++)
+        {
+        	document.write(i);
+        }-->
+        
+        
+        <!-- do while loop not supported in javascript
+        var j=0;
+        do
+        {
+          document.write(j);
+        }while(j<=5);-->
+                
+                
+        <!-- var no=10, no1=10.5, name="Geeta";
+        document.write("Int  :",no);
+        document.write("<br>");
+        document.write("Float :" +no1+"<br>"); 
+        document.write("String :" +name);
+        console.log("Int :" +no+"<br>");
+        -->
+        
+        

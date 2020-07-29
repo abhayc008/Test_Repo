@@ -30,36 +30,33 @@ public class CartDaoImpl implements CartDao
   
 	
 	@Override
-	public Cart isMedicineInCart(Cart cart)
+	public Cart  isMedicineInCart(int medicineId, String customerEmailId)
 	{
-		Cart objCart=null;
 		try 
 		{
+			cart = new Cart();
 			
 			PreparedStatement ps = con.prepareStatement("select * from cart_22057 where customer_email_id= ? and medicine_id = ? ");
-			ps.setString(1, cart.getCustomerEmailId());
-			ps.setInt(2, cart.getMedicineId());
+			ps.setString(1, customerEmailId);
+			ps.setInt(2, medicineId);
 			
             ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) 
 			{
 				 
-				objCart = new Cart(rs.getInt("medicine_id"),
-						rs.getString("customer_email_id"), 
-						rs.getInt("medicine_qty"));
-				objCart.setCartId(rs.getInt("cart_id"));
-				 
-		     }
-			
+				 cart = new Cart(rs.getInt("medicine_id"),
+						 rs.getString("customer_email_id"),
+						 rs.getInt("medicine_qty"));
+				 cart.setCartId(rs.getInt("cart_id"));
+			}			
 		}
 		 catch(Exception ex) 
 		{
 			ex.printStackTrace();
 		}
 		
-		return objCart;
-		
+		return cart;		
 	}
 
 	

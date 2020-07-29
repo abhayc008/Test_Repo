@@ -40,25 +40,23 @@ public class CartServlet extends HttpServlet {
 		
 		if(key != null && key.equals("addtocart")) 
 		{
+		
 			int medicineId =Integer.parseInt(request.getParameter("medId"));
-			
-			cart.setMedicineId(medicineId);
-			cart.setMedicineQty(1);
 			cart.setCustomerEmailId(customerEmailId);
-			
-			System.out.println(cart);
+			cart.setMedicineId(medicineId);
+						
 			
 			// Check Medicine in cart exists for user
-			Cart existMedicineIncart =cdao.isMedicineInCart(cart);
+			Cart existMedicineIncart =cdao.isMedicineInCart(medicineId, customerEmailId);
+						
 			
-			System.out.println(existMedicineIncart);
-			
-			if(existMedicineIncart != null) {
-				
-				flag = cdao.updateMedicineQuantity(existMedicineIncart.getCartId(), existMedicineIncart.getMedicineQty());
+			if(existMedicineIncart != null && existMedicineIncart.getCartId() > 0) 
+			{
+				flag = cdao.updateMedicineQuantity(existMedicineIncart.getCartId(), existMedicineIncart.getMedicineQty()+1);
 				
 				if(flag) 
 				{
+					
 					cList = cdao.showCart(customerEmailId);
 					session.setAttribute("list_Cart",cList);
 					response.sendRedirect("CartList.jsp");
@@ -68,9 +66,9 @@ public class CartServlet extends HttpServlet {
 					out.print("Failed while updating qauntity");
 				}
 			}
-			else {
-				
-				
+			else 
+			{
+				cart.setMedicineQty(1);	
 				flag = cdao.addToCart(cart);
 				
 				if(flag) 

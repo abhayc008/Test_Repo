@@ -1,3 +1,4 @@
+<%@page import="com.pharmacy.dao.MedicineDaoImpl"%>
 <%@page import="com.pharmacy.pojo.Medicine"%>
 <%@page import="com.pharmacy.pojo.Cart"%>
 <%@page import="java.util.List"%>
@@ -59,13 +60,29 @@
     			 type:'POST',
     			 data:{action:'updatequantity', medicineQuantity:medicineQuantity,cartId:cartId},
     			 url:'CartServlet',
-    			 success:function(result)
+    			 success:function()
     			 {
     				 alert(result);
     			 }
     		 });
     	  });
       });
+    
+    function CheckMax(e){
+    	var num = $(e).val();
+    	var maxNum = $(e).attr('max');
+    	
+    	console.log(num);
+    	console.log(maxNum);
+    	
+    	if (+num == +maxNum)	{
+    		alert('no more quantity available');
+    	}
+    	
+    	if (+num > +maxNum)	{
+    		$(e).val(maxNum);
+    	}
+    }
   
 </script>
 </head>
@@ -74,9 +91,10 @@
    <form action="OrderServlet" method="post">
    <input type="hidden" name="action" value="placeorder">
    <%
+      MedicineDaoImpl impl = new MedicineDaoImpl();
       List<Cart> lstCart = (List<Cart>)session.getAttribute("list_Cart");
-      List<Medicine> lstList = (List<Medicine>)session.getAttribute("medList");
-    %>
+      List<Medicine> lstList = impl.showAllMedicine();      
+    %>   
     <div class="bg-light py-3">
       <div>
         <div class= "row">
@@ -128,10 +146,9 @@
                                <input type="text" class="form-control price" name="medprice" value="<%= cart.getMedicinePrice() %>" readonly>
                            </td>
                             <td>
-                                
                               <% for(int i=0 ; i < lstList.size() ; i++){ %>
                                    <% if(lstList.get(i).getMedicineId() == cart.getMedicineId()) {%> 
-                                        <input type="number" class="form-control qty" min="1" name="medqty" 
+                                        <input type="number" class="form-control qty" min="1" id="medqty" name="medqty" oninput  ="CheckMax(this);" 
                                         max="<%= lstList.get(i).getMedicineQty()  %>"
                                            value="<%= cart.getMedicineQty()%>">
                                            
@@ -140,8 +157,6 @@
                             <td>
                                 <a href="CartServlet?action=delete&cartid=<%=cart.getCartId()%>" class="h5 text-black">
                                 <span class="glyphicon glyphicon-trash"></span>delete</a>
-                                
-  
                            </td>
                        </tr>
                        

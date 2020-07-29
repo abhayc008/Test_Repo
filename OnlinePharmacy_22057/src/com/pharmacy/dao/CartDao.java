@@ -9,7 +9,7 @@ public interface CartDao
 	boolean addToCart(Cart cart);
 	boolean deleteToCart(int cartId);//delete single item where cartId=?
 	boolean updateMedicineQuantity(int cartId, int medicineQuantity);
-	Cart isMedicineInCart(Cart cart);
+	Cart isMedicineInCart(int medicineId, String CustomerEmailId);
 	boolean clearCart(String customerEmailId);//clear whole cart where customerEmailID =?
 	List<Cart> showCart(String CustomerEmailId);
 }

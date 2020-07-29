@@ -27,8 +27,8 @@ public class FeedbackDaoImpl implements FeedbackDao
 
     
     
-    String addFeed = "insert into feedback_22057(rate_us,medicine_name,rate_medicine,customer_email_id,"
-			+ "customer_name,suggestion, feedback_date)  values(?,?,?,?,?,?,?) ";
+    String addFeed = "insert into feedback_22057(rate_us,customer_email_id,"
+			+ "customer_name,suggestion, feedback_date)  values(?,?,?,?,?) ";
     
     String showFeed = "Select * from feedback_22057";
    	 
@@ -39,12 +39,10 @@ public class FeedbackDaoImpl implements FeedbackDao
 		{
 			ps = con.prepareStatement(addFeed);
 			ps.setInt(1, feedback.getRateUs());
-			ps.setString(2, feedback.getMedicineName());
-			ps.setInt(3, feedback.getRateMedicine());
-			ps.setString(4, feedback.getCustomerEmailId());
-			ps.setString(5, feedback.getCustomerName());
-			ps.setString(6, feedback.getSuggestion());
-			ps.setString(7, feedbackDate);
+			ps.setString(2, feedback.getCustomerEmailId());
+			ps.setString(3, feedback.getCustomerName());
+			ps.setString(4, feedback.getSuggestion());
+			ps.setString(5, feedbackDate);
 			
 			row = ps.executeUpdate();
 		}
@@ -77,8 +75,6 @@ public class FeedbackDaoImpl implements FeedbackDao
 			{
 		        feedback = new Feedback(		        	
 		                rs.getInt("rate_us"),
-		                rs.getString("medicine_name"),
-		        		rs.getInt("rate_medicine"),
 		        		rs.getString("customer_email_id"),
 		        		rs.getString("customer_name"),
 		        		rs.getString("suggestion")

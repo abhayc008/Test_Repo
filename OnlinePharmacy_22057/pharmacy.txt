@@ -1,0 +1,451 @@
+//grocery
+
+String to Collection whole topic
+Quiz on gems == next week thursday
+E3 and E4 on 2nd JUNE
+sat ko class
+
+create table medicine_22057
+(
+   medicine_id int AUTO_INCREMENT PRIMARY KEY,
+   medicine_name varchar(50) NOT NULL,
+   medicine_type varchar(50) NOT NULL,
+   medicine_brand varchar(50) NOT NULL DEFAULT 'Tablets',
+   medicine_discription varchar(50),
+   medicine_qty int DEFAULT '0',
+   mfg_date date ,
+   expiry_date date,
+   medicine_price double
+);
+
+create table customer_22057
+(
+   customer_id int AUTO_INCREMENT PRIMARY KEY,
+   customer_name varchar(30) NOT NULL,
+   customer_eamil_id varchar(30) UNIQUE,
+   customer_password varchar(30) UNIQUE,
+   customer_contact_no  bigint(10) NOT NULL,
+   customer_address varchar(50) NOT NULL
+);
+
+in cart  medecineQty is declare by customer
+
+create table cart_22057
+(
+    cart_id int AUTO_INCREMENT PRIMARY KEY,
+    medicine_id int,
+    customer_email_id varchar(50) NOT NULL,
+    medicine_qty int DEFAULT 1,
+    foreign key (medicine_id)references medicine_22057(medicine_id) on DELETE CASCADE
+);	
+select c.cart_id,c.medicine_id, m.medicine_name, c.customer_email_id, c.medicine_qty, m.medicine_price
+from medicine_22057 m inner join cart_22057 c on c.medicine_id =m.medicine_id where c.customer_email_id="geeta@12";
+
+create table order_22057
+(
+order_id int AUTO_INCREMENT primary key,
+customer_email_id varchar(50) NOT NULL,
+order_status varchar(50) DEFAULT "Processing",
+total_bill double  DEFAULT 0,
+order_date datetime DEFAULT CURRENT_TIMESTAMP
+);
+
+create table admin_22057(
+ user_name varchar(50),
+ password varchar(50)
+);
+
+create table feedback_22057
+(
+ feedback_id int AUTO_INCREMENT Primary Key,
+ rate_us int DEFAULT 0,
+ medicine_name varchar(50) NOT NULL,
+ rate_medicine int DEFAULT 0,
+ customer_email_id varchar(50) NOT NUll,
+ customer_name varchar(50)  NOT NULL,
+ suggestion varchar(50) NOT NULL,
+ feedback_date datetime DEFAULT CURRENT_TIMESTAMP
+);
+select c.medicine_id, m.medicine_name, c.customer_email_id, c.medicine_qty, m.medicine_price 
+from medicine_22057 m,cart_22057 c where c.medicine_id =m.medicine_id;
+insert into customer_22057  values(1, "abhay","abhayc008", "abhayc008", 1234567891,"xyz");  
+insert into customer_22057 (customer_name,customer_email_id, customer_password,
+customer_contact_no,customer_address) values("geeta","geets","geet",1098301697,"gyh" );
+
+insert into order_22057(customer_email_id,total_bill) values('geeta@12',500);
+insert into order_22057(customer_email_id,total_bill,order_status) values('geeta@12',400, 'Placed');
+insert into order_22057(customer_email_id,total_bill,order_status) values('geeta@123',5000,'Deleivered');
+mysql> create  database pharmacy_22057;
+Query OK, 1 row affected (0.25 sec)
+
+mysql> use pharmacy_22057;
+Database changed
+
+mysql> create table medicine_22057
+    -> (
+    ->    medicine_id int AUTO_INCREMENT PRIMARY KEY,
+    ->    medicine_name varchar(50) NOT NULL,
+    ->    medicine_type varchar(50) NOT NULL,
+    ->    medicine_brand varchar(50) NOT NULL DEFAULT 'Tablets',
+    ->    medicine_discription varchar(50),
+    ->    medicine_qty int DEFAULT '0',
+    ->    mfg_date date ,
+    ->    expiry_date date,
+    ->    medicine_price double
+    -> );
+Query OK, 0 rows affected (2.14 sec)
+
+mysql>    medicine_type varchar(50) NOT NULL,^C
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2020-05-21 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from medicine_22057;
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+| medicine_id | medicine_name | medicine_type | medicine_brand | medicine_discription | medicine_qty | mfg_date   | expiry_date | medicine_price |
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+|           1 | dolo 650      | fever         | dolo           | fever and headache   |            4 | 2020-05-01 | 2022-05-01  |            230 |
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+1 row in set (0.05 sec)
+
+
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 81
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use pharmacy_22057
+Database changed
+mysql> show tables;
++---------------------------+
+| Tables_in_pharmacy_22057 |
++---------------------------+
+| medicine_22057           |
++---------------------------+
+1 row in set (0.77 sec)
+
+mysql> create table customer_22057
+    -> (
+    ->    customer_id int AUTO_INCREMENT PRIMARY KEY,
+    ->    customer_name varchar(30) NOT NULL,
+    ->    customer_eamil_id varchar(30) NOT NULL,
+    ->    customer_password varchar(30) NOT NULL,
+    ->    customer_contact_no  int(10) NOT NULL,
+    ->    customer_address varchar(50) NOT NULL
+    -> );
+Query OK, 0 rows affected, 1 warning (2.33 sec)
+
+mysql> desc customer_22057;
++---------------------+-------------+------+-----+---------+----------------+
+| Field               | Type        | Null | Key | Default | Extra          |
++---------------------+-------------+------+-----+---------+----------------+
+| customer_id         | int         | NO   | PRI | NULL    | auto_increment |
+| customer_name       | varchar(30) | NO   |     | NULL    |                |
+| customer_eamil_id   | varchar(30) | NO   |     | NULL    |                |
+| customer_password   | varchar(30) | NO   |     | NULL    |                |
+| customer_contact_no | int         | NO   |     | NULL    |                |
+| customer_address    | varchar(50) | NO   |     | NULL    |                |
++---------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.07 sec)
+
+mysql> alter table  customer_22057 change column customer_eamil_id  customer_email_id  varchar(30);
+Query OK, 0 rows affected (2.53 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer_22057;
++---------------------+-------------+------+-----+---------+----------------+
+| Field               | Type        | Null | Key | Default | Extra          |
++---------------------+-------------+------+-----+---------+----------------+
+| customer_id         | int         | NO   | PRI | NULL    | auto_increment |
+| customer_name       | varchar(30) | NO   |     | NULL    |                |
+| customer_email_id   | varchar(30) | YES  |     | NULL    |                |
+| customer_password   | varchar(30) | NO   |     | NULL    |                |
+| customer_contact_no | int         | NO   |     | NULL    |                |
+| customer_address    | varchar(50) | NO   |     | NULL    |                |
++---------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.09 sec)
+
+mysql> insert into customer_22057  values(1, "abhay","abhayc008", "abhayc008", 1234567891,"xyz");
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from customer_22057;
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+| customer_id | customer_name | customer_email_id | customer_password | customer_contact_no | customer_address |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+|           1 | abhay         | abhayc008         | abhayc008         |          1234567891 | xyz              |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+1 row in set (0.04 sec)
+
+mysql> insert into customer_22057  values(1, "abhay","abhayc008", "abhayc008", 12345678967,"xyz");
+ERROR 1264 (22003): Out of range value for column 'customer_contact_no' at row 1
+mysql> 7891,"xyz");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '7891,"xyz")' at line 1
+mysql> insert into customer_22057 customer_name,customer_email_id, customer_password,
+    -> customer_contact_no,customer_address values(2,"geeta","geets","geet",9098301697,"gyh" );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customer_name,customer_email_id, customer_password,
+customer_contact_no,customer' at line 1
+mysql> insert into customer_22057  values(1, "abhay","abhayc008", "abhayc008", 12345678967,"xyz");
+ERROR 1264 (22003): Out of range value for column 'customer_contact_no' at row 1
+mysql>
+mysql> insert into customer_22057 (customer_name,customer_email_id, customer_password,
+    -> customer_contact_no,customer_address) values(2,"geeta","geets","geet",9098301697,"gyh" );
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into customer_22057 (customer_name,customer_email_id, customer_password,
+    -> customer_contact_no,customer_address) values("geeta","geets","geet",9098301697,"gyh" );
+ERROR 1264 (22003): Out of range value for column 'customer_contact_no' at row 1
+mysql> insert into customer_22057 (customer_name,customer_email_id, customer_password,
+    -> customer_contact_no,customer_address) values("geeta","geets","geet",1098301697,"gyh" );
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select  * from customer_22057;
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+| customer_id | customer_name | customer_email_id | customer_password | customer_contact_no | customer_address |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+|           1 | abhay         | abhayc008         | abhayc008         |          1234567891 | xyz              |
+|           2 | geeta         | geets             | geet              |          1098301697 | gyh              |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table customer_22057 modify column customer_contact_no bigint(10);
+Query OK, 2 rows affected, 1 warning (3.17 sec)
+Records: 2  Duplicates: 0  Warnings: 1
+
+mysql> desc customer_012131;
+ERROR 1146 (42S02): Table 'pharmacy_22057.customer_012131' doesn't exist
+mysql> desc customer_22057;
++---------------------+-------------+------+-----+---------+----------------+
+| Field               | Type        | Null | Key | Default | Extra          |
++---------------------+-------------+------+-----+---------+----------------+
+| customer_id         | int         | NO   | PRI | NULL    | auto_increment |
+| customer_name       | varchar(30) | NO   |     | NULL    |                |
+| customer_email_id   | varchar(30) | YES  |     | NULL    |                |
+| customer_password   | varchar(30) | NO   |     | NULL    |                |
+| customer_contact_no | bigint      | YES  |     | NULL    |                |
+| customer_address    | varchar(50) | NO   |     | NULL    |                |
++---------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from customer_22057;
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+| customer_id | customer_name | customer_email_id | customer_password | customer_contact_no | customer_address |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+|           1 | abhay         | abhayc008         | abhayc008         |          1234567891 | xyz              |
+|           2 | geeta         | geets             | geet              |          1098301697 | gyh              |
+|           3 | nxn           | nbnfd             | fgbhgfb           |          9098301697 | ncgdfv           |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer_22057;
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+| customer_id | customer_name | customer_email_id | customer_password | customer_contact_no | customer_address |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+|           1 | abhay         | abhayc008         | abhayc008         |          1234567891 | xyz              |
+|           2 | geeta         | geets             | geet              |          1098301697 | gyh              |
+|           3 | geeta         | gjhgf             | mjghf             |          8982453198 | gfhfhj           |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer_22057;
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+| customer_id | customer_name | customer_email_id | customer_password | customer_contact_no | customer_address |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+|           1 | abhay         | abhayc008         | abhayc008         |          1234567891 | xyz              |
+|           3 | geeta         | gjhgf             | mjghf             |          8982453198 | gfhfhj           |
++-------------+---------------+-------------------+-------------------+---------------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer_22057;
++-------------+---------------+-----------------------------+-------------------+---------------------+------------------+
+| customer_id | customer_name | customer_email_id           | customer_password | customer_contact_no | customer_address |
++-------------+---------------+-----------------------------+-------------------+---------------------+------------------+
+|           1 | abhay         | abhayc008                   | abhayc008         |          1234567891 | xyz              |
+|           3 | geeta         | gjhgf                       | mjghf             |          8982453198 | gfhfhj           |
+|           4 | roshani       | roshanichauhan567@gmail.com | 748596            |           989258247 | thane mumbai     |
+|           5 | geeta         | ncvng                       | nvcgc             |         98983425362 | bvvfhj           |
++-------------+---------------+-----------------------------+-------------------+---------------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer_22057;
++-------------+-----------------+-----------------------------+-------------------+---------------------+------------------+
+| customer_id | customer_name   | customer_email_id           | customer_password | customer_contact_no | customer_address |
++-------------+-----------------+-----------------------------+-------------------+---------------------+------------------+
+|           1 | abhay           | abhayc008                   | abhayc008         |          1234567891 | xyz              |
+|           3 | geeta           | gjhgf                       | mjghf             |          8982453198 | gfhfhj           |
+|           4 | roshani chauhan | roshanichauhan567@gmail.com | 1234              |          9892582478 | thane west       |
+|           5 | geeta           | ncvng                       | nvcgc             |         98983425362 | bvvfhj           |
++-------------+-----------------+-----------------------------+-------------------+---------------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> Select * from medicine_22057 where medicine_name  like  '% dolo %';
+Empty set (0.04 sec)
+
+mysql> Select * from medicine_22057 ;
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+| medicine_id | medicine_name | medicine_type | medicine_brand | medicine_discription | medicine_qty | mfg_date   | expiry_date | medicine_price |
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+|           1 | dolo 650      | fever         | dolo           | fever and headache   |            4 | 2020-05-01 | 2022-05-01  |            230 |
+|           2 | dolo 140      | fever         | dolo           | xyz                  |            5 | 2020-03-12 | 2022-06-09  |            240 |
+|           3 | fdjd          | vmhf          | jbhgf          | vjfdlb               |           34 | 2020-04-05 | 2023-04-21  |             45 |
+|           5 | metadeen      | for burn      | n=meta         | meta                 |            4 | 2020-05-02 | 2022-05-03  |            890 |
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> Select * from medicine_22057 where medicine_name  like  '%dolo%';
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+| medicine_id | medicine_name | medicine_type | medicine_brand | medicine_discription | medicine_qty | mfg_date   | expiry_date | medicine_price |
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+|           1 | dolo 650      | fever         | dolo           | fever and headache   |            4 | 2020-05-01 | 2022-05-01  |            230 |
+|           2 | dolo 140      | fever         | dolo           | xyz                  |            5 | 2020-03-12 | 2022-06-09  |            240 |
++-------------+---------------+---------------+----------------+----------------------+--------------+------------+-------------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer_22057;
++-------------+-----------------+-----------------------------+-------------------+---------------------+------------------+
+| customer_id | customer_name   | customer_email_id           | customer_password | customer_contact_no | customer_address |
++-------------+-----------------+-----------------------------+-------------------+---------------------+------------------+
+|           1 | abhay           | abhayc008                   | abhayc008         |          1234567891 | xyz              |
+|           3 | geeta           | gjhgf                       | mjghf             |          8982453198 | gfhfhj           |
+|           4 | roshani chauhan | roshanichauhan567@gmail.com | 1234              |          9892582478 | thane west       |
+|           5 | geeta           | ncvng                       | nvcgc             |         98983425362 | bvvfhj           |
+|           6 | roshani         | roshanichauhan567@gmail.com | 1234              |          9892582478 | thane west       |
++-------------+-----------------+-----------------------------+-------------------+---------------------+------------------+
+5 rows in set (0.00 sec)
+
+--------------------------------------New Structure-----------------------------------
+mysql> desc customer_22057;
++---------------------+-------------+------+-----+---------+----------------+
+| Field               | Type        | Null | Key | Default | Extra          |
++---------------------+-------------+------+-----+---------+----------------+
+| customer_id         | int         | NO   | PRI | NULL    | auto_increment |
+| customer_name       | varchar(30) | NO   |     | NULL    |                |
+| customer_email_id   | varchar(30) | YES  | UNI | NULL    |                |
+| customer_password   | varchar(30) | YES  | UNI | NULL    |                |
+| customer_contact_no | bigint      | YES  | UNI | NULL    |                |
+| customer_address    | varchar(50) | NO   |     | NULL    |                |
++---------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> create table cart_22057
+    -> (
+    ->     cart_id int AUTO_INCREMENT PRIMARY KEY,
+    ->     medicine_id int,
+    ->     customer_email_id varchar(50) NOT NULL,
+    ->     medicine_name varchar(50) NOT NULL,
+    ->     medicine_qty int DEFAULT 1,
+    ->     medicine_price double NOT NULL,
+    ->     foreign key (medicine_id)references medicine_22057(medicine_id)
+    -> );
+Query OK, 0 rows affected (4.30 sec)
+
+mysql> desc cart_22057;
++-------------------+-------------+------+-----+---------+----------------+
+| Field             | Type        | Null | Key | Default | Extra          |
++-------------------+-------------+------+-----+---------+----------------+
+| cart_id           | int         | NO   | PRI | NULL    | auto_increment |
+| medicine_id       | int         | YES  | MUL | NULL    |                |
+| customer_email_id | varchar(50) | NO   |     | NULL    |                |
+| medicine_name     | varchar(50) | NO   |     | NULL    |                |
+| medicine_qty      | int         | YES  |     | 1       |                |
+| medicine_price    | double      | NO   |     | NULL    |                |
++-------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.01 sec)
+mysql> create table cart_22057
+    -> (
+    ->     cart_id int AUTO_INCREMENT PRIMARY KEY,
+    ->     medicine_id int,
+    ->     customer_email_id varchar(50) NOT NULL,
+    ->     medicine_qty int DEFAULT 1,
+    ->     foreign key (medicine_id)references medicine_22057(medicine_id) on DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.98 sec)
+
+mysql> desc cart_22057;
++-------------------+-------------+------+-----+---------+----------------+
+| Field             | Type        | Null | Key | Default | Extra          |
++-------------------+-------------+------+-----+---------+----------------+
+| cart_id           | int         | NO   | PRI | NULL    | auto_increment |
+| medicine_id       | int         | YES  | MUL | NULL    |                |
+| customer_email_id | varchar(50) | NO   |     | NULL    |                |
+| medicine_qty      | int         | YES  |     | 1       |                |
++-------------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.05 sec)
+
+mysql>mysql> select c.medicine_id, m.medicine_name, c.customer_email_id, c.medicine_qty, m.medicine_price
+    -> from medicine_22057 m,cart_22057 c where c.medicine_id =m.medicine_id;
++-------------+---------------+-------------------+--------------+----------------+
+| medicine_id | medicine_name | customer_email_id | medicine_qty | medicine_price |
++-------------+---------------+-------------------+--------------+----------------+
+|           3 | fdjd          | geeta@12          |            2 |             45 |
++-------------+---------------+-------------------+--------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> create table order_22057
+    -> (
+    -> order_id int AUTO_INCREMENT primary key,
+    -> customer_email_id varchar(50) NOT NULL,
+    -> order_status varchar(50) DEFAULT "Processing",
+    -> total_bill double  DEFAULT 0,
+    -> order_date datetime DEFAULT CURRENT_TIMESTAMP
+    -> );
+Query OK, 0 rows affected (1.22 sec)
+
+mysql> desc order_22057;
++-------------------+-------------+------+-----+-------------------+-------------------+
+| Field             | Type        | Null | Key | Default           | Extra             |
++-------------------+-------------+------+-----+-------------------+-------------------+
+| order_id          | int         | NO   | PRI | NULL              | auto_increment    |
+| customer_email_id | varchar(50) | NO   |     | NULL              |                   |
+| order_status      | varchar(50) | YES  |     | Processing        |                   |
+| total_bill        | double      | YES  |     | 0                 |                   |
+| order_date        | datetime    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-------------------+-------------+------+-----+-------------------+-------------------+
+5 rows in set (0.01 sec)
+
+mysql> insert into order_22057(customer_email_id,total_bill) values('geeta@12',500);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select * from order_22057;
++----------+-------------------+--------------+------------+---------------------+
+| order_id | customer_email_id | order_status | total_bill | order_date          |
++----------+-------------------+--------------+------------+---------------------+
+|        1 | geeta@12          | Processing   |        500 | 2020-05-29 00:05:46 |
++----------+-------------------+--------------+------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> insert into order_22057(customer_email_id,total_bill,order_status) values('geeta@12',400, 'Placed');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into order_22057(customer_email_id,total_bill,order_status) values('geeta@123',5000,'Deleivered');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from order_22057;
++----------+-------------------+--------------+------------+---------------------+
+| order_id | customer_email_id | order_status | total_bill | order_date          |
++----------+-------------------+--------------+------------+---------------------+
+|        1 | geeta@12          | Processing   |        500 | 2020-05-29 00:05:46 |
+|        2 | geeta@12          | Placed       |        400 | 2020-05-29 00:07:15 |
+|        3 | geeta@123         | Deleivered   |       5000 | 2020-05-29 00:07:17 |
++----------+-------------------+--------------+------------+---------------------+
+3 rows in set (0.03 sec)
+
+mysql> select * from order_22057 where customer_email_id = 'geeta@12';
++----------+-------------------+--------------+------------+---------------------+
+| order_id | customer_email_id | order_status | total_bill | order_date          |
++----------+-------------------+--------------+------------+---------------------+
+|        1 | geeta@12          | Processing   |        500 | 2020-05-29 00:05:46 |
+|        2 | geeta@12          | Placed       |        400 | 2020-05-29 00:07:15 |
++----------+-------------------+--------------+------------+---------------------+
+2 rows in set (0.00 sec)

@@ -225,7 +225,6 @@ price double,
 quantity int,
 profit double);
 $
-
 create trigger pro
 before insert on sales
 for each row
@@ -798,4 +797,23 @@ mysql> select *from class;
 |   6 | Vishal  |           33 |             25 |           32 |    90 | 30.00 | Fail   |
 +-----+---------+--------------+----------------+--------------+-------+-------+--------+
 6 rows in set (0.00 sec)
+=================
+
+26-jul-2020
+
+
+trigger for pharmacy_22057
+
+delimiter $;
+
+create trigger quantity
+
+after update on cart_22057
+for each row 
+
+begin
+
+update medicine_22057 set medicine_qty = medicine_qty - new.medicine_qty  where medicine_id = new.medicine_id;
+
+end;
 

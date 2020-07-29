@@ -27,7 +27,43 @@ public class CartDaoImpl implements CartDao
 
 	String  showCt = "select c.cart_id,c.medicine_id, m.medicine_name, c.customer_email_id, c.medicine_qty, m.medicine_price"
 			+ " from medicine_22057 m inner join cart_22057 c on c.medicine_id =m.medicine_id where c.customer_email_id=?";
-    
+  
+	
+	@Override
+	public Cart isMedicineInCart(Cart cart)
+	{
+		Cart objCart=null;
+		try 
+		{
+			
+			PreparedStatement ps = con.prepareStatement("select * from cart_22057 where customer_email_id= ? and medicine_id = ? ");
+			ps.setString(1, cart.getCustomerEmailId());
+			ps.setInt(2, cart.getMedicineId());
+			
+            ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) 
+			{
+				 
+				objCart = new Cart(rs.getInt("medicine_id"),
+						rs.getString("customer_email_id"), 
+						rs.getInt("medicine_qty"));
+				objCart.setCartId(rs.getInt("cart_id"));
+				 
+		     }
+			
+		}
+		 catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		
+		return objCart;
+		
+	}
+
+	
+	
 	@Override
 	public boolean addToCart(Cart cart)
 	{
@@ -134,5 +170,30 @@ public class CartDaoImpl implements CartDao
 			ex.printStackTrace();
 		}
 		return lstCart;
+	}
+
+	@Override
+	public boolean updateMedicineQuantity(int cartId, int medicineQuantity)
+	{
+		try 
+		{
+		    PreparedStatement ps = con.prepareStatement("update cart_22057 set medicine_qty=? where cart_id=?");
+		    ps.setInt(1, medicineQuantity);
+		    ps.setInt(2,cartId);
+		    
+		    row = ps.executeUpdate();
+		}
+		catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		if(row>0) 
+		{
+			return true;
+		}
+		else 
+		{
+			return false;	
+		}
 	}
 }

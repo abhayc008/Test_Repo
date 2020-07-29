@@ -41,22 +41,49 @@ public class CartServlet extends HttpServlet {
 		if(key != null && key.equals("addtocart")) 
 		{
 			int medicineId =Integer.parseInt(request.getParameter("medId"));
-		
+			
 			cart.setMedicineId(medicineId);
 			cart.setMedicineQty(1);
 			cart.setCustomerEmailId(customerEmailId);
 			
-			flag = cdao.addToCart(cart);
+			System.out.println(cart);
 			
-			if(flag) 
-			{
-				cList = cdao.showCart(customerEmailId);
-				session.setAttribute("list_Cart",cList);
-				response.sendRedirect("CartList.jsp");
+			// Check Medicine in cart exists for user
+			Cart existMedicineIncart =cdao.isMedicineInCart(cart);
+			
+			System.out.println(existMedicineIncart);
+			
+			if(existMedicineIncart != null) {
+				
+				flag = cdao.updateMedicineQuantity(existMedicineIncart.getCartId(), existMedicineIncart.getMedicineQty());
+				
+				if(flag) 
+				{
+					cList = cdao.showCart(customerEmailId);
+					session.setAttribute("list_Cart",cList);
+					response.sendRedirect("CartList.jsp");
+				}
+				else 
+				{
+					out.print("Failed while updating qauntity");
+				}
 			}
-			else 
-			{
-				out.print("failed");
+			else {
+				
+				
+				flag = cdao.addToCart(cart);
+				
+				if(flag) 
+				{
+					cList = cdao.showCart(customerEmailId);
+					session.setAttribute("list_Cart",cList);
+					response.sendRedirect("CartList.jsp");
+				}
+				else 
+				{
+					out.print("failed");
+				}
+			
 			}
 			
 		}
@@ -87,8 +114,29 @@ public class CartServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		int cartId, medicineQuantity;
+		String key = request.getParameter("action");
+        
+		PrintWriter out = response.getWriter();
+		
+		if(key != null  && key.equals("updatequantity")) 
+		{
+			medicineQuantity = Integer.parseInt(request.getParameter("medicineQuantity"));
+			cartId = Integer.parseInt(request.getParameter("cartId"));
+			
+			flag = cdao.updateMedicineQuantity(cartId, medicineQuantity);
+			
+			if(flag) 
+			{
+				out.print("done");
+			}
+			else 
+			{
+				out.print("not done");
+			}
+		}
 	}
 
 }

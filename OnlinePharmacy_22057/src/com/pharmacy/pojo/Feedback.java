@@ -5,22 +5,20 @@ public class Feedback
 
 	@Override
 	public String toString() {
-		return "Feedback [Id=" + feedbackId + ", Medicine Name=" + medicineName +""
+		return "Feedback [Id=" + feedbackId + ","
 				+ ", Service Rating=" + rateUs
-				+ ", Medicine Rating=" + rateMedicine + ", Email=" + customerEmailId + ", Name="
+				+ ", Email=" + customerEmailId + ", Name="
 				+ customerName + ", Feedback=" + suggestion + ", Date=" +feedbackDate+"]";
 	}
 
-	private int feedbackId,rateUs,rateMedicine;
-	private String customerEmailId, customerName,suggestion, medicineName,feedbackDate;	
+	private int feedbackId,rateUs;
+	private String customerEmailId, customerName,suggestion,feedbackDate;	
 	   
-    public Feedback(int rateUs,String medicineName, int rateMedicine, String customerEmailId,
+    public Feedback(int rateUs,String customerEmailId,
 			String customerName, String suggestion) {
 		super();
 		//this.feedbackId = feedbackId;
 		this.rateUs = rateUs;
-		this.medicineName = medicineName;
-		this.rateMedicine = rateMedicine;
 		this.customerEmailId = customerEmailId;
 		this.customerName = customerName;
 		this.suggestion = suggestion;
@@ -34,28 +32,12 @@ public class Feedback
 		this.feedbackId = feedbackId;
 	}	
   
-	public String getMedicineName() {
-		return medicineName;
-	}
-
-	public void setMedicineName(String medicineName) {
-		this.medicineName = medicineName;
-	}
-	
 	public int getRateUs() {
 		return rateUs;
 	}
 	
 	public void setRateUs(int rateUs) {
 		this.rateUs = rateUs;
-	}
-	
-	public int getRateMedicine() {
-		return rateMedicine;
-	}
-	
-	public void setRateMedicine(int rateMedicine) {
-		this.rateMedicine = rateMedicine;
 	}
 	
 	public String getCustomerEmailId() {

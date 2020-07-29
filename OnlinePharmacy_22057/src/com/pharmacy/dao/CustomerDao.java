@@ -12,6 +12,8 @@ public interface CustomerDao
     Customer searchCustomerById(int customerId);
     List<Customer> searchCustomerByCustomerName(String customerName);
     Customer searchCustomerByEmailId(String customerEmailId);
+    Customer searchCustomerByContactNo(long customerContactNo);
+    Customer searchCustomerByPassword(String customerPassword);
     List<Customer> showAllCustomer();
     
 }

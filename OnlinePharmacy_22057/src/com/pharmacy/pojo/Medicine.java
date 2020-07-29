@@ -1,5 +1,7 @@
 package com.pharmacy.pojo;
 
+import java.io.InputStream;
+
 public class Medicine
 {     
 	
@@ -7,8 +9,11 @@ public class Medicine
 	   private String medicineName, medicineType, medicineBrand, medicineDiscription;
 	   private String mfgDate, expiryDate;
 	   private double medicinePrice;
+	   private InputStream  medicineImage;
 	   
-	   public Medicine(String medicineName, String medicineType, String medicineBrand,
+
+
+	public Medicine(String medicineName, String medicineType, String medicineBrand,
 			String medicineDiscription,int medicineQty,  String mfgDate, String expiryDate, double medicinePrice) {
 		super();
 		this.medicineName = medicineName;
@@ -23,6 +28,14 @@ public class Medicine
 	   
     public Medicine() {
 		// TODO Auto-generated constructor stub
+	}
+    
+	public InputStream getMedicineImage() {
+		return medicineImage;
+	}
+
+	public void setMedicineImage(InputStream medicineImage) {
+		this.medicineImage = medicineImage;
 	}
 
 	public int getMedicineId() {

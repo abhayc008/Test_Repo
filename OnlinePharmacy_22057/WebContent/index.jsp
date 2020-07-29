@@ -4,29 +4,27 @@
 <html lang="en">
 
 <head>
-  <title>Pharma &mdash; Colorlib Template</title>
+  <title>Pharma &mdash; A Medicine Company</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
-  <link rel="stylesheet" href="fonts/icomoon/style.css">
-
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-
-  <link rel="stylesheet" href="css/aos.css">
-
-  <link rel="stylesheet" href="css/style.css">
-
+  
 </head>
 
 <body>
 
     <jsp:include page="Header.jsp"></jsp:include>
+    
+     <%
+          String status = (String)request.getAttribute("status");
+          String status_feedback = (String)request.getAttribute("status_feedback");
+          String status_contact = (String)request.getAttribute("status_contact");
+          
+          if(status != null)
+        	  out.print("<h3 class='error'> Your item has "+status+" !!!</h3>");
+          if(status_feedback != null)
+        	  out.print("<h3 class='error'> Your Feedback has been "+status_feedback+" !!!</h3>");
+          if(status_contact != null)
+        	  out.print("<h3 class='error'> Your message has been sent "+status_contact+" !!!</h3>");
+      %>
     <div class="site-blocks-cover" style="background-image: url('images/hero_1.jpg');">
       <div class="container">
         <div class="row">
@@ -35,7 +33,7 @@
               <h2 class="sub-title">Effective Medicine, New Medicine Everyday</h2>
               <h1>Welcome To Pharma</h1>
               <p>
-                <a href="#" class="btn btn-primary px-5 py-3">Shop Now</a>
+                <a href="MedicineServlet" class="btn btn-primary px-5 py-3">Shop Now</a>
               </p>
             </div>
           </div>
@@ -51,8 +49,7 @@
               <a href="#" class="h-100">
                 <h5>Free <br> Shipping</h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                  <strong></strong>
                 </p>
               </a>
             </div>
@@ -62,8 +59,7 @@
               <a href="#" class="h-100">
                 <h5>Season <br> Sale 50% Off</h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                  <strong></strong>
                 </p>
               </a>
             </div>
@@ -73,8 +69,7 @@
               <a href="#" class="h-100">
                 <h5>Buy <br> A Gift Card</h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                  <strong></strong>
                 </p>
               </a>
             </div>
@@ -95,42 +90,42 @@
         <div class="row">
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
             <span class="tag">Sale</span>
-            <a href="shop-single.html"> <img src="images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
+            <a href="shop-single.html"> <img src="images/Lactihep_Syrupx.jpg" alt="Image" width="270 px" height="370"></a>
+            <h3 class="text-dark"><a href="shop-single.html">Lactihep Syrupx</a></h3>
             <p class="price"><del>95.00</del> &mdash; $55.00</p>
           </div>
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_02.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Chanca Piedra</a></h3>
+            <a href="shop-single.html"> <img src="images/healthkart_fish_oil_capsules_60s_0_0.jpg" alt="Image" width="270 px" height="370"></a>
+            <h3 class="text-dark"><a href="shop-single.html">Healthkart fish oil capsules</a></h3>
             <p class="price">$70.00</p>
           </div>
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_03.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+            <a href="shop-single.html"> <img src="images/inducare_nidagdha_cream_pack_of_2_x_25_gm_0.jpg" alt="Image" width="270 px" height="370"></a>
+            <h3 class="text-dark"><a href="shop-single.html">Inducare nidagdha cream</a></h3>
             <p class="price">$120.00</p>
           </div>
 
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
 
-            <a href="shop-single.html"> <img src="images/product_04.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Cetyl Pure</a></h3>
+            <a href="shop-single.html"> <img src="images/inlife_probiotics_forte_capsules_60_s_0.jpg" alt="Image"width="270 px" height="370"></a>
+            <h3 class="text-dark"><a href="shop-single.html">Inlife probiotics forte capsules</a></h3>
             <p class="price"><del>45.00</del> &mdash; $20.00</p>
           </div>
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="shop-single.html"> <img src="images/product_05.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">CLA Core</a></h3>
+            <a href="shop-single.html"> <img src="images/new_a_to_z_gold_softgel_15_s_0.jpg" alt="Image" width="270 px" height="370"></a>
+            <h3 class="text-dark"><a href="shop-single.html">New A to Z gold capsules</a></h3>
             <p class="price">$38.00</p>
           </div>
           <div class="col-sm-6 col-lg-4 text-center item mb-4">
             <span class="tag">Sale</span>
-            <a href="shop-single.html"> <img src="images/product_06.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Poo Pourri</a></h3>
+            <a href="shop-single.html"> <img src="images/healthaid_childrens_multivitamins_minerals_tablet_30s_0_1.jpg" alt="Image" width="270 px" height="370"></a>
+            <h3 class="text-dark"><a href="shop-single.html">Childrens multivitamins minerals tablets</a></h3>
             <p class="price"><del>$89</del> &mdash; $38.00</p>
           </div>
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="shop.html" class="btn btn-primary px-4 py-3">View All Products</a>
+            <a href="MedicineServlet" class="btn btn-primary px-4 py-3">View All Products</a>
           </div>
         </div>
       </div>
@@ -149,26 +144,26 @@
             <div class="nonloop-block-3 owl-carousel">
 
               <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="images/product_03.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                <a href="shop-single.html"> <img src="images/Cypon_Syrup.jpg" alt="Image" width="270 px" height="370"></a>
+                <h3 class="text-dark"><a href="shop-single.html">Cypon Syrup</a></h3>
                 <p class="price">$120.00</p>
               </div>
 
               <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="images/product_01.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                <a href="shop-single.html"> <img src="images/Benadryl_Syrupx.jpg" alt="Image" width="270 px" height="370"></a>
+                <h3 class="text-dark"><a href="shop-single.html">Benadryl Syrupx</a></h3>
                 <p class="price">$120.00</p>
               </div>
 
               <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="images/product_02.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                <a href="shop-single.html"> <img src="images/Duolin_Inhaler.jpg" alt="Image" width="270 px" height="370"></a>
+                <h3 class="text-dark"><a href="shop-single.html">Duolin Inhaler</a></h3>
                 <p class="price">$120.00</p>
               </div>
 
               <div class="text-center item mb-4">
-                <a href="shop-single.html"> <img src="images/product_04.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                <a href="shop-single.html"> <img src="images/Ecosprin_75_Tabletx.jpg" alt="Image" width="270 px" height="370" ></a>
+                <h3 class="text-dark"><a href="shop-single.html">Ecosprin 75 Tabletx</a></h3>
                 <p class="price">$120.00</p>
               </div>
 
@@ -178,7 +173,7 @@
       </div>
     </div>
 
-    <div class="site-section">
+    <!-- <div class="site-section"> 
       <div class="container">
         <div class="row">
           <div class="title-section text-center col-12">
@@ -235,7 +230,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
       <jsp:include page="Footer.jsp"></jsp:include>
 </body>
 

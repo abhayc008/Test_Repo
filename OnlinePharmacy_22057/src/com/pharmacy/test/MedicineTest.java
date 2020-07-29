@@ -202,9 +202,10 @@ public class MedicineTest {
 					System.out.println("---Search medicine by name-----");
 					System.out.println("Enter medicine name");
 					medicineName = br.readLine();
-					medList = impl.searchMedicineByMedicineName(medicineName);
+					medicine = impl.searchMedicineByMedicineName(medicineName);
 					
-					if(!medList.isEmpty())
+					System.out.print(medicine);
+					/*if(!medList.isEmpty())
 					{
 						for(Medicine med: medList)
 						{
@@ -215,9 +216,7 @@ public class MedicineTest {
 					else 
 					{
 						System.out.println("No such a medicine found");
-
 					}
-					/*
 					System.out.println("Enter medicine name");
 					medicineName = br.readLine();
 					medList = impl.searchMedicineByMedicineName(medicineName);

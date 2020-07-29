@@ -1,0 +1,68 @@
+<%@page import="com.pharmacy.pojo.Customer"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Show all Order</title>
+<link rel="stylesheet" type="text/css" href="Site.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!--  <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">-->
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/magnific-popup.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="css/aos.css">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<%
+   List<Customer> custList = (List<Customer>)session.getAttribute("custList");
+   String custStatus=(String)request.getAttribute("status");
+   if(custStatus != null)
+   {
+	   out.print("<b style='color:red'>Customer has "+custStatus+" !!!</b>");   
+   }
+%>
+
+<jsp:include page="Header.jsp"></jsp:include>
+<table border="1px">
+   <caption>Customers</caption>
+   <tr>
+      <th>Customer Id</th>
+      <th>Customer Name</th>
+      <th>Customer Email Id</th>
+      <th>Customer Password</th>
+      <th>Customer Contact No</th>
+      <th>Customer Address</th>
+      <th colspan=2>Action</th>
+   </tr>
+   <tr>
+    <%
+      for(Customer cust:custList)
+      {
+    %>
+      <tr>
+         <td><%= cust.getCustomerId() %></td>
+         <td><%= cust.getCustomerName() %></td>
+         <td><%= cust.getCustomerEmailId() %></td>
+         <td><%= cust.getCustomerPassword() %></td>
+         <td><%= cust.getCustomerContactNo() %></td>
+         <td><%= cust.getCustomerAddress() %></td>
+         <td><a href="CustomerServlet?action=delete&custid=<%=cust.getCustomerId()%>">Delete</a></td>
+         <td><a href="CustomerServlet?action=update&custemailid=<%=cust.getCustomerEmailId()%>">Update</a></td>
+      </tr>
+   <%
+      }
+   %>
+</table>
+<jsp:include page="Footer.jsp"></jsp:include>
+</body>
+</html>

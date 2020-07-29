@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.pharmacy.dao.CustomerDaoImpl;
 import com.pharmacy.pojo.Customer;
 
@@ -33,11 +34,84 @@ public class CustomerServlet extends HttpServlet {
 	{
 		
 		HttpSession session = request.getSession();	
-		String key = request.getParameter("action");
+		PrintWriter out = response.getWriter();
 		
-		if(key !=null && key.equals("delete")) 
+		String key = request.getParameter("action");
+		String customerEmailId = request.getParameter("custemailid");
+		String operation = request.getParameter("name");
+		
+		if(operation != null && operation.equals("checkcustemailid")) 
 		{
-			int customerId=Integer.parseInt(request.getParameter("custId"));
+			String customerEmailID = request.getParameter("custemailid");
+			customer = impl.searchCustomerByEmailId(customerEmailID);
+			
+			if(customer != null) 
+			{
+                String msg = "Email id already registered";
+			    
+			    Gson gson = new Gson();
+			    
+			    String message = gson.toJson(msg);// converting java object to json
+			    
+			    response.setContentType("application/json"); //type by default text/java
+			    
+			     out.print(message);
+			}
+			else 
+			{
+				out.print("");
+			}
+			
+		}
+		
+		else if(operation != null && operation.equals("checkcustpassword")) 
+		{
+			String customerPassword = request.getParameter("custpassword");
+			customer = impl.searchCustomerByEmailId(customerPassword);
+			
+			if(customer != null) 
+			{
+                String msg = "Type another password";
+			    
+			    Gson gson = new Gson();
+			    
+			    String message = gson.toJson(msg);// converting java object to json
+			    
+			    response.setContentType("application/json"); //type by default text/java
+			    
+			     out.print(message);
+			}
+			else 
+			{
+				out.print("");
+			}
+		}
+		else if(operation != null && operation.equals("checkcustcontactno")) 
+		{
+			Long customerContactNo = Long.parseLong(request.getParameter("custcontactno"));
+			customer = impl.searchCustomerByContactNo(customerContactNo);
+			
+			if(customer != null) 
+			{
+                String msg = "Mobile number already registered";
+			    
+			    Gson gson = new Gson();
+			    
+			    String message = gson.toJson(msg);// converting java object to json
+			    
+			    response.setContentType("application/json"); //type by default text/java
+			    
+			     out.print(message);
+			}
+			else 
+			{
+				out.print("");
+			}
+		}
+		
+		else if(key !=null && key.equals("delete")) 
+		{
+			int customerId=Integer.parseInt(request.getParameter("custid"));
 			flag = impl.deleteCustomer(customerId);
 			
 			if(flag) 
@@ -59,14 +133,6 @@ public class CustomerServlet extends HttpServlet {
 		}
 		else if(key !=null && key.equals("update")) 
 		{
-			int customerId=Integer.parseInt(request.getParameter("custId"));
-			customer = impl.searchCustomerById(customerId);
-			session.setAttribute("cust", customer);
-			response.sendRedirect("UpdateCustomer.jsp");
-		}
-		else if(key !=null && key.equals("edit")) 
-		{
-			String customerEmailId=request.getParameter("custemailid");
 			customer = impl.searchCustomerByEmailId(customerEmailId);
 			session.setAttribute("cust", customer);
 			response.sendRedirect("UpdateCustomer.jsp");
@@ -141,8 +207,8 @@ public class CustomerServlet extends HttpServlet {
 			
 			if(flag) 
 			{
-				customerList = impl.showAllCustomer();
-				session.setAttribute("custList", customerList);
+				//customerList = impl.showAllCustomer();
+				//session.setAttribute("custList", customerList);
 				session.setAttribute("status", "been updated");
 				//response.sendRedirect("CustomerList.jsp");
 			}
@@ -151,7 +217,7 @@ public class CustomerServlet extends HttpServlet {
 				session.setAttribute("status", "not been updated");
 			}
 			
-			RequestDispatcher rd= request.getRequestDispatcher("CustomerList.jsp");
+			RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
 		}
 	}

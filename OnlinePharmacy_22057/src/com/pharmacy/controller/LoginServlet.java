@@ -47,9 +47,11 @@ public class LoginServlet extends HttpServlet {
 		userName=request.getParameter("loginid");
 		password=request.getParameter("password");
 		
+		
+		
 		if(key!=null && key.equals("login")) 
 		{
-			flag=ldao.userLogin(userName,password);
+			//flag=ldao.userLogin(userName,password);
 			if(type!=null && type.equals("User")) 
 			{
 				flag=ldao.userLogin(userName,password);
@@ -59,11 +61,15 @@ public class LoginServlet extends HttpServlet {
 				if(flag == true) 
 				{
 				    session.setAttribute("user", userName);	
+				    out.write("success");
+				    
 				    response.sendRedirect("index.jsp");
 				}
 				else 
 				{
-					out.write("Failed");
+					request.setAttribute("status", "Invalid Creditials !!!");
+					RequestDispatcher rd =request.getRequestDispatcher("Login.jsp");
+					rd.forward(request, response);
 				}
 				
 			}
@@ -82,9 +88,10 @@ public class LoginServlet extends HttpServlet {
 				}
 				else 
 				{
-					out.print("Invalid Creditials !!!");
-					//RequestDispatcher rd =request.getRequestDispatcher("Login.jsp");
-					//rd.include(request, response);
+					
+					request.setAttribute("status", "Invalid Creditionals !!!");
+					RequestDispatcher rd =request.getRequestDispatcher("Login.jsp");
+					rd.forward(request, response);
 				}
 			}	
 		}
@@ -97,11 +104,13 @@ public class LoginServlet extends HttpServlet {
 				
 				if(flag == true) 
 				{
-					out.write("Successfully Changed!!!");
+					request.setAttribute("status", "Successfully Changed!!!");
+					RequestDispatcher rd =request.getRequestDispatcher("Login.jsp");
+					rd.forward(request, response);
 				}
 				else 
 				{
-					out.write("Failed");
+					request.setAttribute("status", "Failed");					
 				}
 			}
 			else if(type!=null && type.equals("Admin"))
@@ -109,13 +118,18 @@ public class LoginServlet extends HttpServlet {
 				flag=ldao.adminChangePassword(userName, password);
 				if(flag == true) 
 				{
-					out.write("Successfully Changed!!!");
+					request.setAttribute("status", "Successfully Changed!!!");
 				}
 				else 
 				{
-					out.write("Failed");
+					request.setAttribute("status", "Failed!!!");
+
 				}
+
 			}
+
+			RequestDispatcher rd =request.getRequestDispatcher("Login.jsp");
+			rd.forward(request, response);
 		}
 	}
 }

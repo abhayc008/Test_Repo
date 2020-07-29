@@ -4,8 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Add Medicine</title>
-<link rel="stylesheet" type="text/css" href="site.css">
+<title>Add Medicine</title>  
 <script>
     function validate()
     {
@@ -13,10 +12,10 @@
     	medicineType= document.getElementById("medtype").value;
     	medicineBrand = document.getElementById("medbrand").value;
     	medicineDiscription = document.getElementById("meddiscription").value;
-    	medicineQty = document.getElementById("medqty").value;
     	medicineMfg = document.getElementById("medmfgdate").value;
     	medicineExp = document.getElementById("medexpdate").value;
     	medicinePrice = document.getElementById("medprice").value;
+    	medicineQty = document.getElementById("medqty").value;
     	
     	if(medicineName == "")
     	{
@@ -41,13 +40,7 @@
      	   document.getElementById("meddiserror").innerHTML = "  * Required Field";
      	   return false;
      	}   	
-     	       	
-      	if(medicineQty == "")
-      	{
-      	   document.getElementById("medqtyerror").innerHTML = "  * Required Field";
-      	   return false;
-      	}
-      	
+     	 
        	if(medicineMfg == "")
        	{
        	   document.getElementById("medmfgerror").innerHTML = "  * Required Field";
@@ -59,14 +52,35 @@
       	   document.getElementById("medexperror").innerHTML = "  * Required Field";
       	   return false;
       	}
-    
-       	if(isNaN(medicinePrice))
+        
+      	if(new Date(medicineMfg) > new Date(medicineExp))
+      	{
+      	   document.getElementById("medexperror").innerHTML = "  * Incorrect Exipry Date";
+      	   return false;
+      	}
+      	
+       	if(medicinePrice=="")
        	{
           
-       	   document.getElementById("medpriceerror").innerHTML = " No characters are allowed!!!";
+       	   document.getElementById("medpriceerror").innerHTML = " * Required Field";
        	   return false;
        	}
-        
+       	if(isNaN(medicinePrice))
+       	{
+        	 document.getElementById("medpriceerror").innerHTML = " No characters are allowed!!!";
+        	 return false;
+       	}
+       	
+      	if(medicineQty == "")
+      	{
+      	   document.getElementById("medqtyerror").innerHTML = "  * Required Field";
+      	   return false;
+      	}
+      	if(medimage == "")
+      	{
+      	   document.getElementById("medimageerror").innerHTML = "  * Required Field";
+      	   return false;
+      	}
     	return true;
     }
     
@@ -81,66 +95,93 @@
 </head>
 <body >
 <jsp:include page="Header.jsp"></jsp:include>
-    <form id="form" action="MedicineServlet" onsubmit="return validate()" method="post">
-     <input type="hidden" name="action" value="add">
-    <fieldset>
-       <legend style="font-size:30px;font-weight: bold">Add Medicine</legend>
-        <table>
-            <tr>
-                <td>Medicine Name:</td>
-                <td><input type="text" name="medname" id="medname" onblur="clearup(this)">
-                <b id ="mednameerror"></b>
-                </td>
-                <!--<td> <input type="text" name="medname" required></td> -->
-            </tr>
-            <tr>
-                <td>Medicine Type: </td>
-                <td><select name ="medtype" id="medtype" onblur="clearup(this)">
+ <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="h3 mb-5 text-black">Add Medicine</h2>
+          </div>
+          <div class="col-md-12">
+            <form id="form"action="MedicineServlet" onsubmit="return validate()" method="post" enctype="multipart/form-data" >
+            <input type="hidden" name="action" value="add">
+            <div class="p-3 p-lg-5 border">
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <label for="medicine_name" class="text-black">Medicine Name:<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="medname" id="medname" onblur="clearup(this)">
+                    <span class="text-danger font-weight-bold" id ="mednameerror"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <label for="medicine_type" class="text-black">Medicine Type:<span class="text-danger">*</span></label>
+                    <select class="form-control" name ="medtype" id="medtype" onblur="clearup(this)">
                            <option selected disabled>--select--</option>
                            <option>Tablet</option>
                            <option>Ointment</option>
                            <option>Inhaler</option>
                            <option>Syrup</option>
                     </select>
-                    <b id ="medtypeerror"></b></td>
-            </tr>
-            <tr>
-                <td> Medicine Brand: </td>
-                <td><input type="text" name="medbrand" id="medbrand" onblur="clearup(this)">
-                <b id ="medbranderror"></b></td>
-            </tr>
-            <tr>
-                <td>Medicine Description:</td>
-                <td><textarea cols="22" rows="5" name="meddiscription" id="meddiscription" onblur="clearup(this)"></textarea>
-                <b id ="meddiserror"></b></td>
-            </tr>
-            <tr>
-                <td>Medicine Quantity:</td>
-                <td><input type="number" name="medqty" id="medqty" onblur="clearup(this)">
-                <b id ="medqtyerror"></b></td>
-            </tr>
-            <tr>
-                <td>Medicine Manufacture Date:</td>
-                <td><input type="date" name="medmfgdate" id="medmfgdate" onblur="clearup(this)">
-                <b id ="medmfgerror"></b></td>
-            </tr>
-            <tr>
-                <td>Medicine Expiry Date:</td>
-                <td><input type="date" name="medexpdate" id="medexpdate" onblur="clearup(this)">
-                <b id ="medexperror"></b></td>
-            </tr>
-            <tr>
-                <td>Medicine Price </td>
-                <td><input type="text" name="medprice" id="medprice" onblur="clearup(this)">
-                <b id ="medpriceerror"></b></td>
-            </tr>
-            <tr>
-                <td> <input type="submit" value="Add"></td>
-                <td><input type="reset"></td>
-            </tr>
-        </table>
-    </fieldset>      
-    </form>
+                    <span class="text-danger font-weight-bold" id ="medtypeerror"></span>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="brand" class="text-black">Brand<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="medbrand" id="medbrand" onblur="clearup(this)">
+                    <span class="text-danger font-weight-bold" id ="medbranderror"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <label for="discription" class="text-black">Medicine Discription:<span class="text-danger">*</span></label>
+                    <textarea cols="22" rows="5" name="meddiscription" id="meddiscription" onblur="clearup(this)" class="form-control"></textarea>
+                    <span class="text-danger font-weight-bold" id ="meddiserror"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <label for="manufacture_date" class="text-black">Medicine Manufacture Date:<span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" name="medmfgdate" id="medmfgdate" onblur="clearup(this)">
+                    <span class="text-danger font-weight-bold" id ="medmfgerror"></span>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="expiry_date" class="text-black">Medicine Expiry Date<span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" name="medexpdate" id="medexpdate" onblur="clearup(this)">
+                    <span class="text-danger font-weight-bold" id ="medexperror"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <label for="medicine_price" class="text-black">Medicine Price:<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="medprice" id="medprice" onblur="clearup(this)">
+                    <span class="text-danger font-weight-bold" id ="medpriceerror"></span>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="medicine_quantity" class="text-black">Medicine Quantity<span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="medqty" name="medqty" onblur="clearup(this)">
+                    <span class="text-danger font-weight-bold" id ="medqtyerror"></span>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <label for="medicine_image" class="text-black">Medicine Image<span class="text-danger">*</span></label>
+                    <input type="file" class="form-control" id="medimage" name="medimage" onblur="clearup(this)">
+                    <span class="text-danger font-weight-bold" id ="medimageerror"></span>
+                  </div>
+                </div>
+                
+                <div class="form-group row">
+                  <div class="col-lg-6">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Add">
+                  </div>
+                  <div class="col-lg-6">
+                    <input type="reset" class="btn btn-primary btn-lg btn-block" value="Reset">
+                  </div>
+                </div>
+               </div>  
+          </form>
+         </div>
+       </div>
+     </div>
+  </div>
 <jsp:include page="Footer.jsp"></jsp:include>
 </body>
 </html>

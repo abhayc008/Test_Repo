@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="css/aos.css">
 
   <link rel="stylesheet" href="css/style.css">
-
+  
 </head>
 <body>
       <div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
@@ -29,9 +29,10 @@
           <div class="col-lg-6 mb-5 mb-lg-0">
             <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_1.jpg');">
               <div class="banner-1-inner align-self-center">
-                <h2>Pharma Products</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
+                <h2>Why Choose PHARMA?</h2>
+                <p>Vital medicines delivered across the country.</p>
+                <p>A wide array of healthcare services available for your convenience.</p>
+                <p>We stock only genuine medicines & healthcare products.</p>
               </div>
             </a>
           </div>
@@ -39,7 +40,8 @@
             <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_2.jpg');">
               <div class="banner-1-inner ml-auto  align-self-center">
                 <h2>Rated by Experts</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
+                <p class="text-black">We have been named as the 'Best Digital Healthcare Start-up' by ET Now World Health 
+                and Wellness Congress in 2019.
                 </p>
               </div>
             </a>
@@ -56,18 +58,17 @@
 
             <div class="block-7">
               <h3 class="footer-heading mb-4">About Us</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quae reiciendis distinctio voluptates
-                sed dolorum excepturi iure eaque, aut unde.</p>
+              <p>PHARMA is India's leading digital healthcare platform, where you can buy medicines online with discount.</p>
             </div>
 
           </div>
           <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
             <h3 class="footer-heading mb-4">Quick Links</h3>
             <ul class="list-unstyled">
-              <li><a href="#">Supplements</a></li>
-              <li><a href="#">Vitamins</a></li>
-              <li><a href="#">Diet &amp; Nutrition</a></li>
-              <li><a href="#">Tea &amp; Coffee</a></li>
+              <li><a href="MedicineList.jsp">Medicines</a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
             </ul>
           </div>
 
@@ -75,9 +76,9 @@
             <div class="block-5 mb-5">
               <h3 class="footer-heading mb-4">Contact Info</h3>
               <ul class="list-unstyled">
-                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                <li class="email">emailaddress@domain.com</li>
+                <li class="address">PHARMA Company India</li>
+                <!--  <li class="phone"><a href="tel://23923929210"></a></li>-->
+                <li class="email">pharmacompany@gmail.com</li>
               </ul>
             </div>
 
@@ -89,9 +90,8 @@
             <p>
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               Copyright &copy;
-              <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
-              with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank"
-                class="text-primary">Colorlib</a>
+              <script>document.write(new Date().getFullYear());</script> All rights reserved |  In compliance with Drugs and Cosmetics Act, 1940 
+              and Drugs and Cosmetics Rule.
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
@@ -100,14 +100,16 @@
       </div>
     </footer>
   
+  <script src="jquery-3.5.1.js"></script>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery.validate.min.js"></script>
   <script src="js/jquery-ui.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/jquery.magnific-popup.min.js"></script>
-   <script src="js/jquery-3.3.1.min.js"></script>
-   <script src="js/jquery.validate.min.js"></script>
     <script src="js/aos.js"></script>
   <script src="js/main.js"></script>
+  
 </body>
 </html>

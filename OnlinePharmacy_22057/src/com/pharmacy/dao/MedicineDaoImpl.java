@@ -17,16 +17,16 @@ public class MedicineDaoImpl implements MedicineDao
 	
 	
     String addMed = "insert into medicine_22057(medicine_name,medicine_type,medicine_brand,"
-    		+ "medicine_discription,medicine_qty,mfg_date,expiry_date,medicine_price) values(?,?,?,?,?,?,?,?)";
+    		+ "medicine_discription,medicine_qty,mfg_date,expiry_date,medicine_price, medicine_image) values(?,?,?,?,?,?,?,?,?)";
 
 	String updateMed = "update  medicine_22057 set  medicine_name=?,medicine_type=?,medicine_brand=?,  medicine_discription=?,"
-			+ "medicine_qty=?,mfg_date=?,expiry_date=?,medicine_price=? where medicine_id=? ";
+			+ "medicine_qty=?,mfg_date=?,expiry_date=?,medicine_price=?,medicine_image=? where medicine_id=? ";
 	
 	String deleteMed = "delete from medicine_22057 where medicine_id = ?";
 	
 	String searchById = "Select * from medicine_22057 where medicine_id= ?";
 	
-	String searchByName = "Select * from medicine_22057 where medicine_name like ?";
+	String searchByName = "Select * from medicine_22057 where medicine_name like ? or medicine_brand like ?";
 	
 	String searchByBrand = "Select * from medicine_22057 where medicine_brand = ?";
 	
@@ -46,6 +46,7 @@ public class MedicineDaoImpl implements MedicineDao
 			ps.setString(6, medicine.getMfgDate());
 			ps.setString(7, medicine.getExpiryDate());
 			ps.setDouble(8, medicine.getMedicinePrice());
+			ps.setBinaryStream(9, medicine.getMedicineImage());
 			
 			row = ps.executeUpdate();
 			
@@ -80,7 +81,9 @@ public class MedicineDaoImpl implements MedicineDao
 				ps.setString(6, medicine.getMfgDate());
 				ps.setString(7, medicine.getExpiryDate());
 				ps.setDouble(8, medicine.getMedicinePrice());
-				ps.setInt(9, medicine.getMedicineId());
+				ps.setBinaryStream(9, medicine.getMedicineImage());
+				ps.setInt(10, medicine.getMedicineId());
+				
 				
 				row = ps.executeUpdate();			
 		}
@@ -183,10 +186,12 @@ public class MedicineDaoImpl implements MedicineDao
 						   String mfgdate = rs.getString("mfg_date");
 						   String expiry = rs.getString("expiry_date");
 						   double price  = rs.getDouble("medicine_price");
+						   
 								   
 						  // System.out.println(medicineId+ " "+type+ " "+brand+" "+discription+" "+quantity+ " "+mfgdate+" "+expiry+" "+price);
 						  medicine = new Medicine(medicinename,type,brand,discription,quantity,mfgdate,expiry,price); 
 						  medicine.setMedicineId(medicineId);
+						  medicine.setMedicineImage(rs.getBinaryStream("medicine_image"));
 								   
 			 }
       	  }
@@ -206,17 +211,14 @@ public class MedicineDaoImpl implements MedicineDao
 		List<Medicine> lstMedicine = new ArrayList<>();
 	    try 
 	    { 
-	    	  
 	    	  PreparedStatement ps = con.prepareStatement(searchByName);
 	          ps.setString(1, "%" + medicineName + "%");
+	          ps.setString(2, "%" + medicineName + "%");
 	          
 			  ResultSet rs = ps.executeQuery();
 			   
 			  while (rs.next()) 
-			   { 
-				   String name = rs.getString("medicine_name");
-				   if(name.contains(medicineName)) 
-				   {
+			   {  
 					   Medicine med = new Medicine(rs.getString("medicine_name"),
 							   rs.getString("medicine_type"),
 							   rs.getString("medicine_brand"),
@@ -227,9 +229,10 @@ public class MedicineDaoImpl implements MedicineDao
 							   rs.getDouble("medicine_price"));
 					   
 					   med.setMedicineId(rs.getInt("medicine_id"));
+					   med.setMedicineImage(rs.getBinaryStream("medicine_image"));
 					   
 					   lstMedicine.add(med);
-				   }				
+				   				
 			   }	   
 			  
 	    }
@@ -315,6 +318,7 @@ public class MedicineDaoImpl implements MedicineDao
 					   ,medicineQty,mfgDate,expiryDate,medicinePrice);
 			   
 			   med.setMedicineId(medicineId);
+			   med.setMedicineImage(rs.getBinaryStream("medicine_image"));
 			   allMedicine.add(med);
 			   
 		   }

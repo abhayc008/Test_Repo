@@ -21,6 +21,9 @@ public class OrderDaoImpl implements OrderDao
     Order order = new Order();
     double totalBill;
     
+    //long ms = System.currentTimeMillis();
+    //Date orderDate = new Date(ms);
+    
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     String orderDate = formatter.format(date);
@@ -152,8 +155,9 @@ public class OrderDaoImpl implements OrderDao
 					  rs.getDouble("total_bill"),
 					  rs.getString("order_date"));
 			  
+			  lstOrder.add(order);  
 		  }
-		  lstOrder.add(order);
+		  
 		}
 		catch(SQLException ex) 
 		{

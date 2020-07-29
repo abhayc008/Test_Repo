@@ -31,6 +31,10 @@ public class CustomerDaoImpl implements CustomerDao
 	
 	String searchByEmailId = "select * from customer_22057 where customer_email_id= ?";
 	
+	String searchByContactNo = "select * from customer_22057 where customer_contact_no = ?";
+	
+	String searchByPassword = "select * from customer_22057 where customer_password = ?";
+	
 	String showAll = "select * from customer_22057";
 	
     @Override
@@ -227,6 +231,70 @@ public class CustomerDaoImpl implements CustomerDao
 			
       	  PreparedStatement ps = con.prepareStatement(searchByEmailId);
       	  ps.setString(1, customerEmailId);
+      	  ResultSet rs = ps.executeQuery();
+
+      	  while (rs.next()) 
+			  {
+      		  
+      		     int customer_id = rs.getInt("customer_id");
+                 String customer_name = rs.getString("customer_name");
+                 String customer_email_id = rs.getString("customer_email_id");
+                 String customer_password = rs.getString("customer_password");
+                 String customer_address = rs.getString("customer_address");
+                 long customer_contact_no = rs.getLong("customer_contact_no");
+                     
+    			 customer = new Customer(customer_name,customer_email_id,customer_password,customer_contact_no,customer_address);
+    			 customer.setCustomerId(customer_id);
+    		 
+      		   }	 
+	    }   
+	    catch(Exception ex) 
+	    {
+	    	ex.printStackTrace();
+	    }
+		return customer;
+	}
+
+	@Override
+	public Customer searchCustomerByContactNo(long customerContactNo) 
+	{
+		try 
+	    { 
+			
+      	  PreparedStatement ps = con.prepareStatement(searchByContactNo);
+      	  ps.setLong(1, customerContactNo);
+      	  ResultSet rs = ps.executeQuery();
+
+      	  while (rs.next()) 
+			  {
+      		  
+      		     int customer_id = rs.getInt("customer_id");
+                 String customer_name = rs.getString("customer_name");
+                 String customer_email_id = rs.getString("customer_email_id");
+                 String customer_password = rs.getString("customer_password");
+                 String customer_address = rs.getString("customer_address");
+                 long customer_contact_no = rs.getLong("customer_contact_no");
+                     
+    			 customer = new Customer(customer_name,customer_email_id,customer_password,customer_contact_no,customer_address);
+    			 customer.setCustomerId(customer_id);
+    		 
+      		   }	 
+	    }   
+	    catch(Exception ex) 
+	    {
+	    	ex.printStackTrace();
+	    }
+		return customer;
+	}
+
+	@Override
+	public Customer searchCustomerByPassword(String customerPassword) 
+	{
+		try 
+	    { 
+			
+      	  PreparedStatement ps = con.prepareStatement(searchByPassword);
+      	  ps.setString(1, customerPassword);
       	  ResultSet rs = ps.executeQuery();
 
       	  while (rs.next()) 

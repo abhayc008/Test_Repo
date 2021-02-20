@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+   <hibernate-mapping>
+    <class name="com.geeta.foodplaza.pojo.Food" table="food_101">
+    	<id name="foodId">
+    		<generator class="identity"/>
+    	</id>
+    	<property name="foodName"/>
+    	<property name="foodCategory"/>
+    	<property name="foodPrice"/>
+    	<property name="foodDescription"/>
+    	<property name="foodImage" />
+    </class> 	
+    </hibernate-mapping>

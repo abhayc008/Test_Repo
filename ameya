@@ -1,0 +1,174 @@
+difference b/w String and StringBuffer
+No.	String	StringBuffer
+1)	String class is immutable.	StringBuffer class is mutable.
+2)	String is slow and consumes more memory when you concat too many strings because every time it creates new instance.
+	StringBuffer is fast and consumes less memory when you cancat strings.
+3)	String class overrides the equals() method of Object class.
+ So you can compare the contents of two strings by equals() method.
+ 	StringBuffer class doesn't override the equals() method of Object class.
+
+which method is used to remove particular char from string
+---s1 = s1.replace('Q', '');
+
+what is constructor and its types
+--Constructor is called automatically when we create an object of the class.
+--Name of constructor should be same as the name of the class.
+--Constructor does not return any value.
+--Constructor should have a public access modifier.
+
+Constructor Types 
+
+1.Default Constructor--Default constructor does not take any parameter
+Remarks on Default constructor
+
+ Default constructor is created by the compiler if we do not create any constructor inside the class.
+ Default constructor does not take any parameter.
+ Default constructor is called when we create an object of the class
+2.Parameterized Constructor--Parameterized Constructor is created by the developer. 
+This constructor takes at least one parameter.
+Remarks on Default constructor:
+
+Parameterized constructor is created by the developer, a compiler does not create any parameterized constructor.
+Parameterized constructor takes at least one parameter.
+Parameterized constructor is called when we create an object of the class.
+3.Copy Constructor--A copy constructor in a Java class is a constructor 
+that creates an object using another object of the same Java class.
+That's helpful when we want to copy a complex object that has several fields, 
+or when we want to make a deep copy of an existing object.
+4.Static Constructor--
+No, we cannot define a static constructor in Java,
+If we are trying to define a constructor with the static keyword a compile-time error will occur.
+5. Private Constructor --The use of private constructor is to serve singleton classes. 
+A singleton class is one which limits the number of objects creation to one. 
+Using private constructor we can ensure that no more than one object can be created at a time.
+ By providing a private constructor you prevent class instances from being created in any place other than 
+ this very class. 
+
+can we use private constructor --see above answer
+what is exception-- An exception is an event, which occurs during the execution of a program, 
+that disrupts the normal flow of the program's instructions. 
+When an error occurs within a method, the method creates an object and hands it off to the runtime system. ..
+. This block of code is called an exception handler
+difference b/w compile time and runtime exception--
+Main difference between RuntimeException and checked Exception is that
+ It is mandatory to provide try-catch or try finally block to handle checked Exception 
+ and failure to do so will result in compile-time error, while in case of RuntimeException this is not mandatory.
+Can we use try without catch
+--Yes, It is possible to have a try block without a catch block by using a final block. 
+As we know, a final block will always execute even there is an exception occurred in a try block, except System.
+use of finally block--
+We generally use the finally block to execute clean up code like closing connections,
+ closing files, or freeing up threads, as it executes regardless of an exception.
+difference b/w method overloading and overriding--
+No.	Method Overloading	Method Overriding
+1)	Method overloading is used to increase the readability of the program.
+	Method overriding is used to provide the specific implementation of the method
+	 that is already provided by its super class.
+2)	Method overloading is performed within class.
+	Method overriding occurs in two classes that have IS-A (inheritance) relationship.
+3)	In case of method overloading, parameter must be different.	
+In case of method overriding, parameter must be same.
+4)	Method overloading is the example of compile time polymorphism.	
+Method overriding is the example of run time polymorphism.
+5)	In java, method overloading can't be performed by changing return type of the method only.
+ Return type can be same or different in method overloading. 
+ But you must have to change the parameter.	Return type must be same or covariant in method overriding.
+ 
+difference b/w constructor overloading and overriding
+404 page not found which type of exception
+class not found which type of exception
+difference b/w array and arrylist
+
+
+what is null is java--
+ans:In Java, null is a reserved word for literal values.
+It seems like a keyword, but actually, 
+it is a literal similar to true and false
+
+how many object is created in String
+
+string s1="welcome"
+String s2="welcome"
+String s3="welcome"
+
+String s = new String("welcome")-- 2 objects are created
+
+O/p of following statement--
+sysout("hello"+10+20");
+
+sysout(10+20+"hello");
+
+String s1="Sachin";  
+String s2="Sachin"
+System.out.println(s1.equals(s2));//true  
+
+String s1="Sachin";  
+String s2="Sachin";  
+String s3=new String("Sachin");  
+System.out.println(s1==s2);//true (because both refer to same instance)  
+System.out.println(s1==s3);//false(because s3 refers to instance created in nonpool)    
+
+difference b/w primary and unique key
+Paramenter	--- PRIMARY KEY	---UNIQUE KEY
+Basic---Used to serve as a unique identifier for each row in a table.	---
+Uniquely determines a row which isn’t primary key.
+
+NULL value acceptance---	Cannot accept NULL values.	--Can accept one NULL value.
+Number of keys that can be defined in the table---	Only one primary key---	More than one unique key
+Index	--Creates clustered index	---Creates non-clustered index
+can we assign null value in unique key--only one null value accepted
+
+difference b/w function and procedure
+
+S.NO	Function	Procedure
+1.	A function deals with as an expression.	Whereas a procedure does not deal with as an expression.
+2.	Function is used to calculate something from a given input. Hence it got its name from Mathematics.
+	While procedure is the set of commands, which are executed in a order.
+3.	The function can be called by a procedure.
+	But a procedure can not be called by a function.
+4.	In sql, inside the function we can not use the DML(Data manipulation language) commands such as Insert, Delete, Update.
+	Here, in sql, inside the procedure we can use DML commands.
+5.	Functions can be called through sql queries.
+	However, the procedure can’t be called through a sql query.
+6.	Each time functions are compiled when they are called.
+	Whereas, procedures are compiled only once and can be called again and again as needed without 
+	being compiled each time.
+7.	The return statement of a function returns the control and function’s result value to the calling program.
+	While the return statement of the procedure returns control to the calling program, it can not return the result value.
+8.	Function doesn’t support try-catch blocks.	While it supports try-catch blocks.
+9.	Function can be operated in the SELECT statement.	While it can’t be operated in the SELECT statement.
+10.	Function does not support explicit transaction handles.	While procedure supports explicit transaction handles.
+can we assign DML  in function-no
+
+difference b/w callable and preparedStatement
+CallableStatement	PreparedStatement
+It is used when the stored procedures are to be executed.	It is used when SQL query is to be executed multiple times.
+You can pass 3 types of parameter IN, OUT, INOUT.	You can pass any type of parameters at runtime.
+Used to execute functions.	Used for the queries which are to be executed multiple times.
+Performance is very high.	Performance is better than Statement.
+Used to call the stored procedures.	Used to execute dynamic SQL queries.
+It extends PreparedStatement interface.	It extends Statement Interface.
+No protocol is used for communication.	Protocol is used for communication.
+
+
+what is Spring framework and why it is used?
+--spring framework is a open source Java platform
+--Spring is lightweight when it comes to size and transparency its basic version is 2MB
+
+modules of Spring framework?
+What is IOC container?
+types of Ioc Container?-beanfactory and applicationContext
+
+What is DI and Its types?
+--DI is a example of IoC 
+JDBCTemplates and its classes and methods
+who is front controller in spring
+RowMapper--
+steps for connection
+
+The DriverManagerDataSource is used to contain the information about the database 
+such as driver class name, connnection URL, username and password.
+which driver class is used in JDBCTemplate
+
+
+

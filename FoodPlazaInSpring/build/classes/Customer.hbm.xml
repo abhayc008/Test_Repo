@@ -13,6 +13,6 @@
     	<property name="customerEmailId" unique="true" />
     	<property name="customerPassword"/>
     	<property name="customerAddress"/>
-
+    	<property name="customerMobileNo" type="java.lang.Long"/>
     </class> 	
     </hibernate-mapping>

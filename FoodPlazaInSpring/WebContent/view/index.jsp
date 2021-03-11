@@ -17,7 +17,7 @@
 	  	<b>${param.msg}</b>
 	  <div class="container">
 	    <h1>Food Menu</h1>
-	    <h2>Veg</h2>
+	    <h2><u>Veg</u></h2>
 	  </div>
 	  <div class="foodcontainer">
 	     <core:forEach var="food" items="${foodlist}">
@@ -72,7 +72,7 @@
 	  
 	  
 	  <div class="container">
-	    <h2>Non-Veg</h2>
+	    <h2><u>Non-Veg</u></h2>
 	  </div>
 	  
 	  <div class="foodcontainer">

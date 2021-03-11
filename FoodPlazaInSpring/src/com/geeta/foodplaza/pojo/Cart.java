@@ -1,6 +1,6 @@
 package com.geeta.foodplaza.pojo;
 
-import javax.annotation.Generated;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -63,5 +63,11 @@ public class Cart
 	}
 	public void setCartCustEmailId(String cartCustEmailId) {
 		this.cartCustEmailId = cartCustEmailId;
+	}
+
+	@Override
+	public String toString() {
+		return "Cart [cartId=" + cartId + ", foodId=" + foodId + ", foodName=" + foodName + ", foodPrice=" + foodPrice
+				+ ", cartFoodQuantity=" + cartFoodQuantity + ", cartCustEmailId=" + cartCustEmailId + "]";
 	}
 }

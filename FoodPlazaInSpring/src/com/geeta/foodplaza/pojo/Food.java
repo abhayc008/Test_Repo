@@ -1,11 +1,18 @@
 package com.geeta.foodplaza.pojo;
 
+import java.util.Set;
+
+import javax.persistence.OneToMany;
+
 public class Food 
 {
 	private int foodId;
 	private String foodName,foodCategory,foodDescription;
 	private double foodPrice;
 	private byte [] foodImage;
+	
+	@OneToMany(mappedBy="food")
+	private Set<Order> Order;
 	
 	public Food() {
 		super();

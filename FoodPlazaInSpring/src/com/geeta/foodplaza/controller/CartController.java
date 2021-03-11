@@ -52,7 +52,7 @@ public class CartController
 			{
 				mv.addObject("emsg","Food not added into cart successfully");
 			}
-			mv.setViewName("index");
+			mv.setViewName("cartlist");
 		}
 		else
 		{
@@ -139,7 +139,7 @@ public class CartController
 		
 		if(cartCustEmailId != null)
 		{
-			boolean flag = cartDao.deleteFromCart(cartId);
+			cartDao.deleteFromCart(cartId);
 			List<Cart> cartlist = cartDao.showCart(cartCustEmailId);
 			session.setAttribute("cartlist",cartlist);
 			mv.setViewName("cartlist");

@@ -97,8 +97,8 @@
 	  </thead>	
 	  	<core:forEach var="cart" items="${cartlist}">
 	  	<tr>
-	  		<td>${cart.cartId}</td>
-	  		<td><img src="foodimage?foodId=${cart.foodId}" width="100" height="100"/></td>
+	  		<td><a href="foodDetails?foodId=${cart.foodId}">${cart.cartId}</a></td>
+	  		<td><img src="foodimage?foodId=${cart.foodId}"  width="100" height="100"/></td>
 	  		<core:if test="${admin != null }">
 	  		  <td>${cart.cartCustEmailId}</td>
 	  		</core:if>
@@ -122,7 +122,7 @@
 	  </table>
 	  </core:if>
 	  <core:if test="${cartlist.isEmpty()}">
-	  	<h3>Cart is Empty</h3>
+	  	<img src="resources/images/empty_cart_800x600_dribbble.png" height="500px" ></a>
 	  </core:if>
 	  </form>
 	  </div>

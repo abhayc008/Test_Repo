@@ -195,4 +195,17 @@ public class FoodController
 		}
 		return null;
 	}	
+	
+	@RequestMapping(value="/foodDetails")
+	public ModelAndView foodDetails(@RequestParam("foodId") int foodId)
+	{
+		ModelAndView mv = new ModelAndView();
+		Food food = foodDao.getById(foodId);
+		mv.addObject("food", food);
+		mv.setViewName("foodDetails");
+		return mv;
+		
+		
+	}
+	
 }

@@ -13,6 +13,5 @@ public interface CustomerDao
 	boolean update(Customer customer);
 	List<Customer> gets();
 	Customer getById(int customerId);
-	
-	
+	Customer getByEmailId(String customerEmailId);
 }

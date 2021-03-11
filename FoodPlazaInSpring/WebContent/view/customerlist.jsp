@@ -11,7 +11,7 @@
 <!-- Page Content -->
 	<section class="py-5">
 	  <div class="container">
-	    <h1>customer Menu</h1>
+	    <h2>List Of Customer's </h2>
 	  </div>
 	  <div class="container">
 	  <core:if test="${!customerlist.isEmpty()}">
@@ -29,6 +29,7 @@
 	  		<th>Id</th>
 	  		<th>Name</th>
 	  		<th>Email Id</th>
+	  		<th>Mobile No</th>
 	  		<th>Address</th>
 	  		<th colspan="2">Action</th>
 	  	</tr>
@@ -38,10 +39,11 @@
 	  		<td>${customer.customerId}</td>
 	  		<td>${customer.customerName}</td>
 	  		<td>${customer.customerEmailId}</td>
+	  		<td>${customer.customerMobileNo}</td>
 	  		<td>${customer.customerAddress}</td>
 	  		<!-- URL Rewriting -->
 	  		<td><a onclick="return confirm('do you really want to delete this customer?');" class="btn btn-danger" href="deletecustomer?customerId=${customer.customerId}">Delete</a></td>
-	  		<td><a onclick="return confirm('do you really want to edit this customer?');" class="btn btn-warning" href="editcustomer?customerId=${customer.customerId}">Edit</a></td>
+	  		<td><a onclick="return confirm('do you really want to edit this customer?');" class="btn btn-warning" href="editcustomer?customerEmailId=${customer.customerEmailId}">Edit</a></td>
 	  	</tr>	
 	  	</core:forEach>
 	  </table>

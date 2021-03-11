@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
 import com.geeta.foodplaza.dao.CustomerDao;
@@ -74,5 +77,20 @@ public class CustomerDaoImpl implements CustomerDao
 		Customer customer = hibernateTemplate.get(Customer.class, customerId);
 		return customer;
 	}
+
+
+	@Override
+	@Transactional
+	public Customer getByEmailId(String customerEmailId) 
+	{
+		SessionFactory session= hibernateTemplate.getSessionFactory(); 
+		Query query = session.getCurrentSession().createQuery("from Customer where customerEmailId = :customerEmailId");
+		query.setParameter("customerEmailId", customerEmailId);
+		return (Customer) query.list().get(0);
+		
+
+	    
+	}
+
 
 }

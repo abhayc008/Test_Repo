@@ -7,17 +7,17 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   
   <context-param>
   			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/abc-servlet.xml</param-value>
+			<param-value>/WEB-INF/foodPlaza-servlet.xml</param-value>
   </context-param>
   
   <servlet>
-		<servlet-name>abc</servlet-name>
+		<servlet-name>foodPlaza</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>abc</servlet-name>
+		<servlet-name>foodPlaza</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 </web-app>

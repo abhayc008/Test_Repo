@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name="admin_101")
 public class Admin 
 {
-	//emailId is a priamry key
+	//emailId is a primary key
 	@Id
 	@Column
 	private String adminEmailId;

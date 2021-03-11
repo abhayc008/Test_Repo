@@ -15,6 +15,7 @@
 	<script src="resources/js/popper.min.js" ></script>
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/jquery.min.js"></script>
+	<script type="resources/js/jquery.validate.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -55,7 +56,7 @@
 	          <a class="nav-link" id="customerlist" href="customerlist">Customer's</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" id="showcart" href="showallcart">Cart's</a>
+	          <a class="nav-link" id="order" href="allorder">Order's</a>
 	        </li>
 	        </core:if>
 	        <core:if test="${admin ==null and customer==null }">
@@ -73,10 +74,10 @@
 	        
 	        <core:if test="${admin==null and customer!=null }">
 	        <li class="nav-item">
-	          <a class="nav-link" id="profile" href="#">Profile</a>
+	          <a class="nav-link" id="profile" href="editcustomer?customerEmailId=${customer}">Profile</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" id="showCart" href="showmycart?">Cart</a>
+	          <a class="nav-link" id="showCart" href="showmycart">Cart</a>
 	        </li>
 	        </core:if>
 	        

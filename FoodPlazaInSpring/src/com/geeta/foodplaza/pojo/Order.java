@@ -1,12 +1,20 @@
 package com.geeta.foodplaza.pojo;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
+import java.util.List;
+
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -27,12 +35,19 @@ public class Order
 	private LocalDateTime orderDateTime;
 	private String orderStatus = "Processing";
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="order_fId",referencedColumnName = "orderId")
+	private List<OrderDetails> orderDetails = new ArrayList<>();
+	
+
 	public Order()
 	{
 		
 	}
     
-	
+    
+
+
 
 	public Order(String custEmailId, double totalAmount, LocalDateTime orderDateTime) {
 		super();
@@ -40,6 +55,22 @@ public class Order
 		this.totalAmount = totalAmount;
 		this.orderDateTime = orderDateTime;
 	}
+
+	
+
+	public List<OrderDetails> getOrderDetails() {
+		return orderDetails;
+	}
+
+
+
+
+
+	public void setOrderDetails(List<OrderDetails> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
+
 
 
 

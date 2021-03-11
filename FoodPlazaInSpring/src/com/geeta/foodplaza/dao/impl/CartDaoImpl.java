@@ -73,11 +73,17 @@ public class CartDaoImpl implements CartDao
 	}
 
 	@Override
+	@Transactional
 	public boolean clearCart(String customerEmailId)
 	{
-		Cart cart = (Cart) hibernateTemplate.find("from Cart where customerEmailId =?0",new Object[]{customerEmailId} );
-		hibernateTemplate.delete(cart);
-		return true;
+		List<Cart>  cartlist   = (List<Cart>)hibernateTemplate.find("from Cart where cartCustEmailId =?0 ",new Object[]{customerEmailId} );
+		
+		if(!cartlist.isEmpty())
+		{
+		  hibernateTemplate.deleteAll(cartlist);
+		  return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -86,6 +92,7 @@ public class CartDaoImpl implements CartDao
 		List<Cart> lstCart = (List<Cart>)hibernateTemplate.find("from Cart where cartCustEmailId =?0 and foodId=?1",new Object[]{cartCustEmailId,foodId});
 		
 		return lstCart;
+		
 	}
 
 }
